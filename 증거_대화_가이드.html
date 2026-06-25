@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>대화 가이드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+:root {
+  --bg: #F7F6F2;
+  --surface: #FFFFFF;
+  --surface2: #F0EFE9;
+  --border: #E4E2DB;
+  --text: #1C1B18;
+  --text2: #6B6960;
+  --text3: #A09D95;
+  --accent: #2D6A4F;
+  --accent-light: #D8EDE4;
+  --accent-text: #1B4332;
+  --blue: #2563EB;
+  --blue-light: #DBEAFE;
+  --blue-text: #1E3A8A;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --radius: 14px;
+  --radius-sm: 9px;
+}
+[data-theme="dark"] {
+  --bg: #111110;
+  --surface: #1C1C1A;
+  --surface2: #252522;
+  --border: #333330;
+  --text: #F0EFE9;
+  --text2: #A09D95;
+  --text3: #6B6960;
+  --accent: #4ADE80;
+  --accent-light: #14532D;
+  --accent-text: #86EFAC;
+  --blue: #60A5FA;
+  --blue-light: #1E3A5F;
+  --blue-text: #93C5FD;
+  --amber: #FCD34D;
+  --amber-light: #451A03;
+  --shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.5;
+}
+/* Layout */
+.app { max-width: 480px; margin: 0 auto; padding: 0 0 80px; }
+/* Top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.topbar-actions { display: flex; gap: 4px; }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: none; background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2); font-size: 18px; transition: background .15s;
+}
+.icon-btn:hover { background: var(--surface2); }
+/* Bottom nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  max-width: 480px; margin: 0 auto;
+  left: 50%; transform: translateX(-50%);
+  width: 100%;
+}
+.nav-btn {
+  flex: 1; border: none; background: transparent; cursor: pointer;
+  padding: 10px 8px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: var(--text3); font-size: 10px; font-weight: 600;
+  transition: color .15s;
+}
+.nav-btn.active { color: var(--accent); }
+.nav-btn i { font-size: 20px; }
+/* Pages */
+.page { display: none; padding: 16px; }
+.page.active { display: block; }
+/* Cards */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.card-body { padding: 16px; }
+/* Step bar */
+.step-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.sdot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .2s; }
+.sdot.on { background: var(--accent); }
+.sdot.done { background: var(--text3); }
+.step-lbl { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+/* Breadcrumb */
+.bc { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-bottom: 10px; font-size: 11px; color: var(--text3); }
+.bc span { color: var(--text2); }
+/* Section headings */
+.sec-h { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.sec-s { font-size: 13px; color: var(--text2); margin-bottom: 14px; }
+/* Option buttons */
+.opt-grid { display: grid; gap: 10px; margin-bottom: 14px; }
+.opt-grid.g2 { grid-template-columns: 1fr 1fr; }
+.opt-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
+@media(max-width:360px) { .opt-grid.g3 { grid-template-columns: 1fr 1fr; } }
+.opt-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s;
+  display: flex; flex-direction: column; gap: 3px;
+  width: 100%; -webkit-appearance: none;
+}
+.opt-btn:active { transform: scale(.97); }
+.opt-btn .oico { font-size: 22px; color: var(--text2); margin-bottom: 3px; }
+.opt-btn .olbl { font-size: 14px; font-weight: 700; color: var(--text); }
+.opt-btn .osub { font-size: 11px; color: var(--text3); }
+/* Back button */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 99px; padding: 5px 13px;
+  font-size: 12px; color: var(--text2); cursor: pointer;
+  margin-bottom: 14px; transition: all .15s;
+}
+.back-btn:active { background: var(--surface2); }
+/* Result card */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--accent-light); color: var(--accent-text);
+  font-size: 10px; font-weight: 700; padding: 3px 10px;
+  border-radius: 99px; margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: .4px;
+}
+.opener-box {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent);
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  position: relative;
+}
+.opener-txt { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.55; }
+.copy-btn {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 4px 8px;
+  font-size: 11px; color: var(--text2); cursor: pointer;
+  display: flex; align-items: center; gap: 3px;
+  transition: all .15s;
+}
+.copy-btn:active { background: var(--accent-light); color: var(--accent-text); }
+.note-txt { font-size: 12px; color: var(--text3); margin-bottom: 14px; }
+/* Expand button */
+.expand-btn {
+  display: flex; align-items: center; gap: 6px;
+  width: 100%; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 14px; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  transition: all .15s; text-align: left;
+}
+.expand-btn:active { background: var(--border); }
+/* Conversation */
+.convo { padding-top: 12px; }
+.convo-hd { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+.msgs { display: flex; flex-direction: column; gap: 10px; }
+.msg { display: flex; gap: 8px; align-items: flex-start; }
+.role { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; flex-shrink: 0; margin-top: 2px; }
+.role.we { background: var(--accent-light); color: var(--accent-text); }
+.role.them { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+.msg-txt { font-size: 13px; color: var(--text); line-height: 1.6; }
+/* Tip */
+.tip-box {
+  background: var(--amber-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 13px; margin-top: 12px;
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 12px; color: var(--amber);
+}
+/* Chips */
+.chips-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+.chip {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 99px; padding: 5px 12px;
+  font-size: 12px; color: var(--text2); cursor: pointer;
+  transition: all .15s;
+}
+.chip:active { background: var(--accent-light); color: var(--accent-text); border-color: var(--accent); }
+/* Favorites page */
+.fav-empty { text-align: center; padding: 60px 20px; color: var(--text3); }
+.fav-empty i { font-size: 44px; margin-bottom: 12px; display: block; }
+.fav-empty p { font-size: 14px; line-height: 1.6; }
+.fav-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px;
+  display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
+  transition: all .15s;
+}
+.fav-item:active { background: var(--surface2); }
+.fav-info { flex: 1; min-width: 0; }
+.fav-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 5px; }
+.fav-tag { font-size: 10px; font-weight: 700; color: var(--text3); background: var(--surface2); padding: 2px 8px; border-radius: 99px; }
+.fav-opener { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fav-del { background: transparent; border: none; color: var(--text3); cursor: pointer; font-size: 18px; padding: 2px; flex-shrink: 0; }
+/* Recent page */
+.rec-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 15px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+  transition: all .15s;
+}
+.rec-item:active { background: var(--surface2); }
+.rec-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text2); flex-shrink: 0; }
+.rec-info { flex: 1; min-width: 0; }
+.rec-path { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
+.rec-opener { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-time { font-size: 10px; color: var(--text3); flex-shrink: 0; }
+/* Notes page */
+.note-form { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px; margin-bottom: 12px; }
+.note-form textarea {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface2); color: var(--text);
+  font-size: 13px; padding: 10px 12px; resize: none;
+  font-family: inherit; outline: none; line-height: 1.6;
+  transition: border-color .15s;
+}
+.note-form textarea:focus { border-color: var(--accent); }
+.note-form-row { display: flex; gap: 8px; margin-top: 10px; }
+.note-form select {
+  flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface2); color: var(--text);
+  font-size: 12px; padding: 8px 10px; outline: none; font-family: inherit;
+}
+.submit-btn {
+  background: var(--accent); color: #fff;
+  border: none; border-radius: var(--radius-sm);
+  padding: 8px 16px; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: opacity .15s;
+}
+.submit-btn:active { opacity: .8; }
+.note-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 15px; margin-bottom: 8px;
+}
+.note-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.note-cat { font-size: 10px; font-weight: 700; background: var(--accent-light); color: var(--accent-text); padding: 2px 9px; border-radius: 99px; }
+.note-date { font-size: 10px; color: var(--text3); }
+.note-body { font-size: 13px; color: var(--text); line-height: 1.6; }
+.note-del { background: transparent; border: none; color: var(--text3); cursor: pointer; font-size: 16px; }
+/* Search overlay */
+.search-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg); overflow-y: auto;
+  display: none;
+}
+.search-overlay.show { display: block; }
+.search-top {
+  position: sticky; top: 0; background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px; display: flex; gap: 10px; align-items: center;
+}
+.search-input {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 99px;
+  background: var(--surface2); color: var(--text);
+  font-size: 14px; padding: 9px 16px; outline: none; font-family: inherit;
+  transition: border-color .15s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-cancel { background: transparent; border: none; color: var(--accent); font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.search-results { padding: 12px 16px; }
+.search-result-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 15px; margin-bottom: 8px;
+  cursor: pointer; transition: background .15s;
+}
+.search-result-item:active { background: var(--surface2); }
+.sri-path { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
+.sri-opener { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 3px; }
+.sri-note { font-size: 12px; color: var(--text2); }
+.search-empty { text-align: center; padding: 48px 20px; color: var(--text3); font-size: 14px; }
+/* Toast */
+.toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--surface);
+  padding: 9px 18px; border-radius: 99px; font-size: 13px; font-weight: 600;
+  opacity: 0; transition: all .25s; pointer-events: none; z-index: 999;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* Section divider */
+.divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-txt { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
+/* Star toggle */
+.star-btn {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 20px; color: var(--text3); padding: 4px; line-height: 1;
+  transition: color .15s;
+}
+.star-btn.starred { color: #F59E0B; }
+/* Empty state */
+.empty-block { text-align: center; padding: 40px 20px; color: var(--text3); }
+.empty-block i { font-size: 36px; margin-bottom: 10px; display: block; }
+.empty-block p { font-size: 13px; line-height: 1.6; }
+/* Highlight */
+mark { background: var(--accent-light); color: var(--accent-text); border-radius: 3px; padding: 0 2px; }
+</style>
+</head>
+<body data-theme="light">
+
+<div class="app">
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="topbar-title" id="topbar-title">대화 가이드</span>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="openSearch()" title="검색"><i class="ti ti-search"></i></button>
+      <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="다크모드"><i class="ti ti-moon"></i></button>
+    </div>
+  </div>
+
+  <!-- Pages -->
+  <div class="page active" id="page-guide">
+    <div id="guide-content"></div>
+  </div>
+
+  <div class="page" id="page-fav">
+    <div id="fav-content"></div>
+  </div>
+
+  <div class="page" id="page-recent">
+    <div id="recent-content"></div>
+  </div>
+
+  <div class="page" id="page-notes">
+    <div id="notes-content"></div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" id="nav-guide" onclick="showPage('guide')">
+      <i class="ti ti-compass"></i>가이드
+    </button>
+    <button class="nav-btn" id="nav-fav" onclick="showPage('fav')">
+      <i class="ti ti-star"></i>즐겨찾기
+    </button>
+    <button class="nav-btn" id="nav-recent" onclick="showPage('recent')">
+      <i class="ti ti-history"></i>최근 기록
+    </button>
+    <button class="nav-btn" id="nav-notes" onclick="showPage('notes')">
+      <i class="ti ti-pencil"></i>나의 경험
+    </button>
+  </nav>
+</div>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay">
+  <div class="search-top">
+    <input class="search-input" id="search-input" type="text" placeholder="상황, 키워드로 검색..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="search-cancel" onclick="closeSearch()">취소</button>
+  </div>
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────
+const D = {
+  male:{label:"남성",ages:{
+    youth:{label:"10~20대",sub:"청년·학생",situations:{
+      commute:{label:"하교·통학 중",opener:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요!",note:"상황에 맞는 질문 + 칭찬으로 시작",convo:[
+        {r:"we",t:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요."},
+        {r:"them",t:"네, 막 수업 끝났어요."},
+        {r:"we",t:"혹시 예수님에 대해 들어보셨어요? 예수께서 이 땅에 오셔서 돌아가신 이유가 있는데, 궁금하지 않으세요?"},
+        {r:"them",t:"궁금하긴 한데 자세히는 모르겠어요."},
+        {r:"we",t:"이 QR코드로 간단히 확인해 보실 수 있어요. 나중에 더 이야기 나눌 수 있으면 좋겠네요!"},
+      ],tip:"이동 중인 상황이면 무리하게 길게 끌지 말고 QR카드나 연락처 교환으로 연결하세요."},
+      exam:{label:"취업·시험 스트레스",opener:"시험 기간이라 고생이 많겠네요. 사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 점수 몇 번으로 가치를 평가받는 게 좀 안타깝죠?",note:"공감 → 인간의 가치로 연결",convo:[
+        {r:"we",t:"시험 기간이라 힘들겠네요. 수고가 많아요."},
+        {r:"them",t:"네, 너무 바빠요."},
+        {r:"we",t:"사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 시험 점수 몇 번으로 평가받는 게 조금 안타깝지 않으세요?"},
+        {r:"them",t:"맞아요, 그런 생각 든 적 있어요."},
+        {r:"we",t:"사람이 능력을 온전히 발휘할 수 있다면 어떤 세상일까, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
+      ],tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요."},
+      interest:{label:"소지품·취미 계기",opener:"가방에 달린 인형 너무 귀엽네요! 어디서 사셨어요?",note:"관찰 → 소지품·관심사로 대화 시작",convo:[
+        {r:"we",t:"가방 인형 너무 귀엽네요!"},
+        {r:"them",t:"감사해요 하하."},
+        {r:"we",t:"혹시 학생이세요? 전공이 뭐예요?"},
+        {r:"them",t:"한경대 다니고 있어요."},
+        {r:"we",t:"jw.org에 학교생활·친구 관계에 도움이 되는 무료 자료가 많아요. 한번 들어가 보실래요?"},
+      ],tip:"소지품 → 학생 신분 확인 → 실용적 자료 소개 순서로 거부감을 줄여요."},
+      war:{label:"전쟁·사회 문제 관심",opener:"전쟁이 없어질 때가 올까요? 역사를 보면 어느 순간부터 전쟁이 더 많아졌다는 점이 신기하지 않으세요?",note:"사회 이슈 → 성경 예언으로 연결",convo:[
+        {r:"we",t:"전쟁이 없어질 때가 올까요?"},
+        {r:"them",t:"역사적으로 계속 있어왔으니 없어지기 어렵겠죠."},
+        {r:"we",t:"맞아요. 그런데 성경에는 이런 시대가 올 것을 이미 예언한 내용이 있어요. 신기하지 않아요?"},
+        {r:"them",t:"그게 어디에 있어요?"},
+        {r:"we",t:"디모데후서 3:1-3에 사람들의 태도 변화가 나와 있어요. 또 전쟁이 끝날 것이라는 희망도 있고요. 다음에 더 이야기 나눠요!"},
+      ],tip:"전쟁·사회 문제는 20대 남성이 관심 많아요. 관련 성구를 미리 준비해 두세요."},
+    }},
+    middle:{label:"30~50대",sub:"중장년",situations:{
+      waiting:{label:"버스정류장·대기 중",opener:"혹시 무엇을 찾고 계세요? 제가 도와드릴 수 있을까요?",note:"도움 먼저 → 공통점 발견 → 대화 확장",convo:[
+        {r:"we",t:"무엇을 찾고 계세요? 도움이 필요하신가요?"},
+        {r:"them",t:"버스 시간표를 보고 있었어요."},
+        {r:"we",t:"(노선 안내 후) 고향이 어디세요? 저는 전남 신안 쪽인데요."},
+        {r:"them",t:"저도 그쪽 출신이에요."},
+        {r:"we",t:"어렵고 힘든 상황에 계신 것 같아서 친구가 되어드리고 싶어요. 저기 전시대에서 정기적으로 봉사하고 있으니 들러주세요."},
+      ],tip:"뇌출혈, 장애 등 어려운 상황의 분께는 '친구가 되어드릴 수 있다'는 말이 마음을 열어요."},
+      health:{label:"건강 문제·간병 중",opener:"앞으로는 아픈 사람이 없게 될 것이라는 말씀을 들어보신 적 있으세요?",note:"건강 공감 → 성경의 희망으로 연결",convo:[
+        {r:"we",t:"많이 힘드시겠어요. 앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요?"},
+        {r:"them",t:"그런 말이 있나요?"},
+        {r:"we",t:"이사야 33:24에 '이 나라 백성이 아프다고 말하지 않을 것이다'라는 말씀이 있어요."},
+        {r:"them",t:"성경에 그런 내용이 있어요?"},
+        {r:"we",t:"네! 직접 보여드릴까요? 토요일마다 같은 시간에 전시대 봉사를 하니 다시 뵐 수 있으면 좋겠습니다."},
+      ],tip:"건강 문제에 공감하면서 희망의 성구로 연결할 때 자연스럽고 위로가 돼요."},
+      hobby:{label:"취미·특기 있는 분",opener:"카메라로 사진 찍으시는 분이세요? 정말 멋진 취미네요!",note:"관찰 → 취미 칭찬 → 공통 관심사 발견",convo:[
+        {r:"we",t:"혹시 사진 작가이신가요? 카메라가 멋있네요!"},
+        {r:"them",t:"취미로 찍고 있어요."},
+        {r:"we",t:"대단하시네요. 어떤 주제를 주로 찍으세요?"},
+        {r:"them",t:"(이야기 나눔)"},
+        {r:"we",t:"저기 전시대에서 자원봉사하고 있어요. 다음에 또 뵙고 이야기 나누고 싶네요!"},
+      ],tip:"30분 이상 대화가 자연스럽게 이어질 수 있어요. 전시대는 마지막에 소개해도 충분해요."},
+      religion:{label:"예전 교회 경험",opener:"왜 우리는 부활이 아니라 예수의 죽음을 기념할까요?",note:"기존 신앙 경험 → 새로운 시각 제시",convo:[
+        {r:"we",t:"혹시 예전에 교회 다니신 적 있으세요?"},
+        {r:"them",t:"예전엔 좀 다녔는데 지금은 안 가요."},
+        {r:"we",t:"저도 성경을 직접 살펴보고 싶어서 공부하기 시작했어요. '왜 예수의 죽음을 기념할까요?'라는 점이 흥미롭지 않으세요?"},
+        {r:"them",t:"처음 생각해보는 것 같아요."},
+        {r:"we",t:"관심 있으시면 함께 살펴볼 수 있어요. 연락처 교환해도 될까요?"},
+      ],tip:"교회에 회의감이 있는 분께는 '성경을 직접 보는' 접근이 효과적이에요."},
+    }},
+    senior:{label:"60대 이상",sub:"어르신",situations:{
+      park:{label:"공원·야외에서",opener:"이 지역에서 오래 사셨나 봐요. 가볼 만한 좋은 곳 추천해 주실 수 있어요?",note:"지역 연고·경험 존중으로 시작",convo:[
+        {r:"we",t:"이 지역에서 오래 사셨나 봐요. 좋은 곳 있으면 알려주세요!"},
+        {r:"them",t:"(지역 이야기 나눔)"},
+        {r:"we",t:"저희는 한경대 입구에서 성경을 무료로 소개하고 있어요. 혹시 종교가 있으세요?"},
+        {r:"them",t:"아내 잃고 나서 절에 가던 것도 끊었어요."},
+        {r:"we",t:"많이 힘드시겠어요. 성경에는 돌아가신 분에 대한 희망의 말씀도 있어요. 한번 보여드려도 될까요?"},
+      ],tip:"사별한 분께는 부활의 희망이 큰 위로가 돼요. 먼저 충분히 공감해드리세요."},
+      bus:{label:"버스정류장에서",opener:"어디 가시는 길이에요? 제가 버스 찾아드릴게요!",note:"실용적 도움 먼저 → 대화 자연스럽게 이어가기",convo:[
+        {r:"we",t:"어디 가시는 길이에요? 버스 찾아드릴까요?"},
+        {r:"them",t:"수원 방면 버스가 어디서 서는지 몰라서요."},
+        {r:"we",t:"(안내 후) 저희는 저기서 전시대 봉사를 하는 사람들이에요. 성경에 관심 있으세요?"},
+        {r:"them",t:"예수에 대해선 잘 모르는데요."},
+        {r:"we",t:"기원전·기원후라는 말 들어보셨죠? 그 기준이 예수님이에요. 잠깐 이야기해도 될까요?"},
+      ],tip:"버스 노선을 잘 알아두면 도움 제공에서 자연스럽게 대화로 연결할 수 있어요."},
+      health:{label:"몸이 불편하신 분",opener:"세상에 아픈 사람이 없게 될 때가 온다면 얼마나 좋을까요?",note:"건강 공감 → 성경의 희망 소개",convo:[
+        {r:"we",t:"많이 힘드시겠어요. 아픈 사람이 없는 세상이 온다면 얼마나 좋을까요?"},
+        {r:"them",t:"그런 날이 올까요?"},
+        {r:"we",t:"성경 이사야 33:24에 그런 희망의 말씀이 있어요. 직접 보여드릴까요?"},
+        {r:"them",t:"어떤 내용인데요?"},
+        {r:"we",t:"(성구 보여드린 후) 또 만나 뵐 수 있으면 좋겠어요. 다음에도 이 시간에 여기 있을게요."},
+      ],tip:"짧은 만남이라도 다시 만날 기회를 만들어두면 관계가 이어져요."},
+      death:{label:"사별·상실의 아픔",opener:"사랑하는 분을 잃으셨군요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?",note:"깊은 공감 → 부활 희망으로 연결",convo:[
+        {r:"we",t:"아내 생각에 많이 힘드시겠어요."},
+        {r:"them",t:"그렇죠, 요즘도 힘이 빠져요."},
+        {r:"we",t:"다시 만날 수 있다는 희망이 있다면 어떻겠어요? 성경에 부활에 관한 말씀이 있어요."},
+        {r:"them",t:"그런 이야기가 있어요?"},
+        {r:"we",t:"이 전도지에 QR코드가 있는데, 집에서 차분히 읽어보시면 좋을 것 같아요. 다음에 운동 나오시면 또 뵙겠습니다."},
+      ],tip:"연락처를 꺼려하시면 같은 장소·시간에 다시 만날 약속을 해두세요."},
+    }}
+  }},
+  female:{label:"여성",ages:{
+    youth:{label:"10~20대",sub:"청년·학생",situations:{
+      animal:{label:"동물·자연 계기",opener:"고양이를 좋아하시나 봐요! 여기 자주 오세요?",note:"주변 관찰(동물·자연) → 자연스러운 대화 진입",convo:[
+        {r:"we",t:"고양이를 좋아하시나 봐요!"},
+        {r:"them",t:"네, 너무 귀여워서요."},
+        {r:"we",t:"학생이세요? 어떤 전공이에요?"},
+        {r:"them",t:"디자인 전공해요."},
+        {r:"we",t:"jw.org에 10대·20대를 위한 학교생활, 친구 관계 자료가 무료로 있어요. 한번 들어가 보실래요?"},
+      ],tip:"동물을 보는 사람은 여유가 있어 대화 시작하기 좋아요. 학생이면 맞춤 자료로 연결하세요."},
+      foreign:{label:"외국인 유학생",opener:"정말 예쁘시네요! 어느 나라에서 오셨어요?",note:"진심 어린 관심 표현 → 자연스러운 관계 형성",convo:[
+        {r:"we",t:"너무 예쁘네요! 어느 나라에서 왔어요?"},
+        {r:"them",t:"네팔에서 왔어요."},
+        {r:"we",t:"한국 생활은 어때요? 힘든 점 있으면 말해줘요."},
+        {r:"them",t:"아르바이트를 구해야 하는데 한국어가 서툴러 어렵네요."},
+        {r:"we",t:"정말 용기 있게 유학을 선택했네요! 도움이 필요하면 언제든 연락해요. jw.org에 네팔어 자료도 있어요."},
+      ],tip:"외국인에게는 해당 언어 자료를 미리 준비하면 신뢰 형성에 크게 도움이 돼요."},
+      creation:{label:"자연·창조 관심",opener:"고양이와 강아지는 왜 교배를 안 할까요? 신기하지 않아요?",note:"자연 호기심 → 창조주로 자연스럽게 연결",convo:[
+        {r:"we",t:"고양이와 강아지는 왜 교배를 안 할까요?"},
+        {r:"them",t:"유전적으로 달라서 아닐까요?"},
+        {r:"we",t:"맞아요. 창세기 1:25에 하느님께서 종류대로 창조하셨다고 나와요."},
+        {r:"them",t:"성경에 그런 내용이 있어요?"},
+        {r:"we",t:"신학에 관심 있으세요? 저희가 매주 수요일 이 시간에 전시대에 있으니 다음에 또 이야기 나눠요!"},
+      ],tip:"자연과 창조에 관심 있는 분에게 효과적이에요. 성경을 직접 펼쳐 보여주면 더 좋아요."},
+      stress:{label:"학업·취업 스트레스",opener:"시험 기간이라 고생이 많겠네요. 점수로만 평가받는 게 좀 안타깝죠?",note:"시험 공감 → 인간의 가치 이야기로 연결",convo:[
+        {r:"we",t:"시험 기간이라 힘들겠어요. 수고 많아요."},
+        {r:"them",t:"네, 너무 바빠요."},
+        {r:"we",t:"사람의 뇌가 엄청난 정보를 저장할 수 있다는데 몇 번의 점수만으로 평가받는 게 안타깝지 않아요?"},
+        {r:"them",t:"진짜 그런 생각 해봤어요."},
+        {r:"we",t:"사람이 능력을 온전히 발휘하는 세상, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
+      ],tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요."},
+    }},
+    middle:{label:"30~50대",sub:"중장년",situations:{
+      family:{label:"간병·가족 걱정",opener:"오랫동안 간호하시다니 정말 대단하세요. 아프지 않고 오래 살 수 있다면 얼마나 좋을까요?",note:"수고 칭찬 → 성경의 희망으로 연결",convo:[
+        {r:"we",t:"남편분 5년 이상 간호하신다고요? 정말 수고가 많으세요."},
+        {r:"them",t:"힘들지만 어쩌겠어요."},
+        {r:"we",t:"아프지 않고 오래 사실 수 있다면 얼마나 좋을까요? 성경에 그런 희망이 담긴 말씀이 있어요."},
+        {r:"them",t:"저도 교회 다니는데..."},
+        {r:"we",t:"같은 성경을 봐도 이런 부분을 함께 살펴보면 위로가 될 것 같아요."},
+      ],tip:"간병 중인 분께는 '아픔 없는 세상'의 희망이 진심으로 위로가 돼요."},
+      smoke:{label:"편견 내려놓고 접근",opener:"요즘 담배 세금이 많이 올랐죠? 요즘 어떻게 지내세요?",note:"선입견 내려놓기 → 공통 관심사로 접근",convo:[
+        {r:"we",t:"요즘 담배 세금이 많이 올랐죠."},
+        {r:"them",t:"맞아요, 진짜 비싸졌어요."},
+        {r:"we",t:"어디서 일하세요? 혼자 생활하시나요?"},
+        {r:"them",t:"(개인 이야기 나눔)"},
+        {r:"we",t:"저도 딸이 혼자 사는데 걱정되더라고요. 저희는 저기 전시대에서 자원봉사하는 사람들이에요."},
+      ],tip:"겉모습이나 선입견 없이 다가가면 예상보다 훨씬 진솔한 대화가 이뤄져요."},
+      bench:{label:"벤치에서 쉬는 중",opener:"옆에 앉아도 될까요? 목소리가 참 고우시네요!",note:"칭찬 + 개인 관심으로 편안한 분위기 만들기",convo:[
+        {r:"we",t:"옆에 앉아도 될까요? 목소리가 참 고우시네요."},
+        {r:"them",t:"감사해요 하하."},
+        {r:"we",t:"남편을 기다리고 계세요? 어디에 사세요?"},
+        {r:"them",t:"증인들이 박해받는 게 좀 그랬어요 (예전 경험 이야기)"},
+        {r:"we",t:"예수님도 박해받으셨는데, 오히려 그 모습을 보고 진실함을 확인한 사람들도 있어요. 다음에 또 만나 뵙고 싶네요!"},
+      ],tip:"예전 왕국회관 경험 있는 분께는 박해가 진실성의 증거임을 부드럽게 소개하세요."},
+      north:{label:"탈북민·특별 상황",opener:"억양이 조금 달라서 여쭤봐도 될까요? 어디서 오셨어요?",note:"호기심 → 따뜻한 관심 → 공통 관심사",convo:[
+        {r:"we",t:"억양이 좀 다른 것 같은데, 어디서 오셨어요?"},
+        {r:"them",t:"북한에서 왔어요."},
+        {r:"we",t:"한국에 오시는 게 정말 쉽지 않으셨을 텐데, 대단하시네요."},
+        {r:"them",t:"(이야기 나눔)"},
+        {r:"we",t:"저희 자원봉사에서는 조선어 자료도 있어요. 관심 있으시면 연락처 교환해요!"},
+      ],tip:"탈북민 분께는 조선어 자료 안내가 매우 효과적이에요."},
+    }},
+    senior:{label:"60대 이상",sub:"어르신",situations:{
+      appearance:{label:"외모 칭찬으로 시작",opener:"연세가 있으신데 피부가 정말 좋으시네요!",note:"진심 어린 칭찬 → 친근감 형성",convo:[
+        {r:"we",t:"연세가 있으신데 피부가 정말 고우시네요!"},
+        {r:"them",t:"관절염으로 약을 먹어서 부은 것 같아요."},
+        {r:"we",t:"앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요? 이사야 33:24에 있는 말씀이에요."},
+        {r:"them",t:"나도 교회 다니는데..."},
+        {r:"we",t:"토요일마다 같은 시간에 여기서 전시대 봉사하니 또 지나가시면 뵙겠습니다!"},
+      ],tip:"짧더라도 정기적으로 만날 기회를 만들어두면 관계가 이어져요."},
+      religion:{label:"다른 종교 믿는 분",opener:"하느님이 계신다고 생각하세요? 하느님께도 이름이 있는데, 바로 '여호와'예요.",note:"종교 유무 묻지 않고 '하나님의 이름'으로 접근",convo:[
+        {r:"we",t:"하느님이 계신다고 생각하세요?"},
+        {r:"them",t:"불교 신자인데요..."},
+        {r:"we",t:"관심이 없으시면 그럴 수 있어요. 그런데 하느님께도 이름이 있다는 거 아세요? 바로 '여호와'예요."},
+        {r:"them",t:"(웃으시거나 신기해하심)"},
+        {r:"we",t:"저희 전시대에 들르시면 더 이야기 나눌 수 있어요. 또 뵙겠습니다!"},
+      ],tip:"'하느님의 이름'은 가볍고 흥미롭게 전할 수 있는 좋은 포인트예요."},
+      errand:{label:"장보기·심부름 후",opener:"짐이 많으시네요, 어디 다녀오셨어요?",note:"실생활 이야기로 시작 → 공감 → 자연스럽게 소개",convo:[
+        {r:"we",t:"짐이 많으시네요! 어디 다녀오셨어요?"},
+        {r:"them",t:"과일이랑 버섯 좀 샀는데 요즘 물가가..."},
+        {r:"we",t:"맞아요, 요즘 고물가에 싼 곳 있으면 귀가 번쩍 뜨이죠. 저희는 저기 전시대에서 봉사하는 사람들이에요, 보신 적 있으세요?"},
+        {r:"them",t:"아, 여호와의 증인이죠?"},
+        {r:"we",t:"맞아요! 요즘 도움이 될 내용들이 많으니 한번 들러보세요!"},
+      ],tip:"물가·생활 이야기는 나이 불문 공감대를 형성하기 좋아요."},
+      grief:{label:"사별·외로움",opener:"오랫동안 함께 사신 분이 돌아가셨군요. 그리운 마음이 많이 드시겠어요.",note:"깊은 공감 → 부활 희망으로 연결",convo:[
+        {r:"we",t:"남편분이 돌아가신 지 얼마나 됐어요?"},
+        {r:"them",t:"올해 초에 돌아가셨어요..."},
+        {r:"we",t:"정말 많이 힘드시겠어요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?"},
+        {r:"them",t:"그게 가능한가요?"},
+        {r:"we",t:"성경에 부활에 대한 희망이 있어요. 제가 보여드려도 될까요?"},
+      ],tip:"사별한 분께 진심으로 공감해드릴 때 부활의 희망이 큰 위로가 돼요."},
+    }}
+  }}
+};
+const AGE_ICO = {youth:"ti-school",middle:"ti-briefcase",senior:"ti-armchair"};
+
+// ─── STATE ──────────────────────────────────────────────────────────
+let S = {step:0, g:null, a:null, sit:null};
+let favs = JSON.parse(localStorage.getItem('favs')||'[]');
+let recents = JSON.parse(localStorage.getItem('recents')||'[]');
+let notes = JSON.parse(localStorage.getItem('notes')||'[]');
+let isDark = localStorage.getItem('theme') === 'dark';
+
+// ─── THEME ──────────────────────────────────────────────────────────
+function applyTheme(){
+  document.body.dataset.theme = isDark ? 'dark' : 'light';
+  document.getElementById('theme-btn').innerHTML = isDark ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+}
+applyTheme();
+
+function toggleTheme(){
+  isDark = !isDark;
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  applyTheme();
+}
+
+// ─── NAVIGATION ─────────────────────────────────────────────────────
+let curPage = 'guide';
+function showPage(p){
+  curPage = p;
+  ['guide','fav','recent','notes'].forEach(n=>{
+    document.getElementById('page-'+n).classList.toggle('active', n===p);
+    document.getElementById('nav-'+n).classList.toggle('active', n===p);
+  });
+  const titles = {guide:'대화 가이드', fav:'즐겨찾기', recent:'최근 기록', notes:'나의 경험담'};
+  document.getElementById('topbar-title').textContent = titles[p];
+  if(p==='fav') renderFav();
+  if(p==='recent') renderRecent();
+  if(p==='notes') renderNotes();
+}
+
+// ─── FAVORITES ──────────────────────────────────────────────────────
+function favKey(g,a,s){ return g+'|'+a+'|'+s; }
+function isFav(g,a,s){ return favs.includes(favKey(g,a,s)); }
+function toggleFav(g,a,s){
+  const k = favKey(g,a,s);
+  if(favs.includes(k)) favs = favs.filter(x=>x!==k);
+  else favs.push(k);
+  localStorage.setItem('favs', JSON.stringify(favs));
+  renderGuide();
+  showToast(favs.includes(k) ? '★ 즐겨찾기에 추가됐어요' : '즐겨찾기에서 제거됐어요');
+}
+function renderFav(){
+  const el = document.getElementById('fav-content');
+  if(!favs.length){
+    el.innerHTML=`<div class="fav-empty"><i class="ti ti-star"></i><p>아직 즐겨찾기가 없어요.<br>자주 쓰는 상황의 ☆ 을 눌러 추가하세요.</p></div>`;
+    return;
+  }
+  let h='';
+  favs.forEach(k=>{
+    const [g,a,s] = k.split('|');
+    try{
+      const sit = D[g].ages[a].situations[s];
+      h+=`<div class="fav-item" onclick="goToSit('${g}','${a}','${s}')">
+        <div class="fav-info">
+          <div class="fav-tags">
+            <span class="fav-tag">${D[g].label}</span>
+            <span class="fav-tag">${D[g].ages[a].label}</span>
+            <span class="fav-tag">${sit.label}</span>
+          </div>
+          <div class="fav-opener">"${sit.opener}"</div>
+        </div>
+        <button class="fav-del" onclick="event.stopPropagation();removeFav('${k}')"><i class="ti ti-x"></i></button>
+      </div>`;
+    }catch(e){}
+  });
+  el.innerHTML=h;
+}
+function removeFav(k){
+  favs = favs.filter(x=>x!==k);
+  localStorage.setItem('favs', JSON.stringify(favs));
+  renderFav();
+  showToast('즐겨찾기에서 제거됐어요');
+}
+function goToSit(g,a,s){
+  S={step:3,g,a,sit:s};
+  showPage('guide');
+  addRecent(g,a,s);
+  renderGuide();
+}
+
+// ─── RECENTS ────────────────────────────────────────────────────────
+function addRecent(g,a,s){
+  const entry = {g,a,s,t:Date.now()};
+  recents = recents.filter(r=>!(r.g===g&&r.a===a&&r.s===s));
+  recents.unshift(entry);
+  if(recents.length>30) recents=recents.slice(0,30);
+  localStorage.setItem('recents', JSON.stringify(recents));
+}
+function timeAgo(ts){
+  const d = Date.now()-ts;
+  if(d<60000) return '방금';
+  if(d<3600000) return Math.floor(d/60000)+'분 전';
+  if(d<86400000) return Math.floor(d/3600000)+'시간 전';
+  return Math.floor(d/86400000)+'일 전';
+}
+function renderRecent(){
+  const el = document.getElementById('recent-content');
+  if(!recents.length){
+    el.innerHTML=`<div class="empty-block"><i class="ti ti-history"></i><p>아직 기록이 없어요.<br>가이드를 조회하면 자동으로 기록돼요.</p></div>`;
+    return;
+  }
+  let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;color:var(--text2)">최근 조회한 상황</span><button onclick="clearRecents()" style="background:transparent;border:none;font-size:12px;color:var(--text3);cursor:pointer">전체 지우기</button></div>`;
+  recents.forEach(r=>{
+    try{
+      const sit = D[r.g].ages[r.a].situations[r.s];
+      h+=`<div class="rec-item" onclick="goToSit('${r.g}','${r.a}','${r.s}')">
+        <div class="rec-icon"><i class="ti ti-message-circle"></i></div>
+        <div class="rec-info">
+          <div class="rec-path">${D[r.g].label} · ${D[r.g].ages[r.a].label} · ${sit.label}</div>
+          <div class="rec-opener">"${sit.opener}"</div>
+        </div>
+        <div class="rec-time">${timeAgo(r.t)}</div>
+      </div>`;
+    }catch(e){}
+  });
+  el.innerHTML=h;
+}
+function clearRecents(){
+  recents=[];
+  localStorage.setItem('recents', JSON.stringify(recents));
+  renderRecent();
+  showToast('최근 기록을 지웠어요');
+}
+
+// ─── NOTES ──────────────────────────────────────────────────────────
+function renderNotes(){
+  const el = document.getElementById('notes-content');
+  let cats = '';
+  Object.entries(D).forEach(([gk,gv])=>{
+    Object.entries(gv.ages).forEach(([ak,av])=>{
+      Object.entries(av.situations).forEach(([sk,sv])=>{
+        cats+=`<option value="${gk}|${ak}|${sk}">${gv.label} · ${av.label} · ${sv.label}</option>`;
+      });
+    });
+  });
+  cats = `<option value="">— 상황 선택 (선택사항)</option>`+cats;
+  let notesHtml = '';
+  if(notes.length){
+    notes.forEach((n,i)=>{
+      let catLabel='';
+      if(n.cat){const[g,a,s]=n.cat.split('|');try{catLabel=`${D[g].label} · ${D[g].ages[a].label} · ${D[g].ages[a].situations[s].label}`;}catch(e){}}
+      notesHtml+=`<div class="note-item">
+        <div class="note-meta">
+          <span class="note-cat">${catLabel||'일반 메모'}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="note-date">${new Date(n.t).toLocaleDateString('ko-KR',{month:'short',day:'numeric'})}</span>
+            <button class="note-del" onclick="deleteNote(${i})"><i class="ti ti-trash"></i></button>
+          </div>
+        </div>
+        <div class="note-body">${n.body.replace(/\n/g,'<br>')}</div>
+      </div>`;
+    });
+  } else {
+    notesHtml=`<div class="empty-block"><i class="ti ti-pencil"></i><p>나의 봉사 경험을 기록해 보세요.<br>좋았던 대화, 배운 점, 아이디어 등을<br>메모로 남길 수 있어요.</p></div>`;
+  }
+  el.innerHTML=`<div class="note-form">
+    <textarea id="note-ta" rows="4" placeholder="오늘 있었던 좋은 대화나 느낀 점을 기록해 보세요..."></textarea>
+    <div class="note-form-row">
+      <select id="note-cat">${cats}</select>
+      <button class="submit-btn" onclick="saveNote()">저장</button>
+    </div>
+  </div>
+  <div class="divider"><div class="divider-line"></div><div class="divider-txt">저장된 경험담</div><div class="divider-line"></div></div>
+  ${notesHtml}`;
+}
+function saveNote(){
+  const body = document.getElementById('note-ta').value.trim();
+  if(!body){showToast('내용을 입력해 주세요');return;}
+  const cat = document.getElementById('note-cat').value;
+  notes.unshift({body,cat,t:Date.now()});
+  localStorage.setItem('notes', JSON.stringify(notes));
+  renderNotes();
+  showToast('경험담이 저장됐어요 ✓');
+}
+function deleteNote(i){
+  notes.splice(i,1);
+  localStorage.setItem('notes', JSON.stringify(notes));
+  renderNotes();
+  showToast('삭제됐어요');
+}
+
+// ─── SEARCH ─────────────────────────────────────────────────────────
+function openSearch(){
+  document.getElementById('search-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('search-input').focus(),100);
+  doSearch('');
+}
+function closeSearch(){
+  document.getElementById('search-overlay').classList.remove('show');
+  document.getElementById('search-input').value='';
+}
+function doSearch(q){
+  const el = document.getElementById('search-results');
+  const results = [];
+  Object.entries(D).forEach(([gk,gv])=>{
+    Object.entries(gv.ages).forEach(([ak,av])=>{
+      Object.entries(av.situations).forEach(([sk,sv])=>{
+        const haystack = (sv.label+sv.opener+sv.note+sv.tip+sv.convo.map(c=>c.t).join(' ')).toLowerCase();
+        if(!q || haystack.includes(q.toLowerCase())){
+          results.push({gk,ak,sk,gv,av,sv});
+        }
+      });
+    });
+  });
+  if(!results.length){
+    el.innerHTML=`<div class="search-empty">"${q}"에 해당하는 상황이 없어요</div>`;
+    return;
+  }
+  function hl(txt){
+    if(!q) return txt;
+    const re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+    return txt.replace(re,'<mark>$1</mark>');
+  }
+  el.innerHTML = results.map(({gk,ak,sk,gv,av,sv})=>`
+    <div class="search-result-item" onclick="goToSit('${gk}','${ak}','${sk}');closeSearch()">
+      <div class="sri-path">${hl(gv.label)} · ${hl(av.label)} · ${hl(sv.label)}</div>
+      <div class="sri-opener">"${hl(sv.opener)}"</div>
+      <div class="sri-note">${hl(sv.note)}</div>
+    </div>
+  `).join('');
+}
+
+// ─── TOAST ──────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ─── COPY ───────────────────────────────────────────────────────────
+function copyOpener(txt){
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(()=>showToast('서론 멘트가 복사됐어요 ✓'));
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=txt; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('서론 멘트가 복사됐어요 ✓');
+  }
+}
+
+// ─── GUIDE RENDER ───────────────────────────────────────────────────
+function dots(){
+  const lbl=['성별','나이대','상황','가이드'];
+  return `<div class="step-row">${[0,1,2,3].map(i=>`<div class="sdot ${i<S.step?'done':i===S.step?'on':''}"></div>`).join('')}<span class="step-lbl">${lbl[S.step]}</span></div>`;
+}
+function bc(){
+  if(!S.g) return '';
+  let h=`<div class="bc">`;
+  h+=`<span>${D[S.g].label}</span>`;
+  if(S.a) h+=`<i class="ti ti-chevron-right" style="font-size:10px;color:var(--text3)"></i><span>${D[S.g].ages[S.a].label}</span>`;
+  if(S.sit) h+=`<i class="ti ti-chevron-right" style="font-size:10px;color:var(--text3)"></i><span>${D[S.g].ages[S.a].situations[S.sit].label}</span>`;
+  return h+'</div>';
+}
+
+function renderGuide(){
+  const el = document.getElementById('guide-content');
+  let h = `<div class="card"><div class="card-body">${dots()}${bc()}`;
+  if(S.step>0) h+=`<button class="back-btn" onclick="back()"><i class="ti ti-arrow-left"></i> 이전으로</button>`;
+
+  if(S.step===0){
+    h+=`<p class="sec-h">대화 대상의 성별을 선택하세요</p>
+        <p class="sec-s">먼저 말을 건넬 분의 성별을 선택해 주세요</p>
+        <div class="opt-grid g2">
+          <button class="opt-btn" onclick="pick('g','male')">
+            <div class="oico"><i class="ti ti-user"></i></div>
+            <div class="olbl">남성</div><div class="osub">남성 대상 접근법</div>
+          </button>
+          <button class="opt-btn" onclick="pick('g','female')">
+            <div class="oico"><i class="ti ti-user-circle"></i></div>
+            <div class="olbl">여성</div><div class="osub">여성 대상 접근법</div>
+          </button>
+        </div>`;
+  } else if(S.step===1){
+    h+=`<p class="sec-h">나이대를 선택하세요</p>
+        <p class="sec-s">${D[S.g].label} 대상의 나이대를 선택해 주세요</p>
+        <div class="opt-grid g3">`;
+    Object.entries(D[S.g].ages).forEach(([k,v])=>{
+      h+=`<button class="opt-btn" onclick="pick('a','${k}')">
+        <div class="oico"><i class="ti ${AGE_ICO[k]}"></i></div>
+        <div class="olbl">${v.label}</div><div class="osub">${v.sub}</div>
+      </button>`;
+    });
+    h+=`</div>`;
+  } else if(S.step===2){
+    const sits = D[S.g].ages[S.a].situations;
+    h+=`<p class="sec-h">현재 상황을 선택하세요</p>
+        <p class="sec-s">어떤 상황에서 만난 분인지 선택해 주세요</p>
+        <div class="opt-grid g2">`;
+    Object.entries(sits).forEach(([k,v])=>{
+      h+=`<button class="opt-btn" onclick="pick('sit','${k}')">
+        <div class="olbl" style="font-size:13px">${v.label}</div>
+      </button>`;
+    });
+    h+=`</div>`;
+  } else {
+    const d = D[S.g].ages[S.a].situations[S.sit];
+    const starred = isFav(S.g, S.a, S.sit);
+    h+=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+          <div class="badge"><i class="ti ti-message-circle"></i> 효과적인 서론</div>
+          <button class="star-btn ${starred?'starred':''}" onclick="toggleFav('${S.g}','${S.a}','${S.sit}')">
+            <i class="ti ${starred?'ti-star-filled':'ti-star'}"></i>
+          </button>
+        </div>
+        <div class="opener-box">
+          <div class="opener-txt">"${d.opener}"</div>
+          <button class="copy-btn" onclick="copyOpener('${d.opener.replace(/'/g,"\\'")}')">
+            <i class="ti ti-copy"></i> 복사
+          </button>
+        </div>
+        <div class="note-txt">${d.note}</div>
+        <button class="expand-btn" onclick="toggleConvo(this)">
+          <i class="ti ti-messages"></i>
+          <span>대화 흐름 보기</span>
+          <i class="ti ti-chevron-down" style="margin-left:auto;transition:transform .2s"></i>
+        </button>
+        <div style="display:none" id="convo-box">
+          <div class="convo">
+            <div class="convo-hd"><i class="ti ti-messages"></i> 대화 흐름 예시</div>
+            <div class="msgs">`;
+    d.convo.forEach(m=>{
+      h+=`<div class="msg"><div class="role ${m.r}">${m.r==='we'?'우리':'상대방'}</div><div class="msg-txt">${m.t}</div></div>`;
+    });
+    h+=`</div><div class="tip-box"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>${d.tip}</span></div></div></div>`;
+    // other situations
+    const sits = D[S.g].ages[S.a].situations;
+    const others = Object.entries(sits).filter(([k])=>k!==S.sit);
+    if(others.length){
+      h+=`<div class="divider"><div class="divider-line"></div><div class="divider-txt">같은 나이대 다른 상황</div><div class="divider-line"></div></div>
+          <div class="chips-row">`;
+      others.forEach(([k,v])=>{h+=`<span class="chip" onclick="pick('sit','${k}')">${v.label}</span>`;});
+      h+=`</div>`;
+    }
+  }
+  h+='</div></div>';
+  el.innerHTML=h;
+}
+
+function pick(t,v){
+  if(t==='g'){S.g=v;S.a=null;S.sit=null;S.step=1;}
+  else if(t==='a'){S.a=v;S.sit=null;S.step=2;}
+  else{S.sit=v;S.step=3;addRecent(S.g,S.a,v);}
+  renderGuide();
+}
+function back(){
+  if(S.step===1){S.g=null;S.step=0;}
+  else if(S.step===2){S.a=null;S.step=1;}
+  else{S.sit=null;S.step=2;}
+  renderGuide();
+}
+function toggleConvo(btn){
+  const box=document.getElementById('convo-box');
+  const open=box.style.display==='none';
+  box.style.display=open?'block':'none';
+  btn.querySelector('span').textContent=open?'대화 흐름 접기':'대화 흐름 보기';
+  btn.querySelector('.ti-chevron-down').style.transform=open?'rotate(180deg)':'rotate(0)';
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────
+renderGuide();
+</script>
+</body>
+</html>
