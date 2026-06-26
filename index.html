@@ -3,945 +3,1446 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>대화 가이드</title>
+<title>대화 가이드 v2</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 :root {
-  --bg: #F7F6F2;
-  --surface: #FFFFFF;
-  --surface2: #F0EFE9;
-  --border: #E4E2DB;
-  --text: #1C1B18;
-  --text2: #6B6960;
-  --text3: #A09D95;
-  --accent: #2D6A4F;
-  --accent-light: #D8EDE4;
-  --accent-text: #1B4332;
-  --blue: #2563EB;
-  --blue-light: #DBEAFE;
-  --blue-text: #1E3A8A;
-  --amber: #D97706;
-  --amber-light: #FEF3C7;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --radius: 14px;
-  --radius-sm: 9px;
+  --bg:#F7F6F2;--surface:#FFFFFF;--surface2:#F0EFE9;--border:#E4E2DB;
+  --text:#1C1B18;--text2:#6B6960;--text3:#A09D95;
+  --accent:#2D6A4F;--accent-light:#D8EDE4;--accent-text:#1B4332;
+  --blue:#2563EB;--blue-light:#DBEAFE;--blue-text:#1E3A8A;
+  --amber:#D97706;--amber-light:#FEF3C7;
+  --purple:#7C3AED;--purple-light:#EDE9FE;--purple-text:#4C1D95;
+  --rose:#BE185D;--rose-light:#FCE7F3;--rose-text:#831843;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);--radius:14px;--radius-sm:9px;
 }
-[data-theme="dark"] {
-  --bg: #111110;
-  --surface: #1C1C1A;
-  --surface2: #252522;
-  --border: #333330;
-  --text: #F0EFE9;
-  --text2: #A09D95;
-  --text3: #6B6960;
-  --accent: #4ADE80;
-  --accent-light: #14532D;
-  --accent-text: #86EFAC;
-  --blue: #60A5FA;
-  --blue-light: #1E3A5F;
-  --blue-text: #93C5FD;
-  --amber: #FCD34D;
-  --amber-light: #451A03;
-  --shadow: 0 2px 12px rgba(0,0,0,0.4);
+[data-theme="dark"]{
+  --bg:#111110;--surface:#1C1C1A;--surface2:#252522;--border:#333330;
+  --text:#F0EFE9;--text2:#A09D95;--text3:#6B6960;
+  --accent:#4ADE80;--accent-light:#14532D;--accent-text:#86EFAC;
+  --blue:#60A5FA;--blue-light:#1E3A5F;--blue-text:#93C5FD;
+  --amber:#FCD34D;--amber-light:#451A03;
+  --purple:#A78BFA;--purple-light:#2E1065;--purple-text:#DDD6FE;
+  --rose:#F9A8D4;--rose-light:#500724;--rose-text:#FBCFE8;
+  --shadow:0 2px 12px rgba(0,0,0,0.4);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.5;
-}
-/* Layout */
-.app { max-width: 480px; margin: 0 auto; padding: 0 0 80px; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+.app{max-width:480px;margin:0 auto;padding:0 0 80px}
 /* Top bar */
-.topbar {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.topbar-title { font-size: 15px; font-weight: 700; color: var(--text); }
-.topbar-actions { display: flex; gap: 4px; }
-.icon-btn {
-  width: 36px; height: 36px; border-radius: 50%;
-  border: none; background: transparent; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text2); font-size: 18px; transition: background .15s;
-}
-.icon-btn:hover { background: var(--surface2); }
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.topbar-title{font-size:15px;font-weight:700;color:var(--text)}
+.topbar-badge{font-size:10px;background:var(--accent-light);color:var(--accent-text);padding:2px 7px;border-radius:99px;font-weight:700;margin-left:6px}
+.topbar-actions{display:flex;gap:4px}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:18px;transition:background .15s}
+.icon-btn:hover{background:var(--surface2)}
 /* Bottom nav */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 100;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  display: flex;
-  max-width: 480px;
-  width: 100%;
-}
-.nav-btn {
-  flex: 1; border: none; background: transparent; cursor: pointer;
-  padding: 10px 8px 12px;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  color: var(--text3); font-size: 10px; font-weight: 600;
-  transition: color .15s;
-}
-.nav-btn.active { color: var(--accent); }
-.nav-btn i { font-size: 20px; }
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:100;background:var(--surface);border-top:1px solid var(--border);display:flex;max-width:480px;width:100%}
+.nav-btn{flex:1;border:none;background:transparent;cursor:pointer;padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text3);font-size:10px;font-weight:600;transition:color .15s}
+.nav-btn.active{color:var(--accent)}
+.nav-btn i{font-size:20px}
 /* Pages */
-.page { display: none; padding: 16px; }
-.page.active { display: block; }
+.page{display:none;padding:16px}
+.page.active{display:block}
 /* Cards */
-.card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-.card-body { padding: 16px; }
-/* Step bar */
-.step-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.sdot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .2s; }
-.sdot.on { background: var(--accent); }
-.sdot.done { background: var(--text3); }
-.step-lbl { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-/* Breadcrumb */
-.bc { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-bottom: 10px; font-size: 11px; color: var(--text3); }
-.bc span { color: var(--text2); }
+.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
+.card-body{padding:16px}
+/* Stepper */
+.step-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s;flex-shrink:0}
+.sdot.on{background:var(--accent)}
+.sdot.done{background:var(--text3)}
+.step-lbl{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 /* Section headings */
-.sec-h { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.sec-s { font-size: 13px; color: var(--text2); margin-bottom: 14px; }
-/* Option buttons */
-.opt-grid { display: grid; gap: 10px; margin-bottom: 14px; }
-.opt-grid.g2 { grid-template-columns: 1fr 1fr; }
-.opt-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
-@media(max-width:360px) { .opt-grid.g3 { grid-template-columns: 1fr 1fr; } }
-.opt-btn {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 12px;
-  cursor: pointer;
-  text-align: left;
-  transition: all .15s;
-  display: flex; flex-direction: column; gap: 3px;
+.sec-h{font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px}
+.sec-s{font-size:13px;color:var(--text2);margin-bottom:14px}
+/* Option grid */
+.opt-grid{display:grid;gap:10px;margin-bottom:14px}
+.opt-grid.g2{grid-template-columns:1fr 1fr}
+.opt-grid.g3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:360px){.opt-grid.g3{grid-template-columns:1fr 1fr}}
+.opt-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 12px;cursor:pointer;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:3px;width:100%;-webkit-appearance:none}
+.opt-btn:active{transform:scale(.97)}
+.opt-btn.selected{border-color:var(--accent);background:var(--accent-light)}
+.opt-btn .oico{font-size:22px;color:var(--text2);margin-bottom:3px}
+.opt-btn .olbl{font-size:14px;font-weight:700;color:var(--text)}
+.opt-btn .osub{font-size:11px;color:var(--text3)}
+/* Place pills */
+.place-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.place-pill{border:1.5px solid var(--border);border-radius:99px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--text2);background:var(--surface);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.place-pill:active{transform:scale(.97)}
+.place-pill.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-text)}
+.place-pill i{font-size:15px}
+/* Stage tabs */
+.stage-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.stage-tabs::-webkit-scrollbar{display:none}
+.stage-tab{flex-shrink:0;border:1.5px solid var(--border);border-radius:99px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--text2);background:var(--surface);cursor:pointer;transition:all .15s}
+.stage-tab.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-text)}
+/* Back btn */
+.back-btn{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--border);border-radius:99px;padding:5px 13px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:14px;transition:all .15s}
+.back-btn:active{background:var(--surface2)}
+/* Result */
+.badge{display:inline-flex;align-items:center;gap:4px;background:var(--accent-light);color:var(--accent-text);font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px}
+.badge.blue{background:var(--blue-light);color:var(--blue-text)}
+.badge.purple{background:var(--purple-light);color:var(--purple-text)}
+.badge.rose{background:var(--rose-light);color:var(--rose-text)}
+.opener-box{background:var(--surface2);border-radius:var(--radius-sm);border-left:3px solid var(--accent);padding:12px 14px 44px;margin-bottom:6px;position:relative}
+.opener-txt{font-size:16px;font-weight:600;color:var(--text);line-height:1.55}
+.copy-btn{position:absolute;bottom:10px;right:10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:4px 8px;font-size:11px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:3px;transition:all .15s}
+.copy-btn:active{background:var(--accent-light);color:var(--accent-text)}
+.note-txt{font-size:12px;color:var(--text3);margin-bottom:14px}
+/* Expand btn */
+.expand-btn{display:flex;align-items:center;gap:6px;width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:all .15s;text-align:left}
+.expand-btn:active{background:var(--border)}
+/* Convo */
+.convo{padding-top:12px}
+.convo-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.msgs{display:flex;flex-direction:column;gap:10px}
+.msg{display:flex;gap:8px;align-items:flex-start}
+.role{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;flex-shrink:0;margin-top:2px}
+.role.we{background:var(--accent-light);color:var(--accent-text)}
+.role.them{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.msg-txt{font-size:13px;color:var(--text);line-height:1.6}
+/* Tip */
+.tip-box{background:var(--amber-light);border-radius:var(--radius-sm);padding:10px 13px;margin-top:12px;display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--amber)}
+/* Follow-up stages */
+.followup-section{margin-top:14px}
+.followup-hd{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.followup-card{background:var(--blue-light);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--blue)}
+.followup-card.purple{background:var(--purple-light);border-left-color:var(--purple)}
+.followup-lbl{font-size:11px;font-weight:700;color:var(--blue-text);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.followup-lbl.purple{color:var(--purple-text)}
+.followup-txt{font-size:13px;color:var(--text);line-height:1.55}
+/* Situation count badge */
+.sit-count{font-size:10px;background:var(--surface2);color:var(--text3);padding:2px 7px;border-radius:99px;font-weight:600;margin-left:auto;flex-shrink:0}
+/* Chips */
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chip{border:1px solid var(--border);border-radius:99px;padding:5px 12px;font-size:12px;color:var(--text2);background:var(--surface);cursor:pointer;transition:all .15s}
+.chip.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent-text);font-weight:600}
+/* Empty state */
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3)}
+.empty-state i{font-size:40px;margin-bottom:10px;display:block}
+/* Divider */
+.divider{height:1px;background:var(--border);margin:14px 0}
+/* Situation list (browse mode) */
+.sit-list-item{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;background:var(--surface)}
+.sit-list-item:last-child{border-bottom:none}
+.sit-list-item:active{background:var(--surface2)}
+.sit-list-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sit-list-info{flex:1;min-width:0}
+.sit-list-lbl{font-size:14px;font-weight:600;color:var(--text)}
+.sit-list-sub{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.sit-list-arr{color:var(--text3);font-size:16px;flex-shrink:0}
+.tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600}
+.tag.blue{background:var(--blue-light);color:var(--blue-text)}
+.tag.green{background:var(--accent-light);color:var(--accent-text)}
+.tag.amber{background:var(--amber-light);color:var(--amber)}
+.tag.purple{background:var(--purple-light);color:var(--purple-text)}
+.tag.rose{background:var(--rose-light);color:var(--rose-text)}
+/* Section group header */
+.group-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:10px 16px 6px;background:var(--surface2)}
+
+/* Gender-Age combined card */
+.ga-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.ga-card {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 16px 12px;
+  cursor: pointer; text-align: left; transition: all .15s;
+  display: flex; flex-direction: column; gap: 4px;
   width: 100%; -webkit-appearance: none;
 }
-.opt-btn:active { transform: scale(.97); }
-.opt-btn .oico { font-size: 22px; color: var(--text2); margin-bottom: 3px; }
-.opt-btn .olbl { font-size: 14px; font-weight: 700; color: var(--text); }
-.opt-btn .osub { font-size: 11px; color: var(--text3); }
-/* Back button */
-.back-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: transparent; border: 1px solid var(--border);
-  border-radius: 99px; padding: 5px 13px;
-  font-size: 12px; color: var(--text2); cursor: pointer;
-  margin-bottom: 14px; transition: all .15s;
-}
-.back-btn:active { background: var(--surface2); }
-/* Result card */
-.badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: var(--accent-light); color: var(--accent-text);
-  font-size: 10px; font-weight: 700; padding: 3px 10px;
-  border-radius: 99px; margin-bottom: 10px;
-  text-transform: uppercase; letter-spacing: .4px;
-}
-.opener-box {
-  background: var(--surface2);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--accent);
-  padding: 12px 14px 44px;
-  margin-bottom: 6px;
-  position: relative;
-}
-.opener-txt { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.55; }
-.copy-btn {
-  position: absolute; bottom: 10px; right: 10px;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 7px; padding: 4px 8px;
-  font-size: 11px; color: var(--text2); cursor: pointer;
-  display: flex; align-items: center; gap: 3px;
-  transition: all .15s;
-}
-.copy-btn:active { background: var(--accent-light); color: var(--accent-text); }
-.note-txt { font-size: 12px; color: var(--text3); margin-bottom: 14px; }
-/* Expand button */
-.expand-btn {
-  display: flex; align-items: center; gap: 6px;
-  width: 100%; background: var(--surface2);
-  border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 10px 14px; cursor: pointer;
-  font-size: 13px; font-weight: 600; color: var(--text2);
-  transition: all .15s; text-align: left;
-}
-.expand-btn:active { background: var(--border); }
-/* Conversation */
-.convo { padding-top: 12px; }
-.convo-hd { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
-.msgs { display: flex; flex-direction: column; gap: 10px; }
-.msg { display: flex; gap: 8px; align-items: flex-start; }
-.role { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; flex-shrink: 0; margin-top: 2px; }
-.role.we { background: var(--accent-light); color: var(--accent-text); }
-.role.them { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
-.msg-txt { font-size: 13px; color: var(--text); line-height: 1.6; }
-/* Tip */
-.tip-box {
-  background: var(--amber-light);
-  border-radius: var(--radius-sm);
-  padding: 10px 13px; margin-top: 12px;
-  display: flex; gap: 8px; align-items: flex-start;
-  font-size: 12px; color: var(--amber);
-}
-/* Chips */
-.chips-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
-.chip {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 99px; padding: 5px 12px;
-  font-size: 12px; color: var(--text2); cursor: pointer;
-  transition: all .15s;
-}
-.chip:active { background: var(--accent-light); color: var(--accent-text); border-color: var(--accent); }
-/* Favorites page */
-.fav-empty { text-align: center; padding: 60px 20px; color: var(--text3); }
-.fav-empty i { font-size: 44px; margin-bottom: 12px; display: block; }
-.fav-empty p { font-size: 14px; line-height: 1.6; }
-.fav-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px;
-  display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
-  transition: all .15s;
-}
-.fav-item:active { background: var(--surface2); }
-.fav-info { flex: 1; min-width: 0; }
-.fav-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 5px; }
-.fav-tag { font-size: 10px; font-weight: 700; color: var(--text3); background: var(--surface2); padding: 2px 8px; border-radius: 99px; }
-.fav-opener { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.fav-del { background: transparent; border: none; color: var(--text3); cursor: pointer; font-size: 18px; padding: 2px; flex-shrink: 0; }
-/* Recent page */
-.rec-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 13px 15px; margin-bottom: 8px;
-  display: flex; align-items: center; gap: 12px; cursor: pointer;
-  transition: all .15s;
-}
-.rec-item:active { background: var(--surface2); }
-.rec-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text2); flex-shrink: 0; }
-.rec-info { flex: 1; min-width: 0; }
-.rec-path { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
-.rec-opener { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rec-time { font-size: 10px; color: var(--text3); flex-shrink: 0; }
-/* Notes page */
-.note-form { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px; margin-bottom: 12px; }
-.note-form textarea {
-  width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
-  background: var(--surface2); color: var(--text);
-  font-size: 13px; padding: 10px 12px; resize: none;
-  font-family: inherit; outline: none; line-height: 1.6;
-  transition: border-color .15s;
-}
-.note-form textarea:focus { border-color: var(--accent); }
-.note-form-row { display: flex; gap: 8px; margin-top: 10px; }
-.note-form select {
-  flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm);
-  background: var(--surface2); color: var(--text);
-  font-size: 12px; padding: 8px 10px; outline: none; font-family: inherit;
-}
-.submit-btn {
-  background: var(--accent); color: #fff;
-  border: none; border-radius: var(--radius-sm);
-  padding: 8px 16px; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: opacity .15s;
-}
-.submit-btn:active { opacity: .8; }
-.note-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 14px 15px; margin-bottom: 8px;
-}
-.note-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.note-cat { font-size: 10px; font-weight: 700; background: var(--accent-light); color: var(--accent-text); padding: 2px 9px; border-radius: 99px; }
-.note-date { font-size: 10px; color: var(--text3); }
-.note-body { font-size: 13px; color: var(--text); line-height: 1.6; }
-.note-del { background: transparent; border: none; color: var(--text3); cursor: pointer; font-size: 16px; }
-/* Search overlay */
-.search-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: var(--bg); overflow-y: auto;
-  display: none;
-}
-.search-overlay.show { display: block; }
-.search-top {
-  position: sticky; top: 0; background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px; display: flex; gap: 10px; align-items: center;
-}
-.search-input {
-  flex: 1; border: 1.5px solid var(--border); border-radius: 99px;
-  background: var(--surface2); color: var(--text);
-  font-size: 14px; padding: 9px 16px; outline: none; font-family: inherit;
-  transition: border-color .15s;
-}
-.search-input:focus { border-color: var(--accent); }
-.search-cancel { background: transparent; border: none; color: var(--accent); font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.search-results { padding: 12px 16px; }
-.search-result-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 13px 15px; margin-bottom: 8px;
-  cursor: pointer; transition: background .15s;
-}
-.search-result-item:active { background: var(--surface2); }
-.sri-path { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
-.sri-opener { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 3px; }
-.sri-note { font-size: 12px; color: var(--text2); }
-.search-empty { text-align: center; padding: 48px 20px; color: var(--text3); font-size: 14px; }
-/* Toast */
-.toast {
-  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: var(--text); color: var(--surface);
-  padding: 9px 18px; border-radius: 99px; font-size: 13px; font-weight: 600;
-  opacity: 0; transition: all .25s; pointer-events: none; z-index: 999;
-  white-space: nowrap;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-/* Section divider */
-.divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
-.divider-line { flex: 1; height: 1px; background: var(--border); }
-.divider-txt { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
-/* Star toggle */
-.star-btn {
-  background: transparent; border: none; cursor: pointer;
-  font-size: 20px; color: var(--text3); padding: 4px; line-height: 1;
-  transition: color .15s;
-}
-.star-btn.starred { color: #F59E0B; }
-/* Empty state */
-.empty-block { text-align: center; padding: 40px 20px; color: var(--text3); }
-.empty-block i { font-size: 36px; margin-bottom: 10px; display: block; }
-.empty-block p { font-size: 13px; line-height: 1.6; }
-/* Highlight */
-mark { background: var(--accent-light); color: var(--accent-text); border-radius: 3px; padding: 0 2px; }
+.ga-card:active { transform: scale(.97); }
+.ga-card.male { border-top: 3px solid var(--blue); }
+.ga-card.female { border-top: 3px solid var(--rose); }
+.ga-card .ga-ico { font-size: 24px; margin-bottom: 4px; }
+.ga-card .ga-gender { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 1px; }
+.ga-card.male .ga-gender { color: var(--blue); }
+.ga-card.female .ga-gender { color: var(--rose); }
+.ga-card .ga-age { font-size: 15px; font-weight: 700; color: var(--text); }
+.ga-card .ga-sub { font-size: 11px; color: var(--text3); }
+.ga-card .ga-count { font-size: 10px; background: var(--surface2); color: var(--text3); 
+  padding: 2px 7px; border-radius: 99px; font-weight: 600; margin-top: 4px; display: inline-block; }
+
+/* Foreign category card */
+.ga-card.foreign { border-top: 3px solid var(--accent); }
+.ga-card.foreign .ga-gender { color: var(--accent); }
+.ga-full { grid-column: 1 / -1; }
+.foreign-sit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 </style>
 </head>
 <body data-theme="light">
-
 <div class="app">
-  <!-- Top bar -->
   <div class="topbar">
-    <span class="topbar-title" id="topbar-title">대화 가이드</span>
+    <div style="display:flex;align-items:center">
+      <span class="topbar-title">대화 가이드</span>
+      <span class="topbar-badge">v2</span>
+    </div>
     <div class="topbar-actions">
-      <button class="icon-btn" onclick="openSearch()" title="검색"><i class="ti ti-search"></i></button>
-      <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="다크모드"><i class="ti ti-moon"></i></button>
+      <button class="icon-btn" onclick="toggleTheme()" title="다크모드"><i class="ti ti-moon"></i></button>
     </div>
   </div>
 
-  <!-- Pages -->
+  <!-- Page: Guide (wizard) -->
   <div class="page active" id="page-guide">
-    <div id="guide-content"></div>
+    <div id="wizard"></div>
   </div>
 
+  <!-- Page: Browse -->
+  <div class="page" id="page-browse">
+    <div style="padding:4px 0 12px">
+      <div class="sec-h">전체 상황 둘러보기</div>
+      <div class="sec-s">장소 또는 대상 필터로 빠르게 찾아보세요</div>
+    </div>
+    <!-- Place filter -->
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📍 장소 필터</div>
+    <div class="place-row" id="place-filter-row"></div>
+    <!-- Stage filter -->
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔄 만남 단계</div>
+    <div class="stage-tabs" id="stage-filter-row"></div>
+    <div class="divider"></div>
+    <div class="card" id="browse-list" style="overflow:hidden"></div>
+  </div>
+
+  <!-- Page: Bookmarks -->
   <div class="page" id="page-fav">
-    <div id="fav-content"></div>
+    <div style="padding:4px 0 12px">
+      <div class="sec-h">즐겨찾기</div>
+      <div class="sec-s">저장한 상황들이 여기에 모여요</div>
+    </div>
+    <div id="fav-list"></div>
   </div>
 
-  <div class="page" id="page-recent">
-    <div id="recent-content"></div>
-  </div>
-
-  <div class="page" id="page-notes">
-    <div id="notes-content"></div>
-  </div>
-
-  <!-- Bottom Nav -->
   <nav class="bottom-nav">
-    <button class="nav-btn active" id="nav-guide" onclick="showPage('guide')">
-      <i class="ti ti-compass"></i>가이드
-    </button>
-    <button class="nav-btn" id="nav-fav" onclick="showPage('fav')">
-      <i class="ti ti-star"></i>즐겨찾기
-    </button>
-    <button class="nav-btn" id="nav-recent" onclick="showPage('recent')">
-      <i class="ti ti-history"></i>최근 기록
-    </button>
-    <button class="nav-btn" id="nav-notes" onclick="showPage('notes')">
-      <i class="ti ti-pencil"></i>나의 경험
-    </button>
+    <button class="nav-btn active" onclick="showPage('guide')" id="nav-guide"><i class="ti ti-route"></i>가이드</button>
+    <button class="nav-btn" onclick="showPage('browse')" id="nav-browse"><i class="ti ti-layout-list"></i>둘러보기</button>
+    <button class="nav-btn" onclick="showPage('fav')" id="nav-fav"><i class="ti ti-bookmark"></i>즐겨찾기</button>
   </nav>
 </div>
 
-<!-- Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-  <div class="search-top">
-    <input class="search-input" id="search-input" type="text" placeholder="상황, 키워드로 검색..." oninput="doSearch(this.value)" autocomplete="off">
-    <button class="search-cancel" onclick="closeSearch()">취소</button>
-  </div>
-  <div class="search-results" id="search-results"></div>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
 <script>
-// ─── DATA ───────────────────────────────────────────────────────────
+// ── DATA ──────────────────────────────────────────────────────────────────────
+// places: 장소 필터값 (각 상황에 places:[] 배열로 연결)
+// stages: 만남 단계 (first / second / ongoing)
+
+const PLACES = [
+  {id:'all',        label:'전체',       icon:'ti-layout-grid'},
+  {id:'bus',        label:'버스정류장',   icon:'ti-bus'},
+  {id:'park',       label:'공원·광장',   icon:'ti-trees'},
+  {id:'campus',     label:'교내·학교',   icon:'ti-school'},
+  {id:'display',    label:'전시대 앞',   icon:'ti-books'},
+  {id:'shop',       label:'카페·상가',   icon:'ti-coffee'},
+  {id:'street',     label:'길·횡단보도', icon:'ti-walk'},
+  {id:'restaurant', label:'식당·노점',   icon:'ti-tools-kitchen-2'},
+  {id:'store',      label:'약국·편의점', icon:'ti-building-store'},
+  {id:'crosswalk',  label:'신호등·횡단보도', icon:'ti-traffic-lights'},
+];
+
+const STAGES = [
+  {id:'all', label:'전체'},
+  {id:'first', label:'🌱 첫 만남'},
+  {id:'second', label:'🤝 재방문'},
+  {id:'ongoing', label:'💚 관계 형성'},
+];
+
+
+const DF = {
+  label:"외국인",ico:"ti-world",
+  situations:{
+    student:{
+      label:"유학생·어학연수생", ico:"ti-school",
+      places:['bus','campus','park','display'],
+      stages:['first','second','ongoing'],
+      opener:"어느 나라에서 오셨어요? 신짜오! / 쓰어 쓰더이밧! (해당 언어로 인사)",
+      note:"모국어 한마디가 마음을 여는 열쇠예요",
+      convo:[
+        {r:"we",t:"어느 나라에서 오셨어요? (모국어로 인사)"},
+        {r:"them",t:"어떻게 알았어요? 깜짝 놀랐어요!"},
+        {r:"we",t:"모든 민족에게 좋은 소식을 전하기 위해 조금 배웠어요. 한국 생활은 어때요?"},
+        {r:"them",t:"아르바이트 구하기가 어려워요. 한국어가 서툴러서요."},
+        {r:"we",t:"정말 용감하게 유학을 선택했네요! jw.org에 해당 언어 자료가 있어요. 도움 필요하면 연락해요!"},
+      ],
+      tip:"모국어 인사 한마디가 분위기를 완전히 바꿔요. 미리 짧은 인사말을 준비해두세요.",
+      followup:{
+        second:"생활은 좀 익숙해졌어요? 도움 필요한 거 있으면 말해줘요!",
+        ongoing:"실질적 도움(생활 정보, 아르바이트 등)이 깊은 신뢰의 토대가 돼요. 성경 이야기는 그 다음이에요.",
+      }
+    },
+    worker:{
+      label:"직장인·노동자", ico:"ti-briefcase",
+      places:['bus','park','campus','display'],
+      stages:['first','second','ongoing'],
+      opener:"정말 성실하게 일하시는 것 같아요. 한국에 오신 지 얼마나 됐어요?",
+      note:"수고와 책임감을 진심으로 인정해주는 것이 먼저예요",
+      convo:[
+        {r:"we",t:"어느 나라에서 오셨어요? 한국 생활은 어떠세요?"},
+        {r:"them",t:"공장에서 일하고 있어요. 힘들지만 가족을 위해서요."},
+        {r:"we",t:"가족을 위해 이렇게 열심히 하시다니 정말 대단해요! 쉬는 날은 어떻게 보내세요?"},
+        {r:"them",t:"(이야기 나눔)"},
+        {r:"we",t:"저기 전시대에서 자원봉사하고 있어요. 해당 언어 자료도 있으니 편하게 들러요!"},
+      ],
+      tip:"가족을 위해 일하는 모습을 진심으로 칭찬하면 마음을 쉽게 열어요.",
+      followup:{
+        second:"요즘 어떻게 지내세요? 지난번에 이야기 나눴던 게 마음에 남아서요.",
+        ongoing:"같은 시간대에 같은 장소에서 만나면 자연스럽게 관계가 깊어져요.",
+      }
+    },
+    family:{
+      label:"아기·자녀 동반 가족", ico:"ti-baby-carriage",
+      places:['park','bus','campus'],
+      stages:['first','second','ongoing'],
+      opener:"아이가 너무 귀엽네요! 어느 나라에서 오셨어요?",
+      note:"아이 칭찬 → 부모 마음 열기 → 해당 언어 자료 소개",
+      convo:[
+        {r:"we",t:"아이가 너무 귀엽네요! 어느 나라에서 오셨어요?"},
+        {r:"them",t:"카자흐스탄에서 왔어요."},
+        {r:"we",t:"(러시아어로) 안녕하세요! 요즘 한국 물가가 많이 올랐죠? 힘드시겠어요."},
+        {r:"them",t:"맞아요, 정말 비싸요."},
+        {r:"we",t:"jw.org에 생활에 도움이 되는 기사가 해당 언어로도 있어요. QR코드 카드 드릴게요!"},
+      ],
+      tip:"언어가 안 통해도 아이에게 관심을 보이면 부모의 경계심이 낮아져요. 번역 앱도 적극 활용하세요.",
+      followup:{
+        second:"아이는 잘 크고 있어요? 지난번에 많이 마음에 남았어요.",
+        ongoing:"아이 관련 실용 정보(육아, 교육)를 자연스럽게 연결해보세요.",
+      }
+    },
+    traveler:{
+      label:"여행객·단기 체류자", ico:"ti-map-pin",
+      places:['park','bus','display'],
+      stages:['first'],
+      opener:"여행으로 오셨나요? 안성은 어떠세요?",
+      note:"짧은 만남이라도 QR카드로 연결 고리를 남겨요",
+      convo:[
+        {r:"we",t:"어느 나라에서 오셨어요? 여행 중이세요?"},
+        {r:"them",t:"중국에서 왔어요. 며칠 있다 돌아가요."},
+        {r:"we",t:"그러시군요! 돌아가시면 우리 명함의 QR코드 찍어 중국어로 내용 보실 수 있어요."},
+        {r:"them",t:"(명함 받음)"},
+        {r:"we",t:"여호와께서 어디서든 기억하실 거예요. 좋은 여행 되세요!"},
+      ],
+      tip:"짧은 만남이라도 자국어 QR카드를 전달하면 고국에서도 연결이 이어질 수 있어요.",
+      followup:{
+        second:"(해당 없음 - 단기 체류자는 재방문이 어려워요)",
+        ongoing:"SNS나 연락처 교환이 가능하면 귀국 후 연결 통로가 돼요.",
+      }
+    },
+    language_barrier:{
+      label:"언어 장벽 상황", ico:"ti-message-language",
+      places:['bus','park','display','campus'],
+      stages:['first','second'],
+      opener:"(번역 앱 열며) 제가 도와드릴게요! 어느 나라 말을 하세요?",
+      note:"언어가 안 통할 때: 번역 앱 → QR코드 → 팀원 연결 순서로",
+      convo:[
+        {r:"we",t:"(번역 앱 활용) 어느 나라에서 오셨어요?"},
+        {r:"them",t:"한국어 못해요. (자국어로)"},
+        {r:"we",t:"(앱으로) jw.org에서 해당 언어로 내용을 보실 수 있어요. QR코드예요!"},
+        {r:"them",t:"(QR코드 받음)"},
+        {r:"we",t:"(앱으로) 도움 필요하면 연락해요. 함께 찾아드릴게요!"},
+      ],
+      tip:"언어가 안 통하면 당황하지 말고 번역 앱 → QR카드 → 해당 언어 가능한 팀원 연결 순으로 대응하세요. 소통이 안 돼도 따뜻한 표정과 태도가 큰 인상을 남겨요.",
+      followup:{
+        second:"해당 언어 가능한 자매·형제와 함께 재방문하면 훨씬 깊은 대화가 가능해요.",
+        ongoing:"해당 언어 자료와 앱 활용으로 지속적인 연결을 유지해보세요.",
+      }
+    },
+  }
+};
+
 const D = {
-  male:{label:"남성",ages:{
+  male:{label:"남성",ico:"ti-man",ages:{
     youth:{label:"10~20대",sub:"청년·학생",situations:{
-      commute:{label:"하교·통학 중",opener:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요!",note:"상황에 맞는 질문 + 칭찬으로 시작",convo:[
-        {r:"we",t:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요."},
-        {r:"them",t:"네, 막 수업 끝났어요."},
-        {r:"we",t:"혹시 예수님에 대해 들어보셨어요? 예수께서 이 땅에 오셔서 돌아가신 이유가 있는데, 궁금하지 않으세요?"},
-        {r:"them",t:"궁금하긴 한데 자세히는 모르겠어요."},
-        {r:"we",t:"이 QR코드로 간단히 확인해 보실 수 있어요. 나중에 더 이야기 나눌 수 있으면 좋겠네요!"},
-      ],tip:"이동 중인 상황이면 무리하게 길게 끌지 말고 QR카드나 연락처 교환으로 연결하세요."},
-      exam:{label:"취업·시험 스트레스",opener:"시험 기간이라 고생이 많겠네요. 사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 점수 몇 번으로 가치를 평가받는 게 좀 안타깝죠?",note:"공감 → 인간의 가치로 연결",convo:[
-        {r:"we",t:"시험 기간이라 힘들겠네요. 수고가 많아요."},
-        {r:"them",t:"네, 너무 바빠요."},
-        {r:"we",t:"사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 시험 점수 몇 번으로 평가받는 게 조금 안타깝지 않으세요?"},
-        {r:"them",t:"맞아요, 그런 생각 든 적 있어요."},
-        {r:"we",t:"사람이 능력을 온전히 발휘할 수 있다면 어떤 세상일까, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
-      ],tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요."},
-      interest:{label:"소지품·취미 계기",opener:"가방에 달린 인형 너무 귀엽네요! 어디서 사셨어요?",note:"관찰 → 소지품·관심사로 대화 시작",convo:[
-        {r:"we",t:"가방 인형 너무 귀엽네요!"},
-        {r:"them",t:"감사해요 하하."},
-        {r:"we",t:"혹시 학생이세요? 전공이 뭐예요?"},
-        {r:"them",t:"한경대 다니고 있어요."},
-        {r:"we",t:"jw.org에 학교생활·친구 관계에 도움이 되는 무료 자료가 많아요. 한번 들어가 보실래요?"},
-      ],tip:"소지품 → 학생 신분 확인 → 실용적 자료 소개 순서로 거부감을 줄여요."},
-      war:{label:"전쟁·사회 문제 관심",opener:"전쟁이 없어질 때가 올까요? 역사를 보면 어느 순간부터 전쟁이 더 많아졌다는 점이 신기하지 않으세요?",note:"사회 이슈 → 성경 예언으로 연결",convo:[
-        {r:"we",t:"전쟁이 없어질 때가 올까요?"},
-        {r:"them",t:"역사적으로 계속 있어왔으니 없어지기 어렵겠죠."},
-        {r:"we",t:"맞아요. 그런데 성경에는 이런 시대가 올 것을 이미 예언한 내용이 있어요. 신기하지 않아요?"},
-        {r:"them",t:"그게 어디에 있어요?"},
-        {r:"we",t:"디모데후서 3:1-3에 사람들의 태도 변화가 나와 있어요. 또 전쟁이 끝날 것이라는 희망도 있고요. 다음에 더 이야기 나눠요!"},
-      ],tip:"전쟁·사회 문제는 20대 남성이 관심 많아요. 관련 성구를 미리 준비해 두세요."},
+      crosswalk:{label:"신호등·횡단보도",ico:"ti-traffic-lights",
+        places:['crosswalk','street'],stages:['first'],
+        opener:"신호 기다리는 동안 잠깐 말씀드려도 될까요?",
+        note:"짧은 대기 시간 - 30초 이내 핵심 한 마디로 인상 남기기",
+        convo:[
+          {r:"we",t:"신호 기다리시는 동안 잠깐요! 전쟁이 언제 끝날지 궁금하지 않으세요?"},
+          {r:"them",t:"(멈추며) 갑자기요?"},
+          {r:"we",t:"저기 전시대에서 자원봉사하는 사람이에요. 성경에 그 답이 있어요!"},
+          {r:"them",t:"(관심 또는 통과)"},
+          {r:"we",t:"시간 되실 때 들러주세요. 매주 이 시간에 여기 있어요!"},
+        ],
+        tip:"신호 대기는 30초~1분이에요. 한 가지 질문으로 흥미를 자극하고 전시대 위치를 안내하는 것으로 충분해요.",
+        followup:{
+          second:"(해당 없음 - 다시 만나면 이전 기억을 언급하며 시작)",
+          ongoing:"횡단보도에서 만난 분이 전시대를 찾아오면 그때부터 깊은 대화가 가능해요.",
+        }},
+      commute:{label:"하교·통학 중",ico:"ti-backpack",
+        places:['bus','campus','street'],stages:['first'],
+        opener:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요!",
+        note:"상황에 맞는 질문 + 칭찬으로 시작",
+        convo:[
+          {r:"we",t:"학교 끝나셨나 봐요? 지금 참 좋은 나이시네요."},
+          {r:"them",t:"네, 막 수업 끝났어요."},
+          {r:"we",t:"혹시 예수님에 대해 들어보셨어요? 예수께서 이 땅에 오셔서 돌아가신 이유가 있는데, 궁금하지 않으세요?"},
+          {r:"them",t:"궁금하긴 한데 자세히는 모르겠어요."},
+          {r:"we",t:"이 QR코드로 간단히 확인해 보실 수 있어요. 나중에 더 이야기 나눌 수 있으면 좋겠네요!"},
+        ],
+        tip:"이동 중인 상황이면 무리하게 길게 끌지 말고 QR카드나 연락처 교환으로 연결하세요.",
+        followup:{
+          second:"이전에 말씀드린 QR 혹시 들어가 보셨어요? 오늘 시간 있으면 잠깐 같이 살펴봐요.",
+          ongoing:"매주 같은 시간에 봉사하니 다음에 또 반갑게 인사해요. 연락처 교환할 수 있으면 더 좋고요!",
+        }},
+      exam:{label:"취업·시험 스트레스",ico:"ti-file-text",
+        places:['bus','campus'],stages:['first'],
+        opener:"시험 기간이라 고생이 많겠네요. 사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 점수 몇 번으로 가치를 평가받는 게 좀 안타깝죠?",
+        note:"공감 → 인간의 가치로 연결",
+        convo:[
+          {r:"we",t:"시험 기간이라 힘들겠네요. 수고가 많아요."},
+          {r:"them",t:"네, 너무 바빠요."},
+          {r:"we",t:"사람의 뇌가 엄청난 정보를 저장할 수 있다는데, 시험 점수 몇 번으로 평가받는 게 조금 안타깝지 않으세요?"},
+          {r:"them",t:"맞아요, 그런 생각 든 적 있어요."},
+          {r:"we",t:"사람이 능력을 온전히 발휘할 수 있다면 어떤 세상일까, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
+        ],
+        tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요.",
+        followup:{
+          second:"지난번에 스트레스 이야기 하셨잖아요. jw.org에 스트레스 극복 기사가 있어요. 같이 보실래요?",
+          ongoing:"취업 준비 잘 되고 있어요? 진심으로 응원해요. 언제든 이야기 나누고 싶어요.",
+        }},
+      interest:{label:"소지품·취미 계기",ico:"ti-camera",
+        places:['bus','campus','park'],stages:['first'],
+        opener:"가방에 달린 인형 너무 귀엽네요! 어디서 사셨어요?",
+        note:"관찰 → 소지품·관심사로 대화 시작",
+        convo:[
+          {r:"we",t:"가방 인형 너무 귀엽네요!"},
+          {r:"them",t:"감사해요 하하."},
+          {r:"we",t:"혹시 학생이세요? 전공이 뭐예요?"},
+          {r:"them",t:"한경대 다니고 있어요."},
+          {r:"we",t:"jw.org에 학교생활·친구 관계에 도움이 되는 무료 자료가 많아요. 한번 들어가 보실래요?"},
+        ],
+        tip:"소지품 → 학생 신분 확인 → 실용적 자료 소개 순서로 거부감을 줄여요.",
+        followup:{
+          second:"지난번에 사이트 알려드렸는데 혹시 들어가 보셨어요? 마음에 드는 내용이 있었나요?",
+          ongoing:"대화 주제가 생기면 자연스럽게 성경 이야기로 연결해 볼 수 있어요.",
+        }},
+      war:{label:"전쟁·사회 문제 관심",ico:"ti-world",
+        places:['bus','display','park'],stages:['first'],
+        opener:"전쟁이 없어질 때가 올까요? 역사를 보면 어느 순간부터 전쟁이 더 많아졌다는 점이 신기하지 않으세요?",
+        note:"사회 이슈 → 성경 예언으로 연결",
+        convo:[
+          {r:"we",t:"전쟁이 없어질 때가 올까요?"},
+          {r:"them",t:"역사적으로 계속 있어왔으니 없어지기 어렵겠죠."},
+          {r:"we",t:"맞아요. 그런데 성경에는 이런 시대가 올 것을 이미 예언한 내용이 있어요. 신기하지 않아요?"},
+          {r:"them",t:"그게 어디에 있어요?"},
+          {r:"we",t:"디모데후서 3:1-3에 사람들의 태도 변화가 나와 있어요. 또 전쟁이 끝날 것이라는 희망도 있고요. 다음에 더 이야기 나눠요!"},
+        ],
+        tip:"전쟁·사회 문제는 20대 남성이 관심 많아요. 관련 성구를 미리 준비해 두세요.",
+        followup:{
+          second:"전쟁 이야기 하셨잖아요. 성경의 예언이 얼마나 구체적인지 같이 확인해볼게요!",
+          ongoing:"사회 문제에 관심 있는 분이라면 성경 연구를 제안해봐도 좋아요.",
+        }},
+      religion_exp:{label:"예전 교회 경험",ico:"ti-building-church",
+        places:['bus','campus','park'],stages:['first'],
+        opener:"왜 우리는 부활이 아니라 예수의 죽음을 기념할까요?",
+        note:"기존 신앙 경험 → 새로운 시각 제시",
+        convo:[
+          {r:"we",t:"혹시 예전에 교회 다니신 적 있으세요?"},
+          {r:"them",t:"예전엔 좀 다녔는데 지금은 안 가요."},
+          {r:"we",t:"저도 성경을 직접 살펴보고 싶어서 공부하기 시작했어요. '왜 예수의 죽음을 기념할까요?'라는 점이 흥미롭지 않으세요?"},
+          {r:"them",t:"처음 생각해보는 것 같아요."},
+          {r:"we",t:"관심 있으시면 함께 살펴볼 수 있어요. 연락처 교환해도 될까요?"},
+        ],
+        tip:"교회에 회의감이 있는 분께는 '성경을 직접 보는' 접근이 효과적이에요.",
+        followup:{
+          second:"지난번 이야기가 기억이 나요. 궁금했던 부분 있으셨나요? 같이 확인해봐요.",
+          ongoing:"성경 연구를 자연스럽게 제안해볼 수 있는 단계예요.",
+        }},
     }},
     middle:{label:"30~50대",sub:"중장년",situations:{
-      waiting:{label:"버스정류장·대기 중",opener:"혹시 무엇을 찾고 계세요? 제가 도와드릴 수 있을까요?",note:"도움 먼저 → 공통점 발견 → 대화 확장",convo:[
-        {r:"we",t:"무엇을 찾고 계세요? 도움이 필요하신가요?"},
-        {r:"them",t:"버스 시간표를 보고 있었어요."},
-        {r:"we",t:"(노선 안내 후) 고향이 어디세요? 저는 전남 신안 쪽인데요."},
-        {r:"them",t:"저도 그쪽 출신이에요."},
-        {r:"we",t:"어렵고 힘든 상황에 계신 것 같아서 친구가 되어드리고 싶어요. 저기 전시대에서 정기적으로 봉사하고 있으니 들러주세요."},
-      ],tip:"뇌출혈, 장애 등 어려운 상황의 분께는 '친구가 되어드릴 수 있다'는 말이 마음을 열어요."},
-      health:{label:"건강 문제·간병 중",opener:"앞으로는 아픈 사람이 없게 될 것이라는 말씀을 들어보신 적 있으세요?",note:"건강 공감 → 성경의 희망으로 연결",convo:[
-        {r:"we",t:"많이 힘드시겠어요. 앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요?"},
-        {r:"them",t:"그런 말이 있나요?"},
-        {r:"we",t:"이사야 33:24에 '이 나라 백성이 아프다고 말하지 않을 것이다'라는 말씀이 있어요."},
-        {r:"them",t:"성경에 그런 내용이 있어요?"},
-        {r:"we",t:"네! 직접 보여드릴까요? 토요일마다 같은 시간에 전시대 봉사를 하니 다시 뵐 수 있으면 좋겠습니다."},
-      ],tip:"건강 문제에 공감하면서 희망의 성구로 연결할 때 자연스럽고 위로가 돼요."},
-      hobby:{label:"취미·특기 있는 분",opener:"카메라로 사진 찍으시는 분이세요? 정말 멋진 취미네요!",note:"관찰 → 취미 칭찬 → 공통 관심사 발견",convo:[
-        {r:"we",t:"혹시 사진 작가이신가요? 카메라가 멋있네요!"},
-        {r:"them",t:"취미로 찍고 있어요."},
-        {r:"we",t:"대단하시네요. 어떤 주제를 주로 찍으세요?"},
-        {r:"them",t:"(이야기 나눔)"},
-        {r:"we",t:"저기 전시대에서 자원봉사하고 있어요. 다음에 또 뵙고 이야기 나누고 싶네요!"},
-      ],tip:"30분 이상 대화가 자연스럽게 이어질 수 있어요. 전시대는 마지막에 소개해도 충분해요."},
-      religion:{label:"예전 교회 경험",opener:"왜 우리는 부활이 아니라 예수의 죽음을 기념할까요?",note:"기존 신앙 경험 → 새로운 시각 제시",convo:[
-        {r:"we",t:"혹시 예전에 교회 다니신 적 있으세요?"},
-        {r:"them",t:"예전엔 좀 다녔는데 지금은 안 가요."},
-        {r:"we",t:"저도 성경을 직접 살펴보고 싶어서 공부하기 시작했어요. '왜 예수의 죽음을 기념할까요?'라는 점이 흥미롭지 않으세요?"},
-        {r:"them",t:"처음 생각해보는 것 같아요."},
-        {r:"we",t:"관심 있으시면 함께 살펴볼 수 있어요. 연락처 교환해도 될까요?"},
-      ],tip:"교회에 회의감이 있는 분께는 '성경을 직접 보는' 접근이 효과적이에요."},
+      waiting:{label:"버스정류장·대기 중",ico:"ti-clock",
+        places:['bus'],stages:['first'],
+        opener:"혹시 무엇을 찾고 계세요? 제가 도와드릴 수 있을까요?",
+        note:"도움 먼저 → 공통점 발견 → 대화 확장",
+        convo:[
+          {r:"we",t:"무엇을 찾고 계세요? 도움이 필요하신가요?"},
+          {r:"them",t:"버스 시간표를 보고 있었어요."},
+          {r:"we",t:"(노선 안내 후) 고향이 어디세요? 저는 전남 신안 쪽인데요."},
+          {r:"them",t:"저도 그쪽 출신이에요."},
+          {r:"we",t:"어렵고 힘든 상황에 계신 것 같아서 친구가 되어드리고 싶어요. 저기 전시대에서 정기적으로 봉사하고 있으니 들러주세요."},
+        ],
+        tip:"뇌출혈, 장애 등 어려운 상황의 분께는 '친구가 되어드릴 수 있다'는 말이 마음을 열어요.",
+        followup:{
+          second:"지난번 버스 잘 타셨어요? 오늘도 뵙게 되니 반갑네요!",
+          ongoing:"같은 시간대에 자주 만나면 자연스럽게 관계가 깊어져요.",
+        }},
+      health:{label:"건강 문제·간병 중",ico:"ti-heart-rate-monitor",
+        places:['bus','park'],stages:['first'],
+        opener:"앞으로는 아픈 사람이 없게 될 것이라는 말씀을 들어보신 적 있으세요?",
+        note:"건강 공감 → 성경의 희망으로 연결",
+        convo:[
+          {r:"we",t:"많이 힘드시겠어요. 앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요?"},
+          {r:"them",t:"그런 말이 있나요?"},
+          {r:"we",t:"이사야 33:24에 '이 나라 백성이 아프다고 말하지 않을 것이다'라는 말씀이 있어요."},
+          {r:"them",t:"성경에 그런 내용이 있어요?"},
+          {r:"we",t:"네! 직접 보여드릴까요? 토요일마다 같은 시간에 전시대 봉사를 하니 다시 뵐 수 있으면 좋겠습니다."},
+        ],
+        tip:"건강 문제에 공감하면서 희망의 성구로 연결할 때 자연스럽고 위로가 돼요.",
+        followup:{
+          second:"몸은 좀 어떠세요? 지난번 말씀하신 게 마음에 남아서요.",
+          ongoing:"간병 중이신 분께는 아픔 없는 세상이라는 주제로 성경 이야기를 이어가보세요.",
+        }},
+      hobby:{label:"취미·특기 있는 분",ico:"ti-camera",
+        places:['park','street','campus'],stages:['first'],
+        opener:"카메라로 사진 찍으시는 분이세요? 정말 멋진 취미네요!",
+        note:"관찰 → 취미 칭찬 → 공통 관심사 발견",
+        convo:[
+          {r:"we",t:"혹시 사진 작가이신가요? 카메라가 멋있네요!"},
+          {r:"them",t:"취미로 찍고 있어요."},
+          {r:"we",t:"대단하시네요. 어떤 주제를 주로 찍으세요?"},
+          {r:"them",t:"(이야기 나눔)"},
+          {r:"we",t:"저기 전시대에서 자원봉사하고 있어요. 다음에 또 뵙고 이야기 나누고 싶네요!"},
+        ],
+        tip:"30분 이상 대화가 자연스럽게 이어질 수 있어요. 전시대는 마지막에 소개해도 충분해요.",
+        followup:{
+          second:"지난번 사진 이야기가 너무 즐거웠어요. 오늘은 좀 더 이야기 나눠봐요!",
+          ongoing:"관심사 중심 대화가 쌓이면 자연스럽게 신앙 이야기로 연결할 수 있어요.",
+        }},
+      religion:{label:"예전 교회 경험",ico:"ti-building-church",
+        places:['bus','park','street'],stages:['first'],
+        opener:"왜 우리는 부활이 아니라 예수의 죽음을 기념할까요?",
+        note:"기존 신앙 경험 → 새로운 시각 제시",
+        convo:[
+          {r:"we",t:"혹시 예전에 교회 다니신 적 있으세요?"},
+          {r:"them",t:"예전엔 좀 다녔는데 지금은 안 가요."},
+          {r:"we",t:"저도 성경을 직접 살펴보고 싶어서 공부하기 시작했어요."},
+          {r:"them",t:"처음 생각해보는 것 같아요."},
+          {r:"we",t:"관심 있으시면 연락처 교환해도 될까요?"},
+        ],
+        tip:"교회에 회의감이 있는 분께는 성경 직접 보기 접근이 효과적이에요.",
+        followup:{
+          second:"지난번 교회 이야기 하셨잖아요. 성경에서 직접 확인해보면 어떨까요?",
+          ongoing:"성경 연구를 자연스럽게 제안해봐도 좋은 단계예요.",
+        }},
+      restaurant_owner:{label:"식당·노점 운영자",ico:"ti-tools-kitchen-2",
+        places:['restaurant'],stages:['first','second','ongoing'],
+        opener:"날도 더운데 장사는 잘 되세요? 항상 수고가 많으세요!",
+        note:"가게 앞 쉬는 시간에 접근 - 반론이 와도 공통점으로 대화 이어가기",
+        convo:[
+          {r:"we",t:"날도 더운데 장사는 잘 되세요? 항상 수고가 많으세요!"},
+          {r:"them",t:"한경대 앞에서 선교하는 사람들이지? 사람들한테 종교 강요하지 마요."},
+          {r:"we",t:"강요하는 건 아니에요. 오히려 관심 있는 분들과 이야기 나누는 거예요."},
+          {r:"them",t:"그래도 종교는 좀 그래요."},
+          {r:"we",t:"가족을 위해 열심히 일하시는 모습, 정말 책임감 있으세요. 그런 분들이 좋아요!"},
+          {r:"them",t:"(표정이 부드러워짐)"},
+        ],
+        tip:"반론이 있어도 논쟁하지 말고 상대의 좋은 점을 진심으로 칭찬하면 태도가 바뀌어요. 주기적으로 인사드리며 관계를 쌓아가세요.",
+        followup:{
+          second:"지난번에 이야기 나눴는데 기억하실지 모르겠어요. 다시 인사드리러 왔어요!",
+          ongoing:"같은 지역에서 꾸준히 봉사하면 자연스럽게 얼굴을 익히고 관계가 깊어져요.",
+        }},
+      cafe_worker:{label:"카페·상가 직원",ico:"ti-coffee",
+        places:['shop'],stages:['first','second','ongoing'],
+        opener:"여기서 일하신 지 꽤 됐나봐요? 한결같이 밝은 모습이 인상적이에요!",
+        note:"꾸준함 칭찬 → 정기 방문으로 관계 형성",
+        convo:[
+          {r:"we",t:"여기 자주 오는데 항상 밝게 맞아주셔서 감사해요."},
+          {r:"them",t:"오래됐어요, 거의 1년 반 됐어요."},
+          {r:"we",t:"1년 반을 한 곳에서 꾸준히 하시다니 정말 대단하세요!"},
+          {r:"them",t:"감사해요 하하."},
+          {r:"we",t:"오늘도 좋은 하루 보내세요. 다음에 또 올게요!"},
+        ],
+        tip:"급하게 성경 주제로 전환하지 말고 먼저 서로 정이 드는 게 중요해요. 정기 방문으로 관계를 쌓으세요.",
+        followup:{
+          second:"저번에 이런저런 이야기 나눴는데, 오늘도 시간 있으세요?",
+          ongoing:"친밀감이 쌓인 후 진로, 고민 등을 들어주고 자연스럽게 성경 이야기를 꺼낼 수 있어요.",
+        }},
     }},
     senior:{label:"60대 이상",sub:"어르신",situations:{
-      park:{label:"공원·야외에서",opener:"이 지역에서 오래 사셨나 봐요. 가볼 만한 좋은 곳 추천해 주실 수 있어요?",note:"지역 연고·경험 존중으로 시작",convo:[
-        {r:"we",t:"이 지역에서 오래 사셨나 봐요. 좋은 곳 있으면 알려주세요!"},
-        {r:"them",t:"(지역 이야기 나눔)"},
-        {r:"we",t:"저희는 한경대 입구에서 성경을 무료로 소개하고 있어요. 혹시 종교가 있으세요?"},
-        {r:"them",t:"아내 잃고 나서 절에 가던 것도 끊었어요."},
-        {r:"we",t:"많이 힘드시겠어요. 성경에는 돌아가신 분에 대한 희망의 말씀도 있어요. 한번 보여드려도 될까요?"},
-      ],tip:"사별한 분께는 부활의 희망이 큰 위로가 돼요. 먼저 충분히 공감해드리세요."},
-      bus:{label:"버스정류장에서",opener:"어디 가시는 길이에요? 제가 버스 찾아드릴게요!",note:"실용적 도움 먼저 → 대화 자연스럽게 이어가기",convo:[
-        {r:"we",t:"어디 가시는 길이에요? 버스 찾아드릴까요?"},
-        {r:"them",t:"수원 방면 버스가 어디서 서는지 몰라서요."},
-        {r:"we",t:"(안내 후) 저희는 저기서 전시대 봉사를 하는 사람들이에요. 성경에 관심 있으세요?"},
-        {r:"them",t:"예수에 대해선 잘 모르는데요."},
-        {r:"we",t:"기원전·기원후라는 말 들어보셨죠? 그 기준이 예수님이에요. 잠깐 이야기해도 될까요?"},
-      ],tip:"버스 노선을 잘 알아두면 도움 제공에서 자연스럽게 대화로 연결할 수 있어요."},
-      health:{label:"몸이 불편하신 분",opener:"세상에 아픈 사람이 없게 될 때가 온다면 얼마나 좋을까요?",note:"건강 공감 → 성경의 희망 소개",convo:[
-        {r:"we",t:"많이 힘드시겠어요. 아픈 사람이 없는 세상이 온다면 얼마나 좋을까요?"},
-        {r:"them",t:"그런 날이 올까요?"},
-        {r:"we",t:"성경 이사야 33:24에 그런 희망의 말씀이 있어요. 직접 보여드릴까요?"},
-        {r:"them",t:"어떤 내용인데요?"},
-        {r:"we",t:"(성구 보여드린 후) 또 만나 뵐 수 있으면 좋겠어요. 다음에도 이 시간에 여기 있을게요."},
-      ],tip:"짧은 만남이라도 다시 만날 기회를 만들어두면 관계가 이어져요."},
-      death:{label:"사별·상실의 아픔",opener:"사랑하는 분을 잃으셨군요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?",note:"깊은 공감 → 부활 희망으로 연결",convo:[
-        {r:"we",t:"아내 생각에 많이 힘드시겠어요."},
-        {r:"them",t:"그렇죠, 요즘도 힘이 빠져요."},
-        {r:"we",t:"다시 만날 수 있다는 희망이 있다면 어떻겠어요? 성경에 부활에 관한 말씀이 있어요."},
-        {r:"them",t:"그런 이야기가 있어요?"},
-        {r:"we",t:"이 전도지에 QR코드가 있는데, 집에서 차분히 읽어보시면 좋을 것 같아요. 다음에 운동 나오시면 또 뵙겠습니다."},
-      ],tip:"연락처를 꺼려하시면 같은 장소·시간에 다시 만날 약속을 해두세요."},
+      park:{label:"공원·야외에서",ico:"ti-trees",
+        places:['park'],stages:['first'],
+        opener:"이 지역에서 오래 사셨나 봐요. 가볼 만한 좋은 곳 추천해 주실 수 있어요?",
+        note:"지역 연고·경험 존중으로 시작",
+        convo:[
+          {r:"we",t:"이 지역에서 오래 사셨나 봐요. 좋은 곳 있으면 알려주세요!"},
+          {r:"them",t:"(지역 이야기 나눔)"},
+          {r:"we",t:"저희는 한경대 입구에서 성경을 무료로 소개하고 있어요. 혹시 종교가 있으세요?"},
+          {r:"them",t:"아내 잃고 나서 절에 가던 것도 끊었어요."},
+          {r:"we",t:"많이 힘드시겠어요. 성경에는 돌아가신 분에 대한 희망의 말씀도 있어요."},
+        ],
+        tip:"사별한 분께는 부활의 희망이 큰 위로가 돼요. 먼저 충분히 공감해드리세요.",
+        followup:{
+          second:"공원에 자주 나오신다고 하셨죠? 지난번에 말씀드린 희망에 대해 더 이야기 나눠볼게요.",
+          ongoing:"같은 시간대에 공원에서 정기적으로 만나면 자연스럽게 관계가 깊어져요.",
+        }},
+      bus:{label:"버스정류장에서",ico:"ti-bus",
+        places:['bus'],stages:['first'],
+        opener:"어디 가시는 길이에요? 제가 버스 찾아드릴게요!",
+        note:"실용적 도움 먼저 → 대화 자연스럽게 이어가기",
+        convo:[
+          {r:"we",t:"어디 가시는 길이에요? 버스 찾아드릴까요?"},
+          {r:"them",t:"수원 방면 버스가 어디서 서는지 몰라서요."},
+          {r:"we",t:"(안내 후) 저희는 저기서 전시대 봉사를 하는 사람들이에요."},
+          {r:"them",t:"예수에 대해선 잘 모르는데요."},
+          {r:"we",t:"기원전·기원후라는 말 들어보셨죠? 그 기준이 예수님이에요. 잠깐 이야기해도 될까요?"},
+        ],
+        tip:"버스 노선을 잘 알아두면 도움 제공에서 자연스럽게 대화로 연결할 수 있어요.",
+        followup:{
+          second:"지난번 버스 잘 타셨어요? 오늘도 이 시간에 뵙게 돼서 반가워요!",
+          ongoing:"같은 시간대에 정기적으로 만나면 깊은 대화로 발전할 수 있어요.",
+        }},
+      health:{label:"몸이 불편하신 분",ico:"ti-wheelchair",
+        places:['park','bus','street'],stages:['first'],
+        opener:"세상에 아픈 사람이 없게 될 때가 온다면 얼마나 좋을까요?",
+        note:"건강 공감 → 성경의 희망 소개",
+        convo:[
+          {r:"we",t:"많이 힘드시겠어요. 아픈 사람이 없는 세상이 온다면 얼마나 좋을까요?"},
+          {r:"them",t:"그런 날이 올까요?"},
+          {r:"we",t:"성경 이사야 33:24에 그런 희망의 말씀이 있어요. 직접 보여드릴까요?"},
+          {r:"them",t:"어떤 내용인데요?"},
+          {r:"we",t:"(성구 보여드린 후) 또 만나 뵐 수 있으면 좋겠어요."},
+        ],
+        tip:"짧은 만남이라도 다시 만날 기회를 만들어두면 관계가 이어져요.",
+        followup:{
+          second:"몸은 좀 어떠세요? 지난번 말씀하신 이사야 말씀 생각나셨어요?",
+          ongoing:"성경 연구를 부드럽게 제안해보세요.",
+        }},
+      death:{label:"사별·상실의 아픔",ico:"ti-heart-broken",
+        places:['park','bus'],stages:['first'],
+        opener:"사랑하는 분을 잃으셨군요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?",
+        note:"깊은 공감 → 부활 희망으로 연결",
+        convo:[
+          {r:"we",t:"아내 생각에 많이 힘드시겠어요."},
+          {r:"them",t:"그렇죠, 요즘도 힘이 빠져요."},
+          {r:"we",t:"다시 만날 수 있다는 희망이 있다면 어떻겠어요? 성경에 부활에 관한 말씀이 있어요."},
+          {r:"them",t:"그런 이야기가 있어요?"},
+          {r:"we",t:"이 전도지에 QR코드가 있는데, 집에서 차분히 읽어보시면 좋을 것 같아요."},
+        ],
+        tip:"연락처를 꺼려하시면 같은 장소·시간에 다시 만날 약속을 해두세요.",
+        followup:{
+          second:"전도지 읽어보셨어요? 궁금한 부분 있으시면 같이 살펴봐요.",
+          ongoing:"부활의 희망은 상실의 슬픔을 겪는 분께 성경 연구의 동기가 돼요.",
+        }},
+      display_interest:{label:"전시대 관심자",ico:"ti-eye",
+        places:['display'],stages:['first','second','ongoing'],
+        opener:"관심 있으시면 무료로 가져가실 수 있어요! 어떤 내용이 마음에 드셨어요?",
+        note:"상대가 먼저 관심 보일 때 - 부담 없이 자연스럽게 대화로 연결",
+        convo:[
+          {r:"them",t:"이거 가져가도 돼요?"},
+          {r:"we",t:"물론이죠! 관심 있으신 내용이 있으세요? 저기 전시대에서 자원봉사하고 있어요."},
+          {r:"them",t:"전쟁 관련 내용이 궁금했어요."},
+          {r:"we",t:"정말 시의적절한 내용이죠. 성경에 이런 시대가 올 것을 예언한 내용도 있어요!"},
+          {r:"them",t:"그래요?"},
+          {r:"we",t:"다음에 시간 되시면 더 이야기 나눠요. 매주 같은 시간에 여기 있어요!"},
+        ],
+        tip:"상대가 먼저 다가왔을 때는 절호의 기회예요. 서두르지 말고 자연스럽게 대화로 연결하세요.",
+        followup:{
+          second:"지난번에 잡지 가져가셨잖아요. 읽어보셨어요? 궁금한 부분 있으셨나요?",
+          ongoing:"출판물을 읽어온 분은 이미 관심이 있어요. 성경 연구를 자연스럽게 제안해보세요.",
+        }},
+      death_question:{label:"죽음·지옥·천국 질문",ico:"ti-help-circle",
+        places:['park','bus','display'],stages:['first','second'],
+        opener:"사람이 죽으면 어디로 갈까요? 정말 궁금하셨던 것 같아요.",
+        note:"상대가 먼저 신학적 질문을 던질 때 - 침착하게 성경으로 안내",
+        convo:[
+          {r:"them",t:"사람이 죽으면 지옥에 가요, 천국에 가요?"},
+          {r:"we",t:"정말 중요한 질문이에요! 성경이 뭐라고 하는지 직접 보여드릴게요."},
+          {r:"them",t:"성경에 그런 내용이 있어요?"},
+          {r:"we",t:"시편 146:4에 사람이 죽으면 생각이 소멸된다고 나와요. 고통의 장소는 없어요."},
+          {r:"them",t:"그럼 지옥은 없는 건가요?"},
+          {r:"we",t:"성경 어디에도 고통받는 지옥은 나오지 않아요. 오히려 부활의 희망이 있어요!"},
+        ],
+        tip:"이런 질문을 받으면 흥분하지 말고 성경을 직접 열어 보여주세요. 시편 146:4, 요한 11:11-14를 미리 준비해두세요.",
+        followup:{
+          second:"지난번에 지옥 이야기 하셨잖아요. 더 궁금한 점 생기셨나요?",
+          ongoing:"죽음과 부활에 관심 있는 분은 성경 연구로 연결하기 좋아요.",
+        }},
+      emergency_help:{label:"긴급 도움 상황",ico:"ti-alert-triangle",
+        places:['park','street','bus'],stages:['first'],
+        opener:"괜찮으세요? 제가 도와드릴게요!",
+        note:"즉각적인 도움 → 자연스러운 감사와 관계 형성",
+        convo:[
+          {r:"we",t:"괜찮으세요? 어디 불편하신 것 같아서요."},
+          {r:"them",t:"어지럽고 힘이 없어서요."},
+          {r:"we",t:"잠깐 여기 앉으세요. 제가 옆에 있을게요."},
+          {r:"them",t:"감사해요."},
+          {r:"we",t:"연락처 알려주시면 나중에 안부 여쭤볼게요. 저희는 저기 전시대에서 봉사하는 사람들이에요."},
+        ],
+        tip:"실질적 도움이 먼저예요. 신뢰가 형성된 후 재방문으로 연결하세요.",
+        followup:{
+          second:"몸은 좀 괜찮으세요? 지난번에 걱정이 됐어요.",
+          ongoing:"진심 어린 도움은 깊은 신뢰로 이어져요. 성경 이야기는 그 다음이에요.",
+        }},
     }}
   }},
-  female:{label:"여성",ages:{
+  female:{label:"여성",ico:"ti-woman",ages:{
     youth:{label:"10~20대",sub:"청년·학생",situations:{
-      animal:{label:"동물·자연 계기",opener:"고양이를 좋아하시나 봐요! 여기 자주 오세요?",note:"주변 관찰(동물·자연) → 자연스러운 대화 진입",convo:[
-        {r:"we",t:"고양이를 좋아하시나 봐요!"},
-        {r:"them",t:"네, 너무 귀여워서요."},
-        {r:"we",t:"학생이세요? 어떤 전공이에요?"},
-        {r:"them",t:"디자인 전공해요."},
-        {r:"we",t:"jw.org에 10대·20대를 위한 학교생활, 친구 관계 자료가 무료로 있어요. 한번 들어가 보실래요?"},
-      ],tip:"동물을 보는 사람은 여유가 있어 대화 시작하기 좋아요. 학생이면 맞춤 자료로 연결하세요."},
-      foreign:{label:"외국인 유학생",opener:"정말 예쁘시네요! 어느 나라에서 오셨어요?",note:"진심 어린 관심 표현 → 자연스러운 관계 형성",convo:[
-        {r:"we",t:"너무 예쁘네요! 어느 나라에서 왔어요?"},
-        {r:"them",t:"네팔에서 왔어요."},
-        {r:"we",t:"한국 생활은 어때요? 힘든 점 있으면 말해줘요."},
-        {r:"them",t:"아르바이트를 구해야 하는데 한국어가 서툴러 어렵네요."},
-        {r:"we",t:"정말 용기 있게 유학을 선택했네요! 도움이 필요하면 언제든 연락해요. jw.org에 네팔어 자료도 있어요."},
-      ],tip:"외국인에게는 해당 언어 자료를 미리 준비하면 신뢰 형성에 크게 도움이 돼요."},
-      creation:{label:"자연·창조 관심",opener:"고양이와 강아지는 왜 교배를 안 할까요? 신기하지 않아요?",note:"자연 호기심 → 창조주로 자연스럽게 연결",convo:[
-        {r:"we",t:"고양이와 강아지는 왜 교배를 안 할까요?"},
-        {r:"them",t:"유전적으로 달라서 아닐까요?"},
-        {r:"we",t:"맞아요. 창세기 1:25에 하느님께서 종류대로 창조하셨다고 나와요."},
-        {r:"them",t:"성경에 그런 내용이 있어요?"},
-        {r:"we",t:"신학에 관심 있으세요? 저희가 매주 수요일 이 시간에 전시대에 있으니 다음에 또 이야기 나눠요!"},
-      ],tip:"자연과 창조에 관심 있는 분에게 효과적이에요. 성경을 직접 펼쳐 보여주면 더 좋아요."},
-      stress:{label:"학업·취업 스트레스",opener:"시험 기간이라 고생이 많겠네요. 점수로만 평가받는 게 좀 안타깝죠?",note:"시험 공감 → 인간의 가치 이야기로 연결",convo:[
-        {r:"we",t:"시험 기간이라 힘들겠어요. 수고 많아요."},
-        {r:"them",t:"네, 너무 바빠요."},
-        {r:"we",t:"사람의 뇌가 엄청난 정보를 저장할 수 있다는데 몇 번의 점수만으로 평가받는 게 안타깝지 않아요?"},
-        {r:"them",t:"진짜 그런 생각 해봤어요."},
-        {r:"we",t:"사람이 능력을 온전히 발휘하는 세상, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
-      ],tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요."},
+      middle_school:{label:"초·중·고생",ico:"ti-backpack",
+        places:['bus','street','campus'],stages:['first'],
+        opener:"학원 가는 거예요? 요즘 많이 바쁘겠다! 몇 학년이에요?",
+        note:"학업 격려 → 가볍게 카드 전달 → 부담 없이 마무리",
+        convo:[
+          {r:"we",t:"학원 가는 거예요? 몇 학년이에요?"},
+          {r:"them",t:"중학교 2학년이에요."},
+          {r:"we",t:"요즘 공부하느라 많이 바쁘겠다! 스트레스는 어떻게 풀어요?"},
+          {r:"them",t:"(이야기 나눔)"},
+          {r:"we",t:"전자기기나 스트레스 극복에 도움 되는 내용이 있는 사이트예요. 한번 들어가봐요!"},
+        ],
+        tip:"초·중·고생에게는 학업 격려와 공감이 먼저예요. 카드를 전달할 때는 부담 없이 가볍게 하세요. 보호자 없이 단독 접촉이 길어지지 않도록 주의하세요.",
+        followup:{
+          second:"지난번에 카드 받았는데 사이트 들어가봤어요?",
+          ongoing:"같은 시간대에 자주 마주치면 자연스럽게 친근해져요.",
+        }},
+      animal:{label:"동물·자연 계기",ico:"ti-paw",
+        places:['campus','park','street'],stages:['first'],
+        opener:"고양이를 좋아하시나 봐요! 여기 자주 오세요?",
+        note:"주변 관찰(동물·자연) → 자연스러운 대화 진입",
+        convo:[
+          {r:"we",t:"고양이를 좋아하시나 봐요!"},
+          {r:"them",t:"네, 너무 귀여워서요."},
+          {r:"we",t:"학생이세요? 어떤 전공이에요?"},
+          {r:"them",t:"디자인 전공해요."},
+          {r:"we",t:"jw.org에 10대·20대를 위한 학교생활, 친구 관계 자료가 무료로 있어요."},
+        ],
+        tip:"동물을 보는 사람은 여유가 있어 대화 시작하기 좋아요.",
+        followup:{
+          second:"지난번에 고양이 이야기 나눴잖아요. 오늘 또 보셨어요?",
+          ongoing:"공통 관심사(동물, 자연)로 만남이 쌓이면 자연스럽게 더 깊은 대화로 이어져요.",
+        }},
+      foreign:{label:"외국인 유학생",ico:"ti-world",
+        places:['bus','campus','park'],stages:['first'],
+        opener:"정말 예쁘시네요! 어느 나라에서 오셨어요?",
+        note:"진심 어린 관심 표현 → 자연스러운 관계 형성",
+        convo:[
+          {r:"we",t:"너무 예쁘네요! 어느 나라에서 왔어요?"},
+          {r:"them",t:"네팔에서 왔어요."},
+          {r:"we",t:"한국 생활은 어때요? 힘든 점 있으면 말해줘요."},
+          {r:"them",t:"아르바이트를 구해야 하는데 한국어가 서툴러 어렵네요."},
+          {r:"we",t:"정말 용기 있게 유학을 선택했네요! 도움이 필요하면 연락해요. jw.org에 해당 언어 자료도 있어요."},
+        ],
+        tip:"외국인에게는 해당 언어 자료를 미리 준비하면 신뢰 형성에 크게 도움이 돼요.",
+        followup:{
+          second:"생활은 좀 익숙해졌어요? 도움 필요한 거 있으면 말해줘요!",
+          ongoing:"실질적 도움(아르바이트, 생활 정보 등)이 깊은 신뢰의 토대가 돼요.",
+        }},
+      creation:{label:"자연·창조 관심",ico:"ti-leaf",
+        places:['campus','park'],stages:['first'],
+        opener:"고양이와 강아지는 왜 교배를 안 할까요? 신기하지 않아요?",
+        note:"자연 호기심 → 창조주로 자연스럽게 연결",
+        convo:[
+          {r:"we",t:"고양이와 강아지는 왜 교배를 안 할까요?"},
+          {r:"them",t:"유전적으로 달라서 아닐까요?"},
+          {r:"we",t:"맞아요. 창세기 1:25에 하느님께서 종류대로 창조하셨다고 나와요."},
+          {r:"them",t:"성경에 그런 내용이 있어요?"},
+          {r:"we",t:"신학에 관심 있으세요? 매주 같은 시간에 전시대에 있으니 다음에 또 이야기 나눠요!"},
+        ],
+        tip:"자연과 창조에 관심 있는 분에게 효과적이에요.",
+        followup:{
+          second:"지난번 창조 이야기 나눴잖아요. 더 궁금한 점 있었어요?",
+          ongoing:"지적 호기심이 있는 분께는 성경 연구를 제안해보기 좋아요.",
+        }},
+      stress:{label:"학업·취업 스트레스",ico:"ti-file-text",
+        places:['bus','campus'],stages:['first'],
+        opener:"시험 기간이라 고생이 많겠네요. 점수로만 평가받는 게 좀 안타깝죠?",
+        note:"시험 공감 → 인간의 가치 이야기로 연결",
+        convo:[
+          {r:"we",t:"시험 기간이라 힘들겠어요. 수고 많아요."},
+          {r:"them",t:"네, 너무 바빠요."},
+          {r:"we",t:"몇 번의 점수만으로 평가받는 게 안타깝지 않아요?"},
+          {r:"them",t:"진짜 그런 생각 해봤어요."},
+          {r:"we",t:"사람이 능력을 온전히 발휘하는 세상, 성경에서 힌트를 얻고 있어요. 시험 잘 보세요!"},
+        ],
+        tip:"결론보다 질문으로 끝내면 상대방이 스스로 생각하게 돼요.",
+        followup:{
+          second:"시험은 잘 봤어요? 걱정이 됐어요.",
+          ongoing:"진심 어린 응원이 쌓이면 더 깊은 이야기로 연결할 수 있어요.",
+        }},
+      group:{label:"학생 그룹·무리",ico:"ti-users",
+        places:['bus','park','campus'],stages:['first'],
+        opener:"다들 친한 친구들이에요? 정말 활기차네요!",
+        note:"그룹 분위기 띄우기 → 한 명에게 집중하지 않고 전체에게 접근",
+        convo:[
+          {r:"we",t:"다들 친한 친구들이에요? 정말 활기차네요!"},
+          {r:"them",t:"네, 같이 놀러 왔어요."},
+          {r:"we",t:"진정한 친구가 어떤 친구인지 알려주는 기사가 있어요. 관심 있으면 카드 가져가요!"},
+          {r:"them",t:"(관심 보임)"},
+          {r:"we",t:"여기 QR코드 스캔하면 볼 수 있어요. 함께 읽어보면 더 가까워질 수 있을걸요!"},
+        ],
+        tip:"그룹에는 한 명에게만 집중하기보다 전체에게 가볍게 접근하는 게 효과적이에요.",
+        followup:{
+          second:"지난번에 카드 받은 친구들인가요? 읽어봤어요?",
+          ongoing:"그룹 중 한 명이 관심을 보이면 그 분과 개별 대화를 이어가요.",
+        }},
     }},
     middle:{label:"30~50대",sub:"중장년",situations:{
-      family:{label:"간병·가족 걱정",opener:"오랫동안 간호하시다니 정말 대단하세요. 아프지 않고 오래 살 수 있다면 얼마나 좋을까요?",note:"수고 칭찬 → 성경의 희망으로 연결",convo:[
-        {r:"we",t:"남편분 5년 이상 간호하신다고요? 정말 수고가 많으세요."},
-        {r:"them",t:"힘들지만 어쩌겠어요."},
-        {r:"we",t:"아프지 않고 오래 사실 수 있다면 얼마나 좋을까요? 성경에 그런 희망이 담긴 말씀이 있어요."},
-        {r:"them",t:"저도 교회 다니는데..."},
-        {r:"we",t:"같은 성경을 봐도 이런 부분을 함께 살펴보면 위로가 될 것 같아요."},
-      ],tip:"간병 중인 분께는 '아픔 없는 세상'의 희망이 진심으로 위로가 돼요."},
-      smoke:{label:"편견 내려놓고 접근",opener:"요즘 담배 세금이 많이 올랐죠? 요즘 어떻게 지내세요?",note:"선입견 내려놓기 → 공통 관심사로 접근",convo:[
-        {r:"we",t:"요즘 담배 세금이 많이 올랐죠."},
-        {r:"them",t:"맞아요, 진짜 비싸졌어요."},
-        {r:"we",t:"어디서 일하세요? 혼자 생활하시나요?"},
-        {r:"them",t:"(개인 이야기 나눔)"},
-        {r:"we",t:"저도 딸이 혼자 사는데 걱정되더라고요. 저희는 저기 전시대에서 자원봉사하는 사람들이에요."},
-      ],tip:"겉모습이나 선입견 없이 다가가면 예상보다 훨씬 진솔한 대화가 이뤄져요."},
-      bench:{label:"벤치에서 쉬는 중",opener:"옆에 앉아도 될까요? 목소리가 참 고우시네요!",note:"칭찬 + 개인 관심으로 편안한 분위기 만들기",convo:[
-        {r:"we",t:"옆에 앉아도 될까요? 목소리가 참 고우시네요."},
-        {r:"them",t:"감사해요 하하."},
-        {r:"we",t:"남편을 기다리고 계세요? 어디에 사세요?"},
-        {r:"them",t:"증인들이 박해받는 게 좀 그랬어요 (예전 경험 이야기)"},
-        {r:"we",t:"예수님도 박해받으셨는데, 오히려 그 모습을 보고 진실함을 확인한 사람들도 있어요. 다음에 또 만나 뵙고 싶네요!"},
-      ],tip:"예전 왕국회관 경험 있는 분께는 박해가 진실성의 증거임을 부드럽게 소개하세요."},
-      north:{label:"탈북민·특별 상황",opener:"억양이 조금 달라서 여쭤봐도 될까요? 어디서 오셨어요?",note:"호기심 → 따뜻한 관심 → 공통 관심사",convo:[
-        {r:"we",t:"억양이 좀 다른 것 같은데, 어디서 오셨어요?"},
-        {r:"them",t:"북한에서 왔어요."},
-        {r:"we",t:"한국에 오시는 게 정말 쉽지 않으셨을 텐데, 대단하시네요."},
-        {r:"them",t:"(이야기 나눔)"},
-        {r:"we",t:"저희 자원봉사에서는 조선어 자료도 있어요. 관심 있으시면 연락처 교환해요!"},
-      ],tip:"탈북민 분께는 조선어 자료 안내가 매우 효과적이에요."},
+      family:{label:"간병·가족 걱정",ico:"ti-heart",
+        places:['bus','park'],stages:['first'],
+        opener:"오랫동안 간호하시다니 정말 대단하세요. 아프지 않고 오래 살 수 있다면 얼마나 좋을까요?",
+        note:"수고 칭찬 → 성경의 희망으로 연결",
+        convo:[
+          {r:"we",t:"남편분 5년 이상 간호하신다고요? 정말 수고가 많으세요."},
+          {r:"them",t:"힘들지만 어쩌겠어요."},
+          {r:"we",t:"아프지 않고 오래 사실 수 있다면 얼마나 좋을까요? 성경에 그런 희망이 담긴 말씀이 있어요."},
+          {r:"them",t:"저도 교회 다니는데..."},
+          {r:"we",t:"같은 성경을 봐도 이런 부분을 함께 살펴보면 위로가 될 것 같아요."},
+        ],
+        tip:"간병 중인 분께는 '아픔 없는 세상'의 희망이 진심으로 위로가 돼요.",
+        followup:{
+          second:"남편분은 좀 어떠세요? 지난번이 계속 마음에 걸렸어요.",
+          ongoing:"꾸준히 안부를 묻는 것 자체가 큰 위로가 돼요.",
+        }},
+      store_worker:{label:"약국·편의점 직원",ico:"ti-building-store",
+        places:['store'],stages:['first','second','ongoing'],
+        opener:"(약 사며) 이 약이 저한테 맞을지 여쭤봐도 될까요? 피부가 정말 좋으시네요!",
+        note:"볼일 보면서 자연스럽게 - 전문성 칭찬이 대화의 문을 열어요",
+        convo:[
+          {r:"we",t:"여기서 일하신 지 얼마나 됐어요? 고객을 참 친절하게 맞아주시네요."},
+          {r:"them",t:"감사해요, 꽤 됐어요."},
+          {r:"we",t:"같은 전공이세요? 약대 나오신 건가요?"},
+          {r:"them",t:"(대화 이어짐)"},
+          {r:"we",t:"저는 한경대 앞에서 자원봉사도 하고 있어요. 다음에 또 올게요!"},
+        ],
+        tip:"정기적으로 방문하며 관계를 쌓는 게 핵심이에요. 급하게 성경 이야기를 꺼내지 말고 먼저 친밀감을 쌓으세요.",
+        followup:{
+          second:"지난번에 말씀 나눴는데 기억하실지 모르겠어요. 또 왔어요!",
+          ongoing:"방문 횟수가 쌓이면 자연스럽게 개인적인 이야기가 나오고 성경 이야기도 연결돼요.",
+        }},
+      smoke:{label:"편견 내려놓고 접근",ico:"ti-mood-smile",
+        places:['street','bus'],stages:['first'],
+        opener:"요즘 담배 세금이 많이 올랐죠? 요즘 어떻게 지내세요?",
+        note:"선입견 내려놓기 → 공통 관심사로 접근",
+        convo:[
+          {r:"we",t:"요즘 담배 세금이 많이 올랐죠."},
+          {r:"them",t:"맞아요, 진짜 비싸졌어요."},
+          {r:"we",t:"어디서 일하세요? 혼자 생활하시나요?"},
+          {r:"them",t:"(개인 이야기 나눔)"},
+          {r:"we",t:"저도 딸이 혼자 사는데 걱정되더라고요. 저희는 저기 전시대에서 자원봉사하는 사람들이에요."},
+        ],
+        tip:"겉모습이나 선입견 없이 다가가면 예상보다 훨씬 진솔한 대화가 이뤄져요.",
+        followup:{
+          second:"지난번에 많이 고생하신다고 하셨잖아요. 요즘은 좀 어떠세요?",
+          ongoing:"진심 어린 관심이 계속되면 신뢰가 쌓여 성경 이야기도 자연스러워져요.",
+        }},
+      bench:{label:"벤치에서 쉬는 중",ico:"ti-armchair",
+        places:['park','bus'],stages:['first'],
+        opener:"옆에 앉아도 될까요? 목소리가 참 고우시네요!",
+        note:"칭찬 + 개인 관심으로 편안한 분위기 만들기",
+        convo:[
+          {r:"we",t:"옆에 앉아도 될까요? 목소리가 참 고우시네요."},
+          {r:"them",t:"감사해요 하하."},
+          {r:"we",t:"남편을 기다리고 계세요? 어디에 사세요?"},
+          {r:"them",t:"증인들이 박해받는 게 좀 그랬어요."},
+          {r:"we",t:"예수님도 박해받으셨는데, 오히려 그 모습을 보고 진실함을 확인한 사람들도 있어요."},
+        ],
+        tip:"예전 왕국회관 경험 있는 분께는 박해가 진실성의 증거임을 부드럽게 소개하세요.",
+        followup:{
+          second:"지난번에 하신 말씀이 마음에 남아서 다시 여쭤봐도 될까요?",
+          ongoing:"꾸준히 만나며 신앙 이야기를 조금씩 이어가세요.",
+        }},
+      north:{label:"탈북민·특별 상황",ico:"ti-flag",
+        places:['bus','park'],stages:['first'],
+        opener:"억양이 조금 달라서 여쭤봐도 될까요? 어디서 오셨어요?",
+        note:"호기심 → 따뜻한 관심 → 공통 관심사",
+        convo:[
+          {r:"we",t:"억양이 좀 다른 것 같은데, 어디서 오셨어요?"},
+          {r:"them",t:"북한에서 왔어요."},
+          {r:"we",t:"한국에 오시는 게 정말 쉽지 않으셨을 텐데, 대단하시네요."},
+          {r:"them",t:"(이야기 나눔)"},
+          {r:"we",t:"저희 자원봉사에서는 조선어 자료도 있어요. 관심 있으시면 연락처 교환해요!"},
+        ],
+        tip:"탈북민 분께는 조선어 자료 안내가 매우 효과적이에요.",
+        followup:{
+          second:"생활에 적응하는 데 도움이 필요한 게 있으면 알려주세요!",
+          ongoing:"실질적 도움과 조선어 자료를 함께 제공하며 신뢰를 쌓아가세요.",
+        }},
+      parenting:{label:"자녀 양육 고민",ico:"ti-baby-carriage",
+        places:['park','bus','street'],stages:['first'],
+        opener:"아이가 너무 귀엽네요! 몇 살이에요? 말을 정말 잘 하네요!",
+        note:"자녀 칭찬 → 양육 고민 공감 → 실용적 자료 소개",
+        convo:[
+          {r:"we",t:"아이가 너무 귀엽네요! 몇 살이에요?"},
+          {r:"them",t:"34개월인데 말이 늦게 트였어요."},
+          {r:"we",t:"늦게 트이는 아이들이 발음이 더 정확하다더니 정말 그렇네요!"},
+          {r:"them",t:"맞아요, 한번 터지니까 엄청나요."},
+          {r:"we",t:"자녀 교육에 도움이 되는 무료 기사가 있어요. jw.org에서 '자녀교육'으로 검색해 보세요!"},
+        ],
+        tip:"아이 칭찬은 어떤 부모에게도 통하는 가장 자연스러운 시작이에요.",
+        followup:{
+          second:"아이는 잘 크고 있어요? 자녀교육 기사 읽어보셨어요?",
+          ongoing:"부모의 고민을 꾸준히 들어주는 것이 신뢰 형성의 핵심이에요.",
+        }},
     }},
     senior:{label:"60대 이상",sub:"어르신",situations:{
-      appearance:{label:"외모 칭찬으로 시작",opener:"연세가 있으신데 피부가 정말 좋으시네요!",note:"진심 어린 칭찬 → 친근감 형성",convo:[
-        {r:"we",t:"연세가 있으신데 피부가 정말 고우시네요!"},
-        {r:"them",t:"관절염으로 약을 먹어서 부은 것 같아요."},
-        {r:"we",t:"앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요? 이사야 33:24에 있는 말씀이에요."},
-        {r:"them",t:"나도 교회 다니는데..."},
-        {r:"we",t:"토요일마다 같은 시간에 여기서 전시대 봉사하니 또 지나가시면 뵙겠습니다!"},
-      ],tip:"짧더라도 정기적으로 만날 기회를 만들어두면 관계가 이어져요."},
-      religion:{label:"다른 종교 믿는 분",opener:"하느님이 계신다고 생각하세요? 하느님께도 이름이 있는데, 바로 '여호와'예요.",note:"종교 유무 묻지 않고 '하나님의 이름'으로 접근",convo:[
-        {r:"we",t:"하느님이 계신다고 생각하세요?"},
-        {r:"them",t:"불교 신자인데요..."},
-        {r:"we",t:"관심이 없으시면 그럴 수 있어요. 그런데 하느님께도 이름이 있다는 거 아세요? 바로 '여호와'예요."},
-        {r:"them",t:"(웃으시거나 신기해하심)"},
-        {r:"we",t:"저희 전시대에 들르시면 더 이야기 나눌 수 있어요. 또 뵙겠습니다!"},
-      ],tip:"'하느님의 이름'은 가볍고 흥미롭게 전할 수 있는 좋은 포인트예요."},
-      errand:{label:"장보기·심부름 후",opener:"짐이 많으시네요, 어디 다녀오셨어요?",note:"실생활 이야기로 시작 → 공감 → 자연스럽게 소개",convo:[
-        {r:"we",t:"짐이 많으시네요! 어디 다녀오셨어요?"},
-        {r:"them",t:"과일이랑 버섯 좀 샀는데 요즘 물가가..."},
-        {r:"we",t:"맞아요, 요즘 고물가에 싼 곳 있으면 귀가 번쩍 뜨이죠. 저희는 저기 전시대에서 봉사하는 사람들이에요, 보신 적 있으세요?"},
-        {r:"them",t:"아, 여호와의 증인이죠?"},
-        {r:"we",t:"맞아요! 요즘 도움이 될 내용들이 많으니 한번 들러보세요!"},
-      ],tip:"물가·생활 이야기는 나이 불문 공감대를 형성하기 좋아요."},
-      grief:{label:"사별·외로움",opener:"오랫동안 함께 사신 분이 돌아가셨군요. 그리운 마음이 많이 드시겠어요.",note:"깊은 공감 → 부활 희망으로 연결",convo:[
-        {r:"we",t:"남편분이 돌아가신 지 얼마나 됐어요?"},
-        {r:"them",t:"올해 초에 돌아가셨어요..."},
-        {r:"we",t:"정말 많이 힘드시겠어요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?"},
-        {r:"them",t:"그게 가능한가요?"},
-        {r:"we",t:"성경에 부활에 대한 희망이 있어요. 제가 보여드려도 될까요?"},
-      ],tip:"사별한 분께 진심으로 공감해드릴 때 부활의 희망이 큰 위로가 돼요."},
+      display_interest:{label:"전시대 관심자",ico:"ti-eye",
+        places:['display'],stages:['first','second','ongoing'],
+        opener:"관심 있으시면 무료로 가져가세요! 어떤 내용이 눈에 들어오셨어요?",
+        note:"상대가 먼저 전시대를 바라보거나 다가올 때의 황금 타이밍",
+        convo:[
+          {r:"them",t:"이거 가져가도 돼요?"},
+          {r:"we",t:"물론이죠! 모두 무료예요. 어떤 내용이 관심 가셨어요?"},
+          {r:"them",t:"스트레스 관련 내용이요."},
+          {r:"we",t:"요즘 많이 힘드셨나 봐요. 그 잡지 읽어보시면 도움 될 거예요!"},
+          {r:"them",t:"감사해요."},
+          {r:"we",t:"매달 새로운 내용이 나와요. 다음에 또 들러주세요!"},
+        ],
+        tip:"잡지를 여러 번 바라보거나 천천히 지나가는 분은 관심이 있는 거예요. 먼저 편안하게 말 걸어보세요.",
+        followup:{
+          second:"지난번에 잡지 가져가셨죠? 내용이 어떠셨어요?",
+          ongoing:"정기적으로 들르는 분은 성경 연구로 연결하기 가장 좋은 대상이에요.",
+        }},
+      appearance:{label:"외모 칭찬으로 시작",ico:"ti-sparkles",
+        places:['bus','park','street'],stages:['first'],
+        opener:"연세가 있으신데 피부가 정말 좋으시네요!",
+        note:"진심 어린 칭찬 → 친근감 형성",
+        convo:[
+          {r:"we",t:"연세가 있으신데 피부가 정말 고우시네요!"},
+          {r:"them",t:"관절염으로 약을 먹어서 부은 것 같아요."},
+          {r:"we",t:"앞으로는 아픈 사람이 없게 될 거라는 말씀 들어보셨어요? 이사야 33:24에 있는 말씀이에요."},
+          {r:"them",t:"나도 교회 다니는데..."},
+          {r:"we",t:"토요일마다 같은 시간에 여기서 전시대 봉사하니 또 지나가시면 뵙겠습니다!"},
+        ],
+        tip:"짧더라도 정기적으로 만날 기회를 만들어두면 관계가 이어져요.",
+        followup:{
+          second:"지난번에 뵈었는데 기억하시나요? 오늘도 반갑네요!",
+          ongoing:"정기적 만남이 쌓이면 자연스럽게 신앙 이야기가 깊어져요.",
+        }},
+      religion:{label:"다른 종교 믿는 분",ico:"ti-building-community",
+        places:['park','bus','display'],stages:['first'],
+        opener:"하느님이 계신다고 생각하세요? 하느님께도 이름이 있는데, 바로 '여호와'예요.",
+        note:"종교 유무 묻지 않고 '하나님의 이름'으로 접근",
+        convo:[
+          {r:"we",t:"하느님이 계신다고 생각하세요?"},
+          {r:"them",t:"불교 신자인데요..."},
+          {r:"we",t:"관심이 없으시면 그럴 수 있어요. 그런데 하느님께도 이름이 있다는 거 아세요? 바로 '여호와'예요."},
+          {r:"them",t:"(웃으시거나 신기해하심)"},
+          {r:"we",t:"저희 전시대에 들르시면 더 이야기 나눌 수 있어요. 또 뵙겠습니다!"},
+        ],
+        tip:"'하느님의 이름'은 가볍고 흥미롭게 전할 수 있는 좋은 포인트예요.",
+        followup:{
+          second:"지난번에 하느님의 이름 이야기 드렸는데, 생각해보셨어요?",
+          ongoing:"가볍게 성경 성구 하나씩 보여드리는 방식으로 접근해보세요.",
+        }},
+      errand:{label:"장보기·심부름 후",ico:"ti-shopping-bag",
+        places:['park','street','bus'],stages:['first'],
+        opener:"짐이 많으시네요, 어디 다녀오셨어요?",
+        note:"실생활 이야기로 시작 → 공감 → 자연스럽게 소개",
+        convo:[
+          {r:"we",t:"짐이 많으시네요! 어디 다녀오셨어요?"},
+          {r:"them",t:"과일이랑 버섯 좀 샀는데 요즘 물가가..."},
+          {r:"we",t:"요즘 고물가에 싼 곳 있으면 귀가 번쩍 뜨이죠. 저희는 저기 전시대에서 봉사하는 사람들이에요."},
+          {r:"them",t:"아, 여호와의 증인이죠?"},
+          {r:"we",t:"맞아요! 요즘 도움이 될 내용들이 많으니 한번 들러보세요!"},
+        ],
+        tip:"물가·생활 이야기는 나이 불문 공감대를 형성하기 좋아요.",
+        followup:{
+          second:"장 보고 오시는 길이세요? 지난번에 말씀 나눈 게 생각나서요.",
+          ongoing:"생활 밀착 대화로 자연스럽게 신앙 이야기를 이어가세요.",
+        }},
+      grief:{label:"사별·외로움",ico:"ti-heart-broken",
+        places:['park','bus'],stages:['first'],
+        opener:"오랫동안 함께 사신 분이 돌아가셨군요. 그리운 마음이 많이 드시겠어요.",
+        note:"깊은 공감 → 부활 희망으로 연결",
+        convo:[
+          {r:"we",t:"남편분이 돌아가신 지 얼마나 됐어요?"},
+          {r:"them",t:"올해 초에 돌아가셨어요..."},
+          {r:"we",t:"정말 많이 힘드시겠어요. 다시 만날 수 있다는 희망이 있다면 어떻겠어요?"},
+          {r:"them",t:"그게 가능한가요?"},
+          {r:"we",t:"성경에 부활에 대한 희망이 있어요. 제가 보여드려도 될까요?"},
+        ],
+        tip:"사별한 분께 진심으로 공감해드릴 때 부활의 희망이 큰 위로가 돼요.",
+        followup:{
+          second:"요즘은 좀 어떠세요? 많이 힘드시지 않으세요?",
+          ongoing:"부활의 희망은 성경 연구의 강한 동기가 돼요.",
+        }},
+      lost_senior:{label:"길 잃은 어르신 도움",ico:"ti-map-pin",
+        places:['park','street'],stages:['first','second'],
+        opener:"어디 가시려고요? 제가 도와드릴게요!",
+        note:"즉각 도움 → 연락처 확인 → 안전 인계 → 재방문",
+        convo:[
+          {r:"we",t:"어디 가시려고요? 많이 힘드신 것 같아서요."},
+          {r:"them",t:"집을 잘 못 찾겠어요."},
+          {r:"we",t:"걱정 마세요. 제가 도와드릴게요. 전화번호 기억하세요?"},
+          {r:"them",t:"(번호 알려주심)"},
+          {r:"we",t:"봉사 끝나고 안부 전화드릴게요. 저희는 저기 전시대에서 봉사하는 사람들이에요."},
+        ],
+        tip:"봉사를 마친 후 확인 전화를 드리면 깊은 감사와 재방문 기회로 이어져요.",
+        followup:{
+          second:"전화드렸을 때 반가워하셨죠? 오늘 또 뵙게 되어 너무 반가워요!",
+          ongoing:"친절한 도움이 깊은 신뢰로 이어지면 성경 이야기를 자연스럽게 꺼낼 수 있어요.",
+        }},
     }}
   }}
 };
-const AGE_ICO = {youth:"ti-school",middle:"ti-briefcase",senior:"ti-armchair"};
 
-// ─── STATE ──────────────────────────────────────────────────────────
-let S = {step:0, g:null, a:null, sit:null};
-let favs = JSON.parse(localStorage.getItem('favs')||'[]');
-let recents = JSON.parse(localStorage.getItem('recents')||'[]');
-let notes = JSON.parse(localStorage.getItem('notes')||'[]');
-let isDark = localStorage.getItem('theme') === 'dark';
-
-// ─── THEME ──────────────────────────────────────────────────────────
-function applyTheme(){
-  document.body.dataset.theme = isDark ? 'dark' : 'light';
-  document.getElementById('theme-btn').innerHTML = isDark ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+// ── BOOKMARKS & RECENT ────────────────────────────────────────────────────────
+let favs = JSON.parse(localStorage.getItem('guide_favs_v2')||'[]');
+function saveFavs(){localStorage.setItem('guide_favs_v2',JSON.stringify(favs))}
+function isFav(key){return favs.includes(key)}
+function toggleFav(key){
+  if(isFav(key)) favs=favs.filter(k=>k!==key);
+  else favs.unshift(key);
+  saveFavs(); renderFavPage();
 }
-applyTheme();
 
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let state = {gender:null, age:null, sit:null, stage:'first'};
+let browsePlace = 'all', browseStage = 'all';
+
+// ── THEME ─────────────────────────────────────────────────────────────────────
 function toggleTheme(){
-  isDark = !isDark;
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  applyTheme();
+  const t = document.body.dataset.theme==='dark'?'light':'dark';
+  document.body.dataset.theme=t;
 }
 
-// ─── NAVIGATION ─────────────────────────────────────────────────────
-let curPage = 'guide';
-function showPage(p){
-  curPage = p;
-  ['guide','fav','recent','notes'].forEach(n=>{
-    document.getElementById('page-'+n).classList.toggle('active', n===p);
-    document.getElementById('nav-'+n).classList.toggle('active', n===p);
-  });
-  const titles = {guide:'대화 가이드', fav:'즐겨찾기', recent:'최근 기록', notes:'나의 경험담'};
-  document.getElementById('topbar-title').textContent = titles[p];
-  if(p==='fav') renderFav();
-  if(p==='recent') renderRecent();
-  if(p==='notes') renderNotes();
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  if(id==='browse') renderBrowse();
+  if(id==='fav') renderFavPage();
 }
 
-// ─── FAVORITES ──────────────────────────────────────────────────────
-function favKey(g,a,s){ return g+'|'+a+'|'+s; }
-function isFav(g,a,s){ return favs.includes(favKey(g,a,s)); }
-function toggleFav(g,a,s){
-  const k = favKey(g,a,s);
-  if(favs.includes(k)) favs = favs.filter(x=>x!==k);
-  else favs.push(k);
-  localStorage.setItem('favs', JSON.stringify(favs));
-  renderGuide();
-  showToast(favs.includes(k) ? '★ 즐겨찾기에 추가됐어요' : '즐겨찾기에서 제거됐어요');
-}
-function renderFav(){
-  const el = document.getElementById('fav-content');
-  if(!favs.length){
-    el.innerHTML=`<div class="fav-empty"><i class="ti ti-star"></i><p>아직 즐겨찾기가 없어요.<br>자주 쓰는 상황의 ☆ 을 눌러 추가하세요.</p></div>`;
-    return;
-  }
-  let h='';
-  favs.forEach(k=>{
-    const [g,a,s] = k.split('|');
-    try{
-      const sit = D[g].ages[a].situations[s];
-      h+=`<div class="fav-item" onclick="goToSit('${g}','${a}','${s}')">
-        <div class="fav-info">
-          <div class="fav-tags">
-            <span class="fav-tag">${D[g].label}</span>
-            <span class="fav-tag">${D[g].ages[a].label}</span>
-            <span class="fav-tag">${sit.label}</span>
-          </div>
-          <div class="fav-opener">"${sit.opener}"</div>
-        </div>
-        <button class="fav-del" onclick="event.stopPropagation();removeFav('${k}')"><i class="ti ti-x"></i></button>
-      </div>`;
-    }catch(e){}
-  });
-  el.innerHTML=h;
-}
-function removeFav(k){
-  favs = favs.filter(x=>x!==k);
-  localStorage.setItem('favs', JSON.stringify(favs));
-  renderFav();
-  showToast('즐겨찾기에서 제거됐어요');
-}
-function goToSit(g,a,s){
-  S={step:3,g,a,sit:s};
-  showPage('guide');
-  addRecent(g,a,s);
-  renderGuide();
+// ── WIZARD ────────────────────────────────────────────────────────────────────
+function renderWizard(){
+  const w = document.getElementById('wizard');
+  if(!state.gender || !state.age) return renderGenderAgeStep(w);
+  if(state.gender==='foreign') return state.sit ? renderForeignResult(w) : renderForeignSitStep(w);
+  if(!state.sit) return renderSitStep(w);
+  renderResult(w);
 }
 
-// ─── RECENTS ────────────────────────────────────────────────────────
-function addRecent(g,a,s){
-  const entry = {g,a,s,t:Date.now()};
-  recents = recents.filter(r=>!(r.g===g&&r.a===a&&r.s===s));
-  recents.unshift(entry);
-  if(recents.length>30) recents=recents.slice(0,30);
-  localStorage.setItem('recents', JSON.stringify(recents));
-}
-function timeAgo(ts){
-  const d = Date.now()-ts;
-  if(d<60000) return '방금';
-  if(d<3600000) return Math.floor(d/60000)+'분 전';
-  if(d<86400000) return Math.floor(d/3600000)+'시간 전';
-  return Math.floor(d/86400000)+'일 전';
-}
-function renderRecent(){
-  const el = document.getElementById('recent-content');
-  if(!recents.length){
-    el.innerHTML=`<div class="empty-block"><i class="ti ti-history"></i><p>아직 기록이 없어요.<br>가이드를 조회하면 자동으로 기록돼요.</p></div>`;
-    return;
-  }
-  let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;color:var(--text2)">최근 조회한 상황</span><button onclick="clearRecents()" style="background:transparent;border:none;font-size:12px;color:var(--text3);cursor:pointer">전체 지우기</button></div>`;
-  recents.forEach(r=>{
-    try{
-      const sit = D[r.g].ages[r.a].situations[r.s];
-      h+=`<div class="rec-item" onclick="goToSit('${r.g}','${r.a}','${r.s}')">
-        <div class="rec-icon"><i class="ti ti-message-circle"></i></div>
-        <div class="rec-info">
-          <div class="rec-path">${D[r.g].label} · ${D[r.g].ages[r.a].label} · ${sit.label}</div>
-          <div class="rec-opener">"${sit.opener}"</div>
-        </div>
-        <div class="rec-time">${timeAgo(r.t)}</div>
-      </div>`;
-    }catch(e){}
-  });
-  el.innerHTML=h;
-}
-function clearRecents(){
-  recents=[];
-  localStorage.setItem('recents', JSON.stringify(recents));
-  renderRecent();
-  showToast('최근 기록을 지웠어요');
+function stepRow(done, current, labels){
+  return `<div class="step-row">${labels.map((l,i)=>`<div class="sdot ${i<done?'done':i===done?'on':''}"></div>`).join('')}<span class="step-lbl">${labels[current]||''}</span></div>`;
 }
 
-// ─── NOTES ──────────────────────────────────────────────────────────
-function renderNotes(){
-  const el = document.getElementById('notes-content');
-  let cats = '';
-  Object.entries(D).forEach(([gk,gv])=>{
-    Object.entries(gv.ages).forEach(([ak,av])=>{
-      Object.entries(av.situations).forEach(([sk,sv])=>{
-        cats+=`<option value="${gk}|${ak}|${sk}">${gv.label} · ${av.label} · ${sv.label}</option>`;
-      });
-    });
-  });
-  cats = `<option value="">— 상황 선택 (선택사항)</option>`+cats;
-  let notesHtml = '';
-  if(notes.length){
-    notes.forEach((n,i)=>{
-      let catLabel='';
-      if(n.cat){const[g,a,s]=n.cat.split('|');try{catLabel=`${D[g].label} · ${D[g].ages[a].label} · ${D[g].ages[a].situations[s].label}`;}catch(e){}}
-      notesHtml+=`<div class="note-item">
-        <div class="note-meta">
-          <span class="note-cat">${catLabel||'일반 메모'}</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="note-date">${new Date(n.t).toLocaleDateString('ko-KR',{month:'short',day:'numeric'})}</span>
-            <button class="note-del" onclick="deleteNote(${i})"><i class="ti ti-trash"></i></button>
-          </div>
-        </div>
-        <div class="note-body">${n.body.replace(/\n/g,'<br>')}</div>
-      </div>`;
-    });
-  } else {
-    notesHtml=`<div class="empty-block"><i class="ti ti-pencil"></i><p>나의 봉사 경험을 기록해 보세요.<br>좋았던 대화, 배운 점, 아이디어 등을<br>메모로 남길 수 있어요.</p></div>`;
-  }
-  el.innerHTML=`<div class="note-form">
-    <textarea id="note-ta" rows="4" placeholder="오늘 있었던 좋은 대화나 느낀 점을 기록해 보세요..."></textarea>
-    <div class="note-form-row">
-      <select id="note-cat">${cats}</select>
-      <button class="submit-btn" onclick="saveNote()">저장</button>
-    </div>
-  </div>
-  <div class="divider"><div class="divider-line"></div><div class="divider-txt">저장된 경험담</div><div class="divider-line"></div></div>
-  ${notesHtml}`;
-}
-function saveNote(){
-  const body = document.getElementById('note-ta').value.trim();
-  if(!body){showToast('내용을 입력해 주세요');return;}
-  const cat = document.getElementById('note-cat').value;
-  notes.unshift({body,cat,t:Date.now()});
-  localStorage.setItem('notes', JSON.stringify(notes));
-  renderNotes();
-  showToast('경험담이 저장됐어요 ✓');
-}
-function deleteNote(i){
-  notes.splice(i,1);
-  localStorage.setItem('notes', JSON.stringify(notes));
-  renderNotes();
-  showToast('삭제됐어요');
-}
-
-// ─── SEARCH ─────────────────────────────────────────────────────────
-function openSearch(){
-  document.getElementById('search-overlay').classList.add('show');
-  setTimeout(()=>document.getElementById('search-input').focus(),100);
-  doSearch('');
-}
-function closeSearch(){
-  document.getElementById('search-overlay').classList.remove('show');
-  document.getElementById('search-input').value='';
-}
-function doSearch(q){
-  const el = document.getElementById('search-results');
-  const results = [];
-  Object.entries(D).forEach(([gk,gv])=>{
-    Object.entries(gv.ages).forEach(([ak,av])=>{
-      Object.entries(av.situations).forEach(([sk,sv])=>{
-        const haystack = (sv.label+sv.opener+sv.note+sv.tip+sv.convo.map(c=>c.t).join(' ')).toLowerCase();
-        if(!q || haystack.includes(q.toLowerCase())){
-          results.push({gk,ak,sk,gv,av,sv});
-        }
-      });
-    });
-  });
-  if(!results.length){
-    el.innerHTML=`<div class="search-empty">"${q}"에 해당하는 상황이 없어요</div>`;
-    return;
-  }
-  function hl(txt){
-    if(!q) return txt;
-    const re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
-    return txt.replace(re,'<mark>$1</mark>');
-  }
-  el.innerHTML = results.map(({gk,ak,sk,gv,av,sv})=>`
-    <div class="search-result-item" onclick="goToSit('${gk}','${ak}','${sk}');closeSearch()">
-      <div class="sri-path">${hl(gv.label)} · ${hl(av.label)} · ${hl(sv.label)}</div>
-      <div class="sri-opener">"${hl(sv.opener)}"</div>
-      <div class="sri-note">${hl(sv.note)}</div>
-    </div>
-  `).join('');
-}
-
-// ─── TOAST ──────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'),2000);
-}
-
-// ─── COPY ───────────────────────────────────────────────────────────
-function copyOpener(txt){
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(txt).then(()=>showToast('서론 멘트가 복사됐어요 ✓'));
-  } else {
-    const ta=document.createElement('textarea');
-    ta.value=txt; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    showToast('서론 멘트가 복사됐어요 ✓');
-  }
-}
-
-// ─── GUIDE RENDER ───────────────────────────────────────────────────
-function dots(){
-  const lbl=['성별','나이대','상황','가이드'];
-  return `<div class="step-row">${[0,1,2,3].map(i=>`<div class="sdot ${i<S.step?'done':i===S.step?'on':''}"></div>`).join('')}<span class="step-lbl">${lbl[S.step]}</span></div>`;
-}
-function bc(){
-  if(!S.g) return '';
-  let h=`<div class="bc">`;
-  h+=`<span>${D[S.g].label}</span>`;
-  if(S.a) h+=`<i class="ti ti-chevron-right" style="font-size:10px;color:var(--text3)"></i><span>${D[S.g].ages[S.a].label}</span>`;
-  if(S.sit) h+=`<i class="ti ti-chevron-right" style="font-size:10px;color:var(--text3)"></i><span>${D[S.g].ages[S.a].situations[S.sit].label}</span>`;
-  return h+'</div>';
-}
-
-function renderGuide(){
-  const el = document.getElementById('guide-content');
-  let h = `<div class="card"><div class="card-body">${dots()}${bc()}`;
-  if(S.step>0) h+=`<button class="back-btn" onclick="back()"><i class="ti ti-arrow-left"></i> 이전으로</button>`;
-
-  if(S.step===0){
-    h+=`<p class="sec-h">대화 대상의 성별을 선택하세요</p>
-        <p class="sec-s">먼저 말을 건넬 분의 성별을 선택해 주세요</p>
-        <div class="opt-grid g2">
-          <button class="opt-btn" onclick="pick('g','male')">
-            <div class="oico"><i class="ti ti-user"></i></div>
-            <div class="olbl">남성</div><div class="osub">남성 대상 접근법</div>
-          </button>
-          <button class="opt-btn" onclick="pick('g','female')">
-            <div class="oico"><i class="ti ti-user-circle"></i></div>
-            <div class="olbl">여성</div><div class="osub">여성 대상 접근법</div>
-          </button>
-        </div>`;
-  } else if(S.step===1){
-    h+=`<p class="sec-h">나이대를 선택하세요</p>
-        <p class="sec-s">${D[S.g].label} 대상의 나이대를 선택해 주세요</p>
-        <div class="opt-grid g3">`;
-    Object.entries(D[S.g].ages).forEach(([k,v])=>{
-      h+=`<button class="opt-btn" onclick="pick('a','${k}')">
-        <div class="oico"><i class="ti ${AGE_ICO[k]}"></i></div>
-        <div class="olbl">${v.label}</div><div class="osub">${v.sub}</div>
+function renderGenderAgeStep(w){
+  state={gender:null,age:null,sit:null,stage:'first'};
+  const icos = {
+    male:  {youth:'🧢', middle:'👔', senior:'🎩'},
+    female:{youth:'🎀', middle:'👒', senior:'🧣'},
+  };
+  const ages = ['youth','middle','senior'];
+  let rows = '';
+  for(const ak of ages){
+    for(const gk of ['male','female']){
+      const gv = D[gk];
+      const av = gv.ages[ak];
+      const sitCount = Object.keys(av.situations).length;
+      rows += `<button class="ga-card ${gk}" onclick="selectGenderAge('${gk}','${ak}')">
+        <span class="ga-ico">${icos[gk][ak]}</span>
+        <span class="ga-gender">${gv.label}</span>
+        <span class="ga-age">${av.label}</span>
+        <span class="ga-sub">${av.sub}</span>
+        <span class="ga-count">${sitCount}가지 상황</span>
       </button>`;
-    });
-    h+=`</div>`;
-  } else if(S.step===2){
-    const sits = D[S.g].ages[S.a].situations;
-    h+=`<p class="sec-h">현재 상황을 선택하세요</p>
-        <p class="sec-s">어떤 상황에서 만난 분인지 선택해 주세요</p>
-        <div class="opt-grid g2">`;
-    Object.entries(sits).forEach(([k,v])=>{
-      h+=`<button class="opt-btn" onclick="pick('sit','${k}')">
-        <div class="olbl" style="font-size:13px">${v.label}</div>
-      </button>`;
-    });
-    h+=`</div>`;
-  } else {
-    const d = D[S.g].ages[S.a].situations[S.sit];
-    const starred = isFav(S.g, S.a, S.sit);
-    h+=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-          <div class="badge"><i class="ti ti-message-circle"></i> 효과적인 서론</div>
-          <button class="star-btn ${starred?'starred':''}" onclick="toggleFav('${S.g}','${S.a}','${S.sit}')">
-            <i class="ti ${starred?'ti-star-filled':'ti-star'}"></i>
-          </button>
-        </div>
-        <div class="opener-box">
-          <div class="opener-txt">"${d.opener}"</div>
-          <button class="copy-btn" onclick="copyOpener('${d.opener.replace(/'/g,"\\'")}')">
-            <i class="ti ti-copy"></i> 복사
-          </button>
-        </div>
-        <div class="note-txt">${d.note}</div>
-        <button class="expand-btn" onclick="toggleConvo(this)">
-          <i class="ti ti-messages"></i>
-          <span>대화 흐름 보기</span>
-          <i class="ti ti-chevron-down" style="margin-left:auto;transition:transform .2s"></i>
-        </button>
-        <div style="display:none" id="convo-box">
-          <div class="convo">
-            <div class="convo-hd"><i class="ti ti-messages"></i> 대화 흐름 예시</div>
-            <div class="msgs">`;
-    d.convo.forEach(m=>{
-      h+=`<div class="msg"><div class="role ${m.r}">${m.r==='we'?'우리':'상대방'}</div><div class="msg-txt">${m.t}</div></div>`;
-    });
-    h+=`</div><div class="tip-box"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>${d.tip}</span></div></div></div>`;
-    // other situations
-    const sits = D[S.g].ages[S.a].situations;
-    const others = Object.entries(sits).filter(([k])=>k!==S.sit);
-    if(others.length){
-      h+=`<div class="divider"><div class="divider-line"></div><div class="divider-txt">같은 나이대 다른 상황</div><div class="divider-line"></div></div>
-          <div class="chips-row">`;
-      others.forEach(([k,v])=>{h+=`<span class="chip" onclick="pick('sit','${k}')">${v.label}</span>`;});
-      h+=`</div>`;
     }
   }
-  h+='</div></div>';
-  el.innerHTML=h;
+  // Foreign card (full width)
+  const fCount = Object.keys(DF.situations).length;
+  rows += `<button class="ga-card foreign ga-full" onclick="selectForeign()">
+    <span style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:24px">🌍</span>
+      <span>
+        <span class="ga-gender" style="color:var(--accent)">외국인 대상</span>
+        <div class="ga-age">외국인 접촉 가이드</div>
+        <div class="ga-sub">유학생 · 직장인 · 가족 · 여행객 · 언어장벽</div>
+      </span>
+      <span class="ga-count" style="margin-left:auto">${fCount}가지 상황</span>
+    </span>
+  </button>`;
+  w.innerHTML=`
+    ${stepRow(0,0,['대상 선택','장소·상황','결과'])}
+    <div class="sec-h">대화 대상을 선택하세요</div>
+    <div class="sec-s">
+      <span style="color:var(--blue);font-weight:700">남성 ←</span>
+      &nbsp;&nbsp;나이대 행 선택&nbsp;&nbsp;
+      <span style="color:var(--rose);font-weight:700">→ 여성</span>
+    </div>
+    <div class="ga-grid">${rows}</div>`;
 }
 
-function pick(t,v){
-  if(t==='g'){S.g=v;S.a=null;S.sit=null;S.step=1;}
-  else if(t==='a'){S.a=v;S.sit=null;S.step=2;}
-  else{S.sit=v;S.step=3;addRecent(S.g,S.a,v);}
-  renderGuide();
+function renderGenderStep(w){ renderGenderAgeStep(w); }
+
+function selectGenderAge(g,a){state.gender=g; state.age=a; renderWizard();}
+function selectForeign(){state.gender='foreign'; state.age='all'; state.sit=null; renderWizard();}
+
+function renderForeignSitStep(w){
+  const sits = DF.situations;
+  const sitIcos = {
+    student:'🎒', worker:'🏭', family:'👶', traveler:'✈️', language_barrier:'💬',
+  };
+  let cards = '';
+  for(const [sk,sv] of Object.entries(sits)){
+    cards += `<button class="opt-btn" onclick="selectForeignSit('${sk}')">
+      <span style="font-size:22px;margin-bottom:4px">${sitIcos[sk]||'🌍'}</span>
+      <span class="olbl">${sv.label}</span>
+      <span class="osub">${sv.note}</span>
+    </button>`;
+  }
+  w.innerHTML=`
+    ${stepRow(1,1,['대상 선택','장소·상황','결과'])}
+    <button class="back-btn" onclick="state.gender=null;state.age=null;renderWizard()"><i class="ti ti-arrow-left"></i> 뒤로</button>
+    <div class="sec-h">외국인 접촉 상황</div>
+    <div class="sec-s">어떤 상황에서 만난 외국인인지 선택해 주세요</div>
+    <div class="opt-grid">${cards}</div>`;
 }
-function back(){
-  if(S.step===1){S.g=null;S.step=0;}
-  else if(S.step===2){S.a=null;S.step=1;}
-  else{S.sit=null;S.step=2;}
-  renderGuide();
+
+function selectForeignSit(s){state.sit=s; state.stage='first'; renderWizard();}
+
+function renderForeignResult(w){
+  const sit = DF.situations[state.sit];
+  const sitKey = 'foreign.all.'+state.sit;
+  const fav = isFav(sitKey);
+  w.innerHTML=`
+    ${stepRow(2,2,['대상 선택','장소·상황','결과'])}
+    <button class="back-btn" onclick="state.sit=null;renderWizard()"><i class="ti ti-arrow-left"></i> 뒤로</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="badge" style="background:var(--accent-light);color:var(--accent-text)">🌍 외국인 · ${sit.label}</div>
+      <button class="icon-btn" onclick="toggleFav('${sitKey}');renderForeignResult(document.getElementById('wizard'))" title="즐겨찾기">
+        <i class="ti ${fav?'ti-bookmark-filled':'ti-bookmark'}"></i>
+      </button>
+    </div>
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔄 만남 단계 선택</div>
+    <div class="stage-tabs">
+      ${[{id:'first',label:'🌱 첫 만남'},{id:'second',label:'🤝 재방문'},{id:'ongoing',label:'💚 관계 형성'}].map(s=>`
+        <button class="stage-tab ${state.stage===s.id?'active':''}" onclick="selectForeignStage('${s.id}')">${s.label}</button>`).join('')}
+    </div>
+    <div id="result-content"></div>`;
+  renderForeignResultContent(sit);
 }
+
+function selectForeignStage(s){
+  state.stage=s;
+  renderForeignResultContent(DF.situations[state.sit]);
+}
+
+function renderForeignResultContent(sit){
+  const c = document.getElementById('result-content');
+  if(!c) return;
+  if(state.stage==='first'){
+    c.innerHTML=`
+      <div class="opener-box">
+        <div class="opener-txt">"${sit.opener}"</div>
+        <button class="copy-btn" onclick="copyText('${sit.opener.replace(/'/g,"\'")}')"><i class="ti ti-copy"></i> 복사</button>
+      </div>
+      <div class="note-txt">💡 ${sit.note}</div>
+      <button class="expand-btn" onclick="toggleConvo(this)">
+        <i class="ti ti-messages"></i> 대화 흐름 보기 <i class="ti ti-chevron-down" style="margin-left:auto"></i>
+      </button>
+      <div class="convo" style="display:none">
+        <div class="convo-hd">예시 대화</div>
+        <div class="msgs">
+          ${sit.convo.map(m=>`<div class="msg"><span class="role ${m.r}">${m.r==='we'?'우리':'상대'}</span><span class="msg-txt">${m.t}</span></div>`).join('')}
+        </div>
+        ${sit.tip?`<div class="tip-box"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>${sit.tip}</span></div>`:''}
+      </div>`;
+  } else if(state.stage==='second'){
+    const txt = sit.followup?.second || '다음 만남에서 지난 대화를 자연스럽게 이어가보세요.';
+    c.innerHTML=`
+      <div class="followup-section">
+        <div class="followup-hd"><i class="ti ti-repeat"></i> 재방문 시 권장 멘트</div>
+        <div class="followup-card">
+          <div class="followup-lbl">💬 시작 멘트</div>
+          <div class="followup-txt">"${txt}"</div>
+        </div>
+        <div class="tip-box" style="margin-top:8px"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>외국인 재방문 시 같은 장소·같은 시간대에 다시 만나는 것이 가장 자연스러워요.</span></div>
+      </div>`;
+  } else {
+    const txt = sit.followup?.ongoing || '신뢰가 쌓인 만큼 성경 이야기를 자연스럽게 연결해보세요.';
+    c.innerHTML=`
+      <div class="followup-section">
+        <div class="followup-hd"><i class="ti ti-seedling"></i> 관계 형성 단계 조언</div>
+        <div class="followup-card purple">
+          <div class="followup-lbl purple">🌱 이 단계에서</div>
+          <div class="followup-txt">${txt}</div>
+        </div>
+        <div class="tip-box" style="margin-top:8px"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>언어 자료와 모국어 인사가 외국인과의 관계 형성에 가장 강력한 도구예요.</span></div>
+      </div>`;
+  }
+}
+function selectGender(g){state.gender=g; renderWizard();}
+
+function renderAgeStep(w){ renderGenderAgeStep(w); }
+
+function selectAge(a){state.age=a; renderWizard();}
+
+function renderSitStep(w){
+  const sits = D[state.gender].ages[state.age].situations;
+  // Place filter
+  const allPlaces = [...new Set(Object.values(sits).flatMap(s=>s.places||[]))];
+  const placeLabels = {bus:'버스정류장',park:'공원·광장',campus:'교내·학교',display:'전시대 앞',shop:'카페·상가',street:'길·횡단보도'};
+  
+  w.innerHTML=`
+    ${stepRow(1,1,['대상 선택','장소·상황','결과'])}
+    <button class="back-btn" onclick="state.gender=null;state.age=null;renderWizard()"><i class="ti ti-arrow-left"></i> 뒤로</button>
+    <div class="sec-h">현재 상황을 선택하세요</div>
+    <div class="sec-s">장소로 먼저 필터링해 보세요</div>
+    <div class="place-row" id="sit-place-row">
+      <button class="place-pill active" onclick="filterSits('all')" data-place="all"><i class="ti ti-layout-grid"></i> 전체</button>
+      ${allPlaces.map(p=>`<button class="place-pill" onclick="filterSits('${p}')" data-place="${p}"><i class="ti ti-map-pin"></i> ${placeLabels[p]||p}</button>`).join('')}
+    </div>
+    <div id="sit-grid"></div>`;
+  filterSits('all');
+}
+
+function filterSits(place){
+  document.querySelectorAll('#sit-place-row .place-pill').forEach(b=>{
+    b.classList.toggle('active', b.dataset.place===place);
+  });
+  const sits = D[state.gender].ages[state.age].situations;
+  const filtered = Object.entries(sits).filter(([k,v])=>place==='all'||(v.places||[]).includes(place));
+  const grid = document.getElementById('sit-grid');
+  grid.innerHTML=`<div class="opt-grid">${filtered.map(([k,v])=>`
+    <button class="opt-btn" onclick="selectSit('${k}')">
+      <i class="oico ti ${v.ico||'ti-message-circle'}"></i>
+      <span class="olbl">${v.label}</span>
+      <span class="osub">${v.note}</span>
+    </button>`).join('')}</div>`;
+}
+
+function selectSit(s){state.sit=s; state.stage='first'; renderWizard();}
+
+function renderResult(w){
+  const sit = D[state.gender].ages[state.age].situations[state.sit];
+  const sitKey = `${state.gender}.${state.age}.${state.sit}`;
+  const fav = isFav(sitKey);
+  const ageLbl = D[state.gender].ages[state.age].label;
+  const gLbl = D[state.gender].label;
+
+  w.innerHTML=`
+    ${stepRow(2,2,['대상 선택','장소·상황','결과'])}
+    <button class="back-btn" onclick="state.sit=null;renderWizard()"><i class="ti ti-arrow-left"></i> 뒤로</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="badge">${gLbl} · ${ageLbl} · ${sit.label}</div>
+      <button class="icon-btn" onclick="toggleFav('${sitKey}');renderResult(document.getElementById('wizard'))" title="즐겨찾기">
+        <i class="ti ${fav?'ti-bookmark-filled':'ti-bookmark'}"></i>
+      </button>
+    </div>
+
+    <!-- 만남 단계 탭 -->
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔄 만남 단계 선택</div>
+    <div class="stage-tabs">
+      ${[{id:'first',label:'🌱 첫 만남'},{id:'second',label:'🤝 재방문'},{id:'ongoing',label:'💚 관계 형성'}].map(s=>`
+        <button class="stage-tab ${state.stage===s.id?'active':''}" onclick="selectStage('${s.id}')">${s.label}</button>`).join('')}
+    </div>
+
+    <div id="result-content"></div>`;
+  renderResultContent(sit);
+}
+
+function selectStage(s){state.stage=s; renderResultContent(D[state.gender].ages[state.age].situations[state.sit]);}
+
+function renderResultContent(sit){
+  const c = document.getElementById('result-content');
+  if(!c) return;
+
+  if(state.stage==='first'){
+    c.innerHTML=`
+      <div class="opener-box">
+        <div class="opener-txt">"${sit.opener}"</div>
+        <button class="copy-btn" onclick="copyText('${sit.opener.replace(/'/g,"\\'")}')"><i class="ti ti-copy"></i> 복사</button>
+      </div>
+      <div class="note-txt">💡 ${sit.note}</div>
+      <button class="expand-btn" onclick="toggleConvo(this)">
+        <i class="ti ti-messages"></i> 대화 흐름 보기 <i class="ti ti-chevron-down" style="margin-left:auto"></i>
+      </button>
+      <div class="convo" style="display:none">
+        <div class="convo-hd">예시 대화</div>
+        <div class="msgs">
+          ${sit.convo.map(m=>`<div class="msg"><span class="role ${m.r}">${m.r==='we'?'우리':'상대'}</span><span class="msg-txt">${m.t}</span></div>`).join('')}
+        </div>
+        ${sit.tip?`<div class="tip-box"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>${sit.tip}</span></div>`:''}
+      </div>`;
+  } else if(state.stage==='second'){
+    const txt = sit.followup?.second || '다음 만남에서는 지난 대화를 자연스럽게 이어가보세요.';
+    c.innerHTML=`
+      <div class="followup-section">
+        <div class="followup-hd"><i class="ti ti-repeat"></i> 재방문 시 권장 멘트</div>
+        <div class="followup-card">
+          <div class="followup-lbl">💬 시작 멘트</div>
+          <div class="followup-txt">"${txt}"</div>
+        </div>
+        <div class="tip-box" style="margin-top:8px"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>첫 만남의 내용을 기억하고 언급하면 상대방이 큰 감동을 받아요. 메모해두는 습관을 들이세요.</span></div>
+      </div>`;
+  } else {
+    const txt = sit.followup?.ongoing || '관계가 깊어진 만큼 성경 이야기를 자연스럽게 꺼낼 수 있는 단계예요.';
+    c.innerHTML=`
+      <div class="followup-section">
+        <div class="followup-hd"><i class="ti ti-seedling"></i> 관계 형성 단계 조언</div>
+        <div class="followup-card purple">
+          <div class="followup-lbl purple">🌱 이 단계에서</div>
+          <div class="followup-txt">${txt}</div>
+        </div>
+        <div class="tip-box" style="margin-top:8px"><i class="ti ti-bulb" style="flex-shrink:0"></i><span>이 단계에서는 성경 연구 제안도 자연스럽게 가능해요. 상대의 필요와 관심사를 중심으로 연결해보세요.</span></div>
+      </div>`;
+  }
+}
+
 function toggleConvo(btn){
-  const box=document.getElementById('convo-box');
-  const open=box.style.display==='none';
-  box.style.display=open?'block':'none';
-  btn.querySelector('span').textContent=open?'대화 흐름 접기':'대화 흐름 보기';
-  btn.querySelector('.ti-chevron-down').style.transform=open?'rotate(180deg)':'rotate(0)';
+  const convo = btn.nextElementSibling;
+  const ico = btn.querySelector('.ti-chevron-down, .ti-chevron-up');
+  if(convo.style.display==='none'){
+    convo.style.display='block';
+    ico.classList.replace('ti-chevron-down','ti-chevron-up');
+  } else {
+    convo.style.display='none';
+    ico.classList.replace('ti-chevron-up','ti-chevron-down');
+  }
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────
-renderGuide();
+function copyText(t){
+  navigator.clipboard.writeText(t).then(()=>{
+    const btn = event.target.closest('.copy-btn');
+    const orig = btn.innerHTML;
+    btn.innerHTML='<i class="ti ti-check"></i> 복사됨';
+    setTimeout(()=>btn.innerHTML=orig, 1500);
+  });
+}
+
+// ── BROWSE PAGE ───────────────────────────────────────────────────────────────
+function renderBrowse(){
+  // Place filter pills
+  const pr = document.getElementById('place-filter-row');
+  pr.innerHTML = PLACES.map(p=>`
+    <button class="place-pill ${browsePlace===p.id?'active':''}" onclick="setBrowsePlace('${p.id}')">
+      <i class="ti ${p.icon}"></i> ${p.label}
+    </button>`).join('');
+  // Stage tabs
+  const sr = document.getElementById('stage-filter-row');
+  sr.innerHTML = STAGES.map(s=>`
+    <button class="stage-tab ${browseStage===s.id?'active':''}" onclick="setBrowseStage('${s.id}')">${s.label}</button>`).join('');
+  renderBrowseList();
+}
+
+function setBrowsePlace(p){browsePlace=p; renderBrowse();}
+function setBrowseStage(s){browseStage=s; renderBrowse();}
+
+function renderBrowseList(){
+  const list = document.getElementById('browse-list');
+  let html = '';
+  let count = 0;
+  const gColors = {male:'blue', female:'rose'};
+  const placeLabels = {bus:'버스',park:'공원',campus:'교내',display:'전시대',shop:'카페',
+    street:'길',restaurant:'식당',store:'약국',crosswalk:'횡단보도'};
+
+  // Regular situations
+  for(const [gk,gv] of Object.entries(D)){
+    for(const [ak,av] of Object.entries(gv.ages)){
+      const filtered = Object.entries(av.situations).filter(([sk,sv])=>{
+        const placeOk = browsePlace==='all'||(sv.places||[]).includes(browsePlace);
+        const stageOk = browseStage==='all'||(sv.stages||[]).includes(browseStage);
+        return placeOk && stageOk;
+      });
+      if(!filtered.length) continue;
+      html += `<div class="group-hd">${gv.label} · ${av.label}</div>`;
+      for(const [sk,sv] of filtered){
+        count++;
+        const key = `${gk}.${ak}.${sk}`;
+        const fav = isFav(key);
+        html += `
+          <div class="sit-list-item" onclick="jumpToResult('${gk}','${ak}','${sk}')">
+            <div class="sit-list-icon" style="background:var(--${gColors[gk]}-light)">
+              <i class="ti ${sv.ico||'ti-message-circle'}" style="color:var(--${gColors[gk]})"></i>
+            </div>
+            <div class="sit-list-info">
+              <div class="sit-list-lbl">${sv.label}</div>
+              <div class="tag-row">
+                ${(sv.places||[]).map(p=>`<span class="tag blue">${placeLabels[p]||p}</span>`).join('')}
+                ${(sv.stages||[]).includes('second')?'<span class="tag amber">재방문</span>':''}
+                ${(sv.stages||[]).includes('ongoing')?'<span class="tag purple">관계형성</span>':''}
+              </div>
+            </div>
+            <i class="ti ${fav?'ti-bookmark-filled':'ti-bookmark'} sit-list-arr" style="${fav?'color:var(--accent)':''}"></i>
+          </div>`;
+      }
+    }
+  }
+  // Foreign situations
+  const foreignFiltered = Object.entries(DF.situations).filter(([sk,sv])=>{
+    const placeOk = browsePlace==='all'||(sv.places||[]).includes(browsePlace);
+    const stageOk = browseStage==='all'||(sv.stages||[]).includes(browseStage);
+    return placeOk && stageOk;
+  });
+  if(foreignFiltered.length){
+    html += `<div class="group-hd">🌍 외국인 접촉</div>`;
+    for(const [sk,sv] of foreignFiltered){
+      count++;
+      const key = `foreign.all.${sk}`;
+      const fav = isFav(key);
+      html += `
+        <div class="sit-list-item" onclick="jumpToForeignResult('${sk}')">
+          <div class="sit-list-icon" style="background:var(--accent-light)">
+            <i class="ti ${sv.ico||'ti-world'}" style="color:var(--accent)"></i>
+          </div>
+          <div class="sit-list-info">
+            <div class="sit-list-lbl">${sv.label}</div>
+            <div class="tag-row">
+              ${(sv.places||[]).map(p=>`<span class="tag green">${placeLabels[p]||p}</span>`).join('')}
+              ${(sv.stages||[]).includes('second')?'<span class="tag amber">재방문</span>':''}
+            </div>
+          </div>
+          <i class="ti ${fav?'ti-bookmark-filled':'ti-bookmark'} sit-list-arr" style="${fav?'color:var(--accent)':''}"></i>
+        </div>`;
+    }
+  }
+  if(!count) html = `<div class="empty-state"><i class="ti ti-search"></i><div>해당 조건의 상황이 없어요</div></div>`;
+  list.innerHTML = html;
+}
+
+function jumpToResult(g,a,s){
+  state = {gender:g, age:a, sit:s, stage:'first'};
+  showPage('guide');
+  renderWizard();
+}
+
+function jumpToForeignResult(s){
+  state = {gender:'foreign', age:'all', sit:s, stage:'first'};
+  showPage('guide');
+  renderWizard();
+}
+
+// ── FAV PAGE ──────────────────────────────────────────────────────────────────
+function renderFavPage(){
+  const fl = document.getElementById('fav-list');
+  if(!favs.length){
+    fl.innerHTML=`<div class="empty-state"><i class="ti ti-bookmark"></i><div>아직 즐겨찾기가 없어요</div><div style="font-size:13px;margin-top:6px">상황 결과 화면에서 🔖 버튼을 눌러 저장해보세요</div></div>`;
+    return;
+  }
+  let html='';
+  for(const key of favs){
+    const [g,a,s] = key.split('.');
+    if(g==='foreign'){
+      const sit = DF.situations[s];
+      if(!sit) continue;
+      html += `
+        <div class="card" style="overflow:hidden;margin-bottom:10px">
+          <div class="sit-list-item" onclick="jumpToForeignResult('${s}')">
+            <div class="sit-list-icon" style="background:var(--accent-light)">
+              <i class="ti ${sit.ico||'ti-world'}" style="color:var(--accent)"></i>
+            </div>
+            <div class="sit-list-info">
+              <div class="sit-list-lbl">${sit.label}</div>
+              <div class="sit-list-sub">🌍 외국인 · ${sit.note}</div>
+            </div>
+            <i class="ti ti-arrow-right sit-list-arr"></i>
+          </div>
+        </div>`;
+    } else {
+      const sit = D[g]?.ages?.[a]?.situations?.[s];
+      if(!sit) continue;
+      const gLbl = D[g].label;
+      const aLbl = D[g].ages[a].label;
+      html += `
+        <div class="card" style="overflow:hidden;margin-bottom:10px">
+          <div class="sit-list-item" onclick="jumpToResult('${g}','${a}','${s}')">
+            <div class="sit-list-icon" style="background:var(--accent-light)">
+              <i class="ti ${sit.ico||'ti-message-circle'}" style="color:var(--accent)"></i>
+            </div>
+            <div class="sit-list-info">
+              <div class="sit-list-lbl">${sit.label}</div>
+              <div class="sit-list-sub">${gLbl} · ${aLbl} · ${sit.note}</div>
+            </div>
+            <i class="ti ti-arrow-right sit-list-arr"></i>
+          </div>
+        </div>`;
+    }
+  }
+  fl.innerHTML = html;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderWizard();
+renderBrowse();
 </script>
 </body>
 </html>
