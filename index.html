@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>대화 가이드 v2</title>
+<title>대화 시작 가이드</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 :root {
@@ -38,7 +38,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .icon-btn:hover{background:var(--surface2)}
 /* Bottom nav */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:100;background:var(--surface);border-top:1px solid var(--border);display:flex;max-width:480px;width:100%}
-.nav-btn{flex:1;border:none;background:transparent;cursor:pointer;padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text3);font-size:10px;font-weight:600;transition:color .15s}
+.nav-btn{flex:1;border:none;background:transparent;cursor:pointer;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text3);font-size:9px;font-weight:600;transition:color .15s}
 .nav-btn.active{color:var(--accent)}
 .nav-btn i{font-size:20px}
 /* Pages */
@@ -143,6 +143,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* Section group header */
 .group-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:10px 16px 6px;background:var(--surface2)}
 
+/* Experience chat */
+.exp-wrap{display:flex;flex-direction:column;height:calc(100vh - 180px);min-height:400px}
+.exp-chat{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.exp-bwrap{display:flex;flex-direction:column}
+.exp-bwrap.bot{align-items:flex-start}
+.exp-bwrap.usr{align-items:flex-end}
+.exp-tag{display:inline-block;font-size:11px;font-weight:600;color:var(--accent-text);background:var(--accent-light);border-radius:5px;padding:2px 8px;margin-bottom:5px}
+.exp-bub{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.65;word-break:break-word}
+.exp-bub.bot{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
+.exp-bub.usr{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+[data-theme="dark"] .exp-bub.usr{background:var(--accent);color:#111}
+.exp-bub.result{max-width:100%;background:var(--surface2);border:1px solid var(--accent);color:var(--text);font-size:12px;line-height:1.9;white-space:pre-wrap;font-family:monospace;border-radius:12px}
+.exp-skip{font-size:11px;color:var(--text3);margin-top:4px;padding-left:2px}
+.exp-prog{padding:8px 16px 10px;background:var(--surface);border-bottom:1px solid var(--border)}
+.exp-prog-lbl{font-size:11px;color:var(--text3);display:flex;justify-content:space-between;margin-bottom:4px}
+.exp-prog-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden}
+.exp-prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:0%}
+.exp-iarea{padding:10px 12px;border-top:1px solid var(--border);background:var(--surface);display:flex;gap:8px;align-items:flex-end}
+.exp-inp{flex:1;resize:none;min-height:44px;max-height:110px;padding:11px 13px;font-size:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;line-height:1.4;-webkit-appearance:none;transition:border-color .15s}
+.exp-inp:focus{border-color:var(--accent)}
+.exp-inp::placeholder{color:var(--text3)}
+.exp-inp:disabled{background:var(--surface2);color:var(--text3)}
+.exp-sbtn{width:44px;height:44px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:opacity .15s}
+[data-theme="dark"] .exp-sbtn{color:#111}
+.exp-sbtn:active{opacity:.75}
+.exp-sbtn:disabled{background:var(--border);cursor:default}
+.exp-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.exp-copy-btn{display:flex;align-items:center;gap:6px;padding:10px 16px;font-size:13px;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:background .15s}
+.exp-copy-btn:active{background:var(--surface2)}
+.exp-copy-btn.ok{color:var(--accent-text);border-color:var(--accent);background:var(--accent-light)}
+.exp-restart-btn{padding:10px 16px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--text2);cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.exp-restart-btn:active{background:var(--surface2)}
+.exp-share-hint{font-size:12px;color:var(--text3);text-align:center;padding:10px 0 2px;line-height:1.5}
+
 /* Gender-Age combined card */
 .ga-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .ga-card {
@@ -169,17 +203,117 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ga-card.foreign .ga-gender { color: var(--accent); }
 .ga-full { grid-column: 1 / -1; }
 .foreign-sit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+
+/* Help modal */
+.help-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.help-overlay.open{opacity:1;pointer-events:all}
+.help-sheet{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;padding:0 0 32px;transform:translateY(40px);transition:transform .25s}
+.help-overlay.open .help-sheet{transform:translateY(0)}
+.help-sheet-hd{position:sticky;top:0;background:var(--surface);padding:16px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;z-index:1}
+.help-sheet-title{font-size:16px;font-weight:700;color:var(--text)}
+.help-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:16px}
+.help-section{padding:16px 16px 0}
+.help-sec-title{font-size:13px;font-weight:700;color:var(--accent-text);background:var(--accent-light);border-radius:8px;padding:6px 12px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.help-item{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.help-ico{width:32px;height:32px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px}
+.help-txt{flex:1}
+.help-lbl{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.help-desc{font-size:12px;color:var(--text2);line-height:1.55}
+.help-divider{height:1px;background:var(--border);margin:14px 16px}
 </style>
 </head>
 <body data-theme="light">
 <div class="app">
   <div class="topbar">
     <div style="display:flex;align-items:center">
-      <span class="topbar-title">대화 가이드</span>
-      <span class="topbar-badge">v2</span>
+      <span class="topbar-title">대화 시작 가이드</span>
+      <span class="topbar-badge"></span>
     </div>
     <div class="topbar-actions">
+      <button class="icon-btn" onclick="openHelp()" title="사용법"><i class="ti ti-help"></i></button>
       <button class="icon-btn" onclick="toggleTheme()" title="다크모드"><i class="ti ti-moon"></i></button>
+    </div>
+  </div>
+
+  <!-- Help modal -->
+  <div class="help-overlay" id="help-overlay" onclick="closeHelpOutside(event)">
+    <div class="help-sheet">
+      <div class="help-sheet-hd">
+        <span class="help-sheet-title">앱 사용법 안내</span>
+        <button class="help-close" onclick="closeHelp()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="help-section">
+        <div class="help-sec-title"><i class="ti ti-route"></i> 가이드 탭</div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-users"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">① 대상 선택</div>
+            <div class="help-desc">대화 상대의 성별과 나이대를 선택하세요. 외국인이라면 하단 외국인 버튼을 누르세요.</div>
+          </div>
+        </div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-map-pin"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">② 장소·상황 선택</div>
+            <div class="help-desc">장소 필터로 좁힌 뒤, 현재 상황에 맞는 항목을 고르세요.</div>
+          </div>
+        </div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-message-circle"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">③ 결과 확인</div>
+            <div class="help-desc">첫 만남 · 재방문 · 관계 형성 탭을 전환하며 단계별 대화 멘트를 확인하세요. 복사 버튼으로 텍스트를 바로 가져갈 수 있어요.</div>
+          </div>
+        </div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-bookmark"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">즐겨찾기 저장</div>
+            <div class="help-desc">결과 화면 우측 상단 🔖 버튼을 눌러 자주 쓰는 상황을 저장해두세요.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-divider"></div>
+
+      <div class="help-section">
+        <div class="help-sec-title"><i class="ti ti-layout-list"></i> 둘러보기 탭</div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-filter"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">장소 · 만남 단계 필터</div>
+            <div class="help-desc">장소 태그와 만남 단계(첫 만남/재방문/관계형성)를 조합해 전체 상황 목록을 빠르게 탐색할 수 있어요.</div>
+          </div>
+        </div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-arrow-right"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">항목 클릭</div>
+            <div class="help-desc">목록에서 항목을 누르면 가이드 탭으로 이동해 해당 상황의 대화 멘트를 바로 볼 수 있어요.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-divider"></div>
+
+      <div class="help-section">
+        <div class="help-sec-title"><i class="ti ti-pencil"></i> 경험담 작성 탭</div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-messages"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">챗봇 형식으로 작성</div>
+            <div class="help-desc">봇이 묻는 7가지 질문에 순서대로 답하면 경험담이 자동으로 완성돼요. 건너뛰고 싶은 항목은 "없음"을 입력하세요.</div>
+          </div>
+        </div>
+        <div class="help-item">
+          <div class="help-ico"><i class="ti ti-copy"></i></div>
+          <div class="help-txt">
+            <div class="help-lbl">완성 후 복사</div>
+            <div class="help-desc">작성이 끝나면 복사하기 버튼을 눌러 카카오톡·문자로 담당자에게 보내세요.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -213,10 +347,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="fav-list"></div>
   </div>
 
+  <!-- Page: Experience -->
+  <div class="page" id="page-exp">
+    <div class="exp-prog">
+      <div class="exp-prog-lbl">
+        <span id="exp-prog-text">시작 전</span>
+        <span id="exp-prog-num">0 / 7</span>
+      </div>
+      <div class="exp-prog-bar"><div class="exp-prog-fill" id="exp-prog-fill"></div></div>
+    </div>
+    <div class="exp-wrap">
+      <div class="exp-chat" id="exp-chat"></div>
+      <div class="exp-iarea">
+        <textarea class="exp-inp" id="exp-inp" placeholder="여기에 입력 후 전송하세요..." rows="1"></textarea>
+        <button class="exp-sbtn" id="exp-sbtn" aria-label="보내기"><i class="ti ti-send"></i></button>
+      </div>
+    </div>
+  </div>
+
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="showPage('guide')" id="nav-guide"><i class="ti ti-route"></i>가이드</button>
     <button class="nav-btn" onclick="showPage('browse')" id="nav-browse"><i class="ti ti-layout-list"></i>둘러보기</button>
     <button class="nav-btn" onclick="showPage('fav')" id="nav-fav"><i class="ti ti-bookmark"></i>즐겨찾기</button>
+    <button class="nav-btn" onclick="showPage('exp')" id="nav-exp"><i class="ti ti-pencil"></i>경험담 작성</button>
   </nav>
 </div>
 
@@ -982,6 +1135,11 @@ function toggleTheme(){
   document.body.dataset.theme=t;
 }
 
+// ── HELP MODAL ────────────────────────────────────────────────────────────────
+function openHelp(){document.getElementById('help-overlay').classList.add('open');}
+function closeHelp(){document.getElementById('help-overlay').classList.remove('open');}
+function closeHelpOutside(e){if(e.target===document.getElementById('help-overlay')) closeHelp();}
+
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -990,6 +1148,7 @@ function showPage(id){
   document.getElementById('nav-'+id).classList.add('active');
   if(id==='browse') renderBrowse();
   if(id==='fav') renderFavPage();
+  if(id==='exp' && !expStarted) { expStarted=true; setTimeout(()=>expAskStep(0),300); }
 }
 
 // ── WIZARD ────────────────────────────────────────────────────────────────────
@@ -1033,8 +1192,8 @@ function renderGenderAgeStep(w){
     <span style="display:flex;align-items:center;gap:8px">
       <span style="font-size:24px">🌍</span>
       <span>
-        <span class="ga-gender" style="color:var(--accent)">외국인 대상</span>
-        <div class="ga-age">외국인 접촉 가이드</div>
+        <span class="ga-gender" style="color:var(--accent)">외국인</span>
+        <div class="ga-age">외국인을 대상으로 대화 시작하기 </div>
         <div class="ga-sub">유학생 · 직장인 · 가족 · 여행객 · 언어장벽</div>
       </span>
       <span class="ga-count" style="margin-left:auto">${fCount}가지 상황</span>
@@ -1354,7 +1513,7 @@ function renderBrowseList(){
     return placeOk && stageOk;
   });
   if(foreignFiltered.length){
-    html += `<div class="group-hd">🌍 외국인 접촉</div>`;
+    html += `<div class="group-hd">🌍 외국인 </div>`;
     for(const [sk,sv] of foreignFiltered){
       count++;
       const key = `foreign.all.${sk}`;
@@ -1439,6 +1598,155 @@ function renderFavPage(){
   }
   fl.innerHTML = html;
 }
+
+// ── EXPERIENCE WRITING ───────────────────────────────────────────────────────
+const EXP_STEPS = [
+  {key:'date',  label:'1. 일자',         q:'안녕하세요! 경험담 작성을 도와드릴게요.\n\n먼저, 언제 있었던 경험인가요?', ph:'예: 2026년 6월 20일 / 오늘', skip:false},
+  {key:'cong',  label:'2. 회중',         q:'어느 회중 소속이세요?\n비공개라면 "없음"이라고 적어 주세요.', ph:'예: 안성남부 / 없음', skip:true},
+  {key:'name',  label:'3. 이름',         q:'이름을 남겨 주시겠어요?\n익명을 원하시면 "익명"이라고 입력하세요.', ph:'예: 홍길동 / 익명', skip:true},
+  {key:'place', label:'4. 장소',         q:'어디서 있었던 경험인가요?', ph:'예: 버스정류장 / 공원 앞', skip:false},
+  {key:'sit',   label:'5. 상황',         q:'어떤 상황이었나요?\n대상이 누구였고, 어떻게 대화가 시작됐는지 간단히 적어 주세요.', ph:'예: 버스를 기다리던 20대 여성과 눈이 마주쳐 대화 시작', skip:false},
+  {key:'resp',  label:'6. 응대(구체적)', q:'어떻게 대화를 이어가셨나요?\n\n말을 어떻게 걸었는지, 어떤 내용을 나눴는지, 상대 반응은 어땠는지 자유롭게 적어 주세요. 짧아도 괜찮아요!', ph:'예: "가방 인형 귀엽네요"로 시작해 jw.org 카드 드렸더니 감사히 받으심', skip:false},
+  {key:'feel',  label:'7. 느낀점',       q:'이번 경험에서 느낀 점이 있으신가요?\n한 줄이라도 좋아요. 없으면 "없음"이라고 입력하세요.', ph:'예: 작은 관심사로도 자연스럽게 이어질 수 있다고 느꼈어요', skip:true},
+];
+let expStep=0, expAns={}, expDone=false, expStarted=false;
+
+function expScroll(){
+  const c=document.getElementById('exp-chat');
+  if(c) setTimeout(()=>{c.scrollTop=c.scrollHeight;},80);
+}
+function expUpdateProg(){
+  const pf=document.getElementById('exp-prog-fill');
+  const pt=document.getElementById('exp-prog-text');
+  const pn=document.getElementById('exp-prog-num');
+  if(!pf) return;
+  pf.style.width=(expStep/EXP_STEPS.length*100)+'%';
+  pn.textContent=expStep+' / '+EXP_STEPS.length;
+  pt.textContent=expStep===0?'시작 전':expStep<EXP_STEPS.length?EXP_STEPS[expStep-1].label+' 완료':'작성 완료';
+}
+function expAddBot(text,label){
+  const chat=document.getElementById('exp-chat');
+  if(!chat) return;
+  const w=document.createElement('div'); w.className='exp-bwrap bot';
+  if(label){const t=document.createElement('div');t.className='exp-tag';t.textContent=label;w.appendChild(t);}
+  const b=document.createElement('div'); b.className='exp-bub bot'; b.textContent=text; w.appendChild(b);
+  chat.appendChild(w); expScroll();
+}
+function expAddUser(text){
+  const chat=document.getElementById('exp-chat');
+  if(!chat) return;
+  const w=document.createElement('div'); w.className='exp-bwrap usr';
+  const b=document.createElement('div'); b.className='exp-bub usr'; b.textContent=text; w.appendChild(b);
+  chat.appendChild(w); expScroll();
+}
+function expAddResult(text){
+  const chat=document.getElementById('exp-chat');
+  if(!chat) return;
+  const w=document.createElement('div'); w.className='exp-bwrap bot'; w.style.width='100%';
+  const tag=document.createElement('div'); tag.className='exp-tag'; tag.textContent='완성된 경험담'; w.appendChild(tag);
+  const b=document.createElement('div'); b.className='exp-bub result'; b.textContent=text; w.appendChild(b);
+  const row=document.createElement('div'); row.className='exp-btn-row';
+  const cp=document.createElement('button'); cp.className='exp-copy-btn';
+  cp.innerHTML='<i class="ti ti-copy"></i>복사하기';
+  cp.onclick=()=>{
+    const ok=()=>{
+      cp.className='exp-copy-btn ok';
+      cp.innerHTML='<i class="ti ti-check"></i>복사됨!';
+      setTimeout(()=>{cp.className='exp-copy-btn';cp.innerHTML='<i class="ti ti-copy"></i>복사하기';},2500);
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok).catch(()=>expFallbackCopy(text,ok));
+    } else { expFallbackCopy(text,ok); }
+  };
+  row.appendChild(cp);
+  const rb=document.createElement('button'); rb.className='exp-restart-btn'; rb.textContent='새 경험담 작성';
+  rb.onclick=expRestart; row.appendChild(rb);
+  w.appendChild(row);
+  const hint=document.createElement('div'); hint.className='exp-share-hint';
+  hint.textContent='위 내용을 복사해서 카카오톡 또는 문자로 담당자에게 보내 주세요.';
+  w.appendChild(hint);
+  chat.appendChild(w); expScroll();
+}
+function expFallbackCopy(text,cb){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.cssText='position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{document.execCommand('copy');cb();}catch(e){}
+  document.body.removeChild(ta);
+}
+function expBuildResult(){
+  return EXP_STEPS.map(s=>s.label+' : '+(expAns[s.key]||'-')).join('\n');
+}
+function expAskStep(i){
+  if(i>=EXP_STEPS.length){expFinish();return;}
+  const s=EXP_STEPS[i];
+  const chat=document.getElementById('exp-chat');
+  if(!chat) return;
+  const w=document.createElement('div'); w.className='exp-bwrap bot';
+  const tag=document.createElement('div'); tag.className='exp-tag'; tag.textContent=s.label; w.appendChild(tag);
+  const b=document.createElement('div'); b.className='exp-bub bot'; b.textContent=s.q; w.appendChild(b);
+  if(s.skip){const h=document.createElement('div');h.className='exp-skip';h.textContent='비워두려면 "없음" 또는 "익명" 입력';w.appendChild(h);}
+  chat.appendChild(w);
+  const inp=document.getElementById('exp-inp');
+  if(inp) inp.placeholder=s.ph||'여기에 입력하세요...';
+  expScroll(); expUpdateProg();
+}
+function expSend(){
+  if(expDone) return;
+  const inp=document.getElementById('exp-inp');
+  if(!inp) return;
+  const v=inp.value.trim(); if(!v) return;
+  expAddUser(v);
+  expAns[EXP_STEPS[expStep].key]=v;
+  inp.value=''; inp.style.height='auto';
+  expStep++;
+  setTimeout(()=>{
+    if(expStep<EXP_STEPS.length) expAskStep(expStep);
+    else expFinish();
+  },350);
+}
+function expFinish(){
+  expDone=true;
+  const pf=document.getElementById('exp-prog-fill');
+  const pt=document.getElementById('exp-prog-text');
+  const pn=document.getElementById('exp-prog-num');
+  const sbtn=document.getElementById('exp-sbtn');
+  const inp=document.getElementById('exp-inp');
+  if(pf) pf.style.width='100%';
+  if(pt) pt.textContent='작성 완료';
+  if(pn) pn.textContent='7 / 7';
+  if(sbtn) sbtn.disabled=true;
+  if(inp){inp.disabled=true; inp.placeholder='작성 완료';}
+  setTimeout(()=>expAddBot('모든 항목을 작성해 주셨어요! 아래 내용을 복사해서 담당자에게 보내 주세요.'),200);
+  setTimeout(()=>expAddResult(expBuildResult()),700);
+}
+function expRestart(){
+  expStep=0; expAns={}; expDone=false;
+  const chat=document.getElementById('exp-chat');
+  const inp=document.getElementById('exp-inp');
+  const sbtn=document.getElementById('exp-sbtn');
+  const pf=document.getElementById('exp-prog-fill');
+  const pt=document.getElementById('exp-prog-text');
+  const pn=document.getElementById('exp-prog-num');
+  if(chat) chat.innerHTML='';
+  if(inp){inp.disabled=false;inp.value='';}
+  if(sbtn) sbtn.disabled=false;
+  if(pf) pf.style.width='0%';
+  if(pt) pt.textContent='시작 전';
+  if(pn) pn.textContent='0 / 7';
+  setTimeout(()=>expAskStep(0),200);
+}
+
+// Wire up experience input after DOM ready
+document.addEventListener('DOMContentLoaded',()=>{
+  const sbtn=document.getElementById('exp-sbtn');
+  const inp=document.getElementById('exp-inp');
+  if(sbtn) sbtn.addEventListener('click',expSend);
+  if(inp){
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();expSend();}});
+    inp.addEventListener('input',()=>{inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,110)+'px';});
+  }
+});
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderWizard();
