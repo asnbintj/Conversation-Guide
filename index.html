@@ -230,6 +230,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .help-lbl{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
 .help-desc{font-size:12px;color:var(--text2);line-height:1.55}
 .help-divider{height:1px;background:var(--border);margin:14px 16px}
+/* Experience Form */
+.exp-form-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px}
+.exp-form-label{font-size:11px;font-weight:700;color:var(--accent-text);background:var(--accent-light);border-radius:6px;padding:3px 10px;display:inline-block;margin-bottom:6px}
+.exp-form-q{font-size:13px;color:var(--text2);margin-bottom:8px;line-height:1.45}
+.exp-form-inp{width:100%;padding:10px 12px;font-size:15px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:border-color .15s;-webkit-appearance:none;box-sizing:border-box}
+.exp-form-inp:focus{border-color:var(--accent)}
+.exp-form-ta{resize:none;min-height:72px;line-height:1.5;display:block}
+.ef-chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ef-chip{border:1.5px solid var(--border);border-radius:99px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--text2);background:var(--surface2);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.ef-chip:active{transform:scale(.95)}
+.ef-chip.sel{border-color:var(--accent);background:var(--accent-light);color:var(--accent-text)}
+.ef-chip.tmpl{border-color:var(--blue);color:var(--blue-text);background:var(--blue-light)}
+.exp-submit-btn{width:100%;padding:15px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:700;cursor:pointer;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+[data-theme="dark"] .exp-submit-btn{color:#111}
+.exp-submit-btn:active{opacity:.8}
+.exp-result-box{background:var(--surface2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px;font-size:13px;line-height:1.9;white-space:pre-wrap;color:var(--text);word-break:break-all}
 </style>
 </head>
 <body data-theme="light">
@@ -359,19 +375,113 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <!-- Page: Experience -->
   <div class="page" id="page-exp">
-    <div class="exp-prog">
-      <div class="exp-prog-lbl">
-        <span id="exp-prog-text">시작 전</span>
-        <span id="exp-prog-num">0 / 7</span>
+    <!-- Form Area -->
+    <div id="exp-form-area">
+      <div style="padding:4px 0 10px">
+        <div class="sec-h">경험담 작성</div>
+        <div class="sec-s">아래 항목을 모두 작성한 후 제출 버튼을 눌러주세요</div>
       </div>
-      <div class="exp-prog-bar"><div class="exp-prog-fill" id="exp-prog-fill"></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <!-- 1. 일자 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">1. 일자 <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">언제 있었던 경험인가요?</div>
+          <input type="text" class="exp-form-inp" id="ef-date" placeholder="예: 2026년 6월 28일">
+          <div class="ef-chip-row">
+            <button class="ef-chip" data-for="ef-date" onclick="efFill(this)">오늘</button>
+            <button class="ef-chip" data-for="ef-date" onclick="efFill(this)">어제</button>
+          </div>
+        </div>
+        <!-- 2. 회중 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">2. 회중 <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">어느 회중 소속이세요?</div>
+          <input type="text" class="exp-form-inp" id="ef-cong" placeholder="예: 안성 남부">
+          <div class="ef-chip-row">
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">서운 동부</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">서운 서부</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 남부</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 북부</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 서부</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 중앙</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 승두</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 진사</button>
+            <button class="ef-chip" data-for="ef-cong" onclick="efFill(this)">안성 정봉</button>
+          </div>
+        </div>
+        <!-- 3. 이름 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">3. 이름 <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">이름을 남겨 주시겠어요?</div>
+          <input type="text" class="exp-form-inp" id="ef-name" placeholder="예: 홍길동">
+        </div>
+        <!-- 4. 장소 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">4. 장소 <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">어디서 있었던 경험인가요?</div>
+          <input type="text" class="exp-form-inp" id="ef-place" placeholder="예: 버스정류장">
+          <div class="ef-chip-row">
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">버스정류장</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">공원·광장</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">교내·학교</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">전시대 앞</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">카페·상가</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">길·횡단보도</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">식당·노점</button>
+            <button class="ef-chip" data-for="ef-place" onclick="efFill(this)">약국·편의점</button>
+          </div>
+        </div>
+        <!-- 5. 상황 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">5. 상황 <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">대상이 누구였고, 어떻게 대화가 시작됐는지 간단히 적어 주세요.</div>
+          <div class="ef-chip-row" style="margin-bottom:8px">
+            <button class="ef-chip" data-for="ef-sit" data-append="남성 10~20대, " onclick="efInsert(this)">남성 10~20대</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="남성 30~50대, " onclick="efInsert(this)">남성 30~50대</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="남성 60대 이상, " onclick="efInsert(this)">남성 60대+</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="여성 10~20대, " onclick="efInsert(this)">여성 10~20대</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="여성 30~50대, " onclick="efInsert(this)">여성 30~50대</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="여성 60대 이상, " onclick="efInsert(this)">여성 60대+</button>
+            <button class="ef-chip" data-for="ef-sit" data-append="외국인, " onclick="efInsert(this)">외국인</button>
+          </div>
+          <textarea class="exp-form-inp exp-form-ta" id="ef-sit" placeholder="예: 버스를 기다리던 20대 여성과 눈이 마주쳐 대화 시작"></textarea>
+        </div>
+        <!-- 6. 응대 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">6. 응대 (구체적) <span style="color:var(--rose)">✱</span></div>
+          <div class="exp-form-q">어떻게 대화를 이어가셨나요? 말을 어떻게 걸었는지, 상대 반응은 어땠는지 자유롭게 적어 주세요.</div>
+          <div class="ef-chip-row" style="margin-bottom:8px">
+            <button class="ef-chip tmpl" data-for="ef-resp" data-append="소지품으로 대화 시작, " onclick="efInsert(this)">소지품으로 시작</button>
+            <button class="ef-chip tmpl" data-for="ef-resp" data-append="도움 제공 후 전시대 안내, " onclick="efInsert(this)">도움 제공 후</button>
+            <button class="ef-chip tmpl" data-for="ef-resp" data-append="전시대를 먼저 보고 다가오심, " onclick="efInsert(this)">전시대에서</button>
+            <button class="ef-chip tmpl" data-for="ef-resp" data-append="건강 이야기로 시작해 성경의 희망 소개, " onclick="efInsert(this)">건강 공감</button>
+            <button class="ef-chip tmpl" data-for="ef-resp" data-append="사회 이슈로 시작, " onclick="efInsert(this)">사회 이슈로</button>
+          </div>
+          <textarea class="exp-form-inp exp-form-ta" id="ef-resp" placeholder="예: '가방 인형 귀엽네요'로 시작해 jw.org 카드 드렸더니 감사히 받으심"></textarea>
+        </div>
+        <!-- 7. 느낀점 -->
+        <div class="exp-form-card">
+          <div class="exp-form-label">7. 느낀점 (선택)</div>
+          <div class="exp-form-q">이번 경험에서 느낀 점이 있으신가요? 한 줄이라도 좋아요.</div>
+          <textarea class="exp-form-inp exp-form-ta" id="ef-feel" placeholder="예: 작은 관심사로도 자연스럽게 이어질 수 있다고 느꼈어요"></textarea>
+        </div>
+      </div>
+      <div style="padding:14px 0 4px">
+        <button class="exp-submit-btn" onclick="efSubmit()"><i class="ti ti-check"></i>  경험담 완성하기</button>
+      </div>
     </div>
-    <div class="exp-wrap">
-      <div class="exp-chat" id="exp-chat"></div>
-      <div class="exp-iarea">
-        <button class="exp-back-btn" id="exp-back-btn" onclick="expGoBack()" title="이전 질문으로" disabled><i class="ti ti-arrow-left"></i></button>
-        <textarea class="exp-inp" id="exp-inp" placeholder="여기에 입력 후 전송하세요..." rows="1"></textarea>
-        <button class="exp-sbtn" id="exp-sbtn" aria-label="보내기"><i class="ti ti-send"></i></button>
+    <!-- Result Area -->
+    <div id="exp-result-area" style="display:none">
+      <div style="padding:4px 0 12px">
+        <div class="sec-h">경험담 완성!</div>
+        <div class="sec-s">아래 내용을 복사해서 담당자에게 보내 주세요</div>
+      </div>
+      <div class="exp-result-box" id="exp-result-text"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;padding-bottom:8px">
+        <button class="exp-copy-btn" id="exp-copy-btn" onclick="efCopy()" style="flex:1">
+          <i class="ti ti-copy"></i>복사하기
+        </button>
+        <button class="exp-restart-btn" onclick="efRestart()">새 경험담</button>
       </div>
     </div>
   </div>
@@ -1159,7 +1269,6 @@ function showPage(id){
   document.getElementById('nav-'+id).classList.add('active');
   if(id==='browse') renderBrowse();
   if(id==='fav') renderFavPage();
-  if(id==='exp' && !expStarted) { expStarted=true; setTimeout(()=>expAskStep(0),300); }
 }
 
 // ── WIZARD ────────────────────────────────────────────────────────────────────
@@ -1610,264 +1719,81 @@ function renderFavPage(){
   fl.innerHTML = html;
 }
 
-// ── EXPERIENCE WRITING ───────────────────────────────────────────────────────
-const EXP_STEPS = [
-  {key:'date',  label:'1. 일자',         q:'안녕하세요! 경험담 작성을 도와드릴게요.\n\n먼저, 언제 있었던 경험인가요?(어제 오늘이 아니라면 날짜를 입력해주세요)', ph:'예: 2026년 6월 20일', skip:false, quickType:'date'},
-  {key:'cong',  label:'2. 회중',         q:'어느 회중 소속이세요?', ph:'예: 안성남부', skip:false},
-  {key:'name',  label:'3. 이름',         q:'이름을 남겨 주시겠어요?', ph:'예: 홍길동', skip:false},
-  {key:'place', label:'4. 장소',         q:'어디서 있었던 경험인가요?(해당 장소가 없다면 기입해주세요)', ph:'예: 버스정류장 / 공원 앞', skip:false, quickType:'place'},
-  {key:'sit',   label:'5. 상황',         q:'어떤 상황이었나요?\n대상이 누구였고, 어떻게 대화가 시작됐는지 간단히 적어 주세요', ph:'예: 버스를 기다리던 20대 여성과 눈이 마주쳐 대화 시작', skip:false, quickType:'sit'},
-  {key:'resp',  label:'6. 응대(구체적)', q:'어떻게 대화를 이어가셨나요?\n\n말을 어떻게 걸었는지, 어떤 내용을 나눴는지, 상대 반응은 어땠는지 자유롭게 적어 주세요. 짧아도 괜찮아요!', ph:'예: "가방 인형 귀엽네요"로 시작해 jw.org 카드 드렸더니 감사히 받으심', skip:false, quickType:'resp'},
-  {key:'feel',  label:'7. 느낀점',       q:'이번 경험에서 느낀 점이 있으신가요?\n한 줄이라도 좋아요.', ph:'예: 작은 관심사로도 자연스럽게 이어질 수 있다고 느꼈어요', skip:true},
-];
-let expStep=0, expAns={}, expDone=false, expStarted=false;
-
-function expScroll(){
-  const c=document.getElementById('exp-chat');
-  if(c) setTimeout(()=>{c.scrollTop=c.scrollHeight;},80);
+// ── EXPERIENCE WRITING (FORM) ────────────────────────────────────────────────
+function efGetDate(offset){
+  const d=new Date(); d.setDate(d.getDate()+offset);
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
 }
-function expUpdateProg(){
-  const pf=document.getElementById('exp-prog-fill');
-  const pt=document.getElementById('exp-prog-text');
-  const pn=document.getElementById('exp-prog-num');
-  const bb=document.getElementById('exp-back-btn');
-  if(!pf) return;
-  pf.style.width=(expStep/EXP_STEPS.length*100)+'%';
-  pn.textContent=expStep+' / '+EXP_STEPS.length;
-  pt.textContent=expStep===0?'시작 전':expStep<EXP_STEPS.length?EXP_STEPS[expStep-1].label+' 완료':'작성 완료';
-  if(bb) bb.disabled=(expStep<=0||expDone);
+function efFill(btn){
+  const id=btn.dataset.for;
+  const inp=document.getElementById(id); if(!inp) return;
+  let v=btn.textContent.trim();
+  if(v==='오늘') v=efGetDate(0);
+  else if(v==='어제') v=efGetDate(-1);
+  inp.value=v;
+  const row=btn.closest('.ef-chip-row');
+  if(row) row.querySelectorAll('.ef-chip').forEach(c=>c.classList.remove('sel'));
+  btn.classList.add('sel');
 }
-function expAddBot(text,label){
-  const chat=document.getElementById('exp-chat');
-  if(!chat) return;
-  const w=document.createElement('div'); w.className='exp-bwrap bot';
-  if(label){const t=document.createElement('div');t.className='exp-tag';t.textContent=label;w.appendChild(t);}
-  const b=document.createElement('div'); b.className='exp-bub bot'; b.textContent=text; w.appendChild(b);
-  chat.appendChild(w); expScroll();
+function efInsert(btn){
+  const id=btn.dataset.for;
+  const append=btn.dataset.append||btn.textContent.trim()+', ';
+  const inp=document.getElementById(id); if(!inp) return;
+  inp.value=inp.value?append+inp.value:append;
+  inp.focus();
 }
-function expAddUser(text){
-  const chat=document.getElementById('exp-chat');
-  if(!chat) return;
-  const w=document.createElement('div'); w.className='exp-bwrap usr';
-  const b=document.createElement('div'); b.className='exp-bub usr'; b.textContent=text; w.appendChild(b);
-  chat.appendChild(w); expScroll();
+function efSubmit(){
+  const fields=[
+    {id:'ef-date', lbl:'1. 일자',        req:true},
+    {id:'ef-cong', lbl:'2. 회중',        req:true},
+    {id:'ef-name', lbl:'3. 이름',        req:true},
+    {id:'ef-place',lbl:'4. 장소',        req:true},
+    {id:'ef-sit',  lbl:'5. 상황',        req:true},
+    {id:'ef-resp', lbl:'6. 응대(구체적)',req:true},
+    {id:'ef-feel', lbl:'7. 느낀점',      req:false},
+  ];
+  for(const f of fields){
+    if(f.req && !document.getElementById(f.id)?.value.trim()){
+      alert(`"${f.lbl}" 항목을 입력해주세요.`);
+      document.getElementById(f.id)?.focus();
+      return;
+    }
+  }
+  const lines=fields.map(f=>f.lbl+' : '+(document.getElementById(f.id)?.value.trim()||'없음')).join('\n');
+  document.getElementById('exp-form-area').style.display='none';
+  const ra=document.getElementById('exp-result-area');
+  ra.style.display='block';
+  document.getElementById('exp-result-text').textContent=lines;
+  document.getElementById('page-exp').scrollTop=0;
 }
-function expAddResult(text){
-  const chat=document.getElementById('exp-chat');
-  if(!chat) return;
-  const w=document.createElement('div'); w.className='exp-bwrap bot'; w.style.width='100%';
-  const tag=document.createElement('div'); tag.className='exp-tag'; tag.textContent='완성된 경험담'; w.appendChild(tag);
-  const b=document.createElement('div'); b.className='exp-bub result'; b.textContent=text; w.appendChild(b);
-  const row=document.createElement('div'); row.className='exp-btn-row';
-  const cp=document.createElement('button'); cp.className='exp-copy-btn';
-  cp.innerHTML='<i class="ti ti-copy"></i>복사하기';
-  cp.onclick=()=>{
-    const ok=()=>{
-      cp.className='exp-copy-btn ok';
-      cp.innerHTML='<i class="ti ti-check"></i>복사됨!';
-      setTimeout(()=>{cp.className='exp-copy-btn';cp.innerHTML='<i class="ti ti-copy"></i>복사하기';},2500);
-    };
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(ok).catch(()=>expFallbackCopy(text,ok));
-    } else { expFallbackCopy(text,ok); }
+function efRestart(){
+  document.getElementById('exp-result-area').style.display='none';
+  document.getElementById('exp-form-area').style.display='block';
+  ['ef-date','ef-cong','ef-name','ef-place','ef-sit','ef-resp','ef-feel'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.querySelectorAll('.ef-chip').forEach(c=>c.classList.remove('sel'));
+}
+function efCopy(){
+  const text=document.getElementById('exp-result-text')?.textContent;
+  const btn=document.getElementById('exp-copy-btn');
+  if(!text||!btn) return;
+  const ok=()=>{
+    btn.className='exp-copy-btn ok';
+    btn.innerHTML='<i class="ti ti-check"></i>복사됨!';
+    setTimeout(()=>{btn.className='exp-copy-btn';btn.innerHTML='<i class="ti ti-copy"></i>복사하기';},2500);
   };
-  row.appendChild(cp);
-  const rb=document.createElement('button'); rb.className='exp-restart-btn'; rb.textContent='새 경험담 작성';
-  rb.onclick=expRestart; row.appendChild(rb);
-  w.appendChild(row);
-  const hint=document.createElement('div'); hint.className='exp-share-hint';
-  hint.textContent='위 내용을 복사해서 카카오톡 또는 문자로 담당자에게 보내 주세요.';
-  w.appendChild(hint);
-  chat.appendChild(w); expScroll();
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(text).then(ok).catch(()=>efFallbackCopy(text,ok));
+  } else { efFallbackCopy(text,ok); }
 }
-function expFallbackCopy(text,cb){
+function efFallbackCopy(text,cb){
   const ta=document.createElement('textarea');
   ta.value=text; ta.style.cssText='position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
   document.body.appendChild(ta); ta.focus(); ta.select();
   try{document.execCommand('copy');cb();}catch(e){}
   document.body.removeChild(ta);
 }
-function expBuildResult(){
-  return EXP_STEPS.map(s=>s.label+' : '+(expAns[s.key]||'-')).join('\n');
-}
-
-// ── QUICK-SELECT HELPERS ──────────────────────────────────────────────────────
-function expGetDateStr(offset){
-  const d=new Date(); d.setDate(d.getDate()+offset);
-  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
-}
-function expMakeQuickRow(chips, stepIdx){
-  const row=document.createElement('div'); row.className='exp-quick-row';
-  chips.forEach(c=>{
-    const btn=document.createElement('button');
-    btn.className='exp-quick-chip'+(c.cls?' '+c.cls:'');
-    btn.textContent=c.label;
-    btn.onclick=c.insert
-      ? ()=>{ if(expStep===stepIdx) expInsertText(c.value); }
-      : ()=>{ if(expStep===stepIdx) expSendQuick(c.value); };
-    row.appendChild(btn);
-  });
-  return row;
-}
-function expDateChips(si){
-  return expMakeQuickRow([
-    {label:'오늘', value:expGetDateStr(0)},
-    {label:'어제', value:expGetDateStr(-1)},
-  ], si);
-}
-function expPlaceChips(si){
-  return expMakeQuickRow([
-    {label:'버스정류장', value:'버스정류장'},
-    {label:'공원·광장',  value:'공원·광장'},
-    {label:'교내·학교',  value:'교내·학교'},
-    {label:'전시대 앞',  value:'전시대 앞'},
-    {label:'카페·상가',  value:'카페·상가'},
-    {label:'길·횡단보도',value:'길·횡단보도'},
-    {label:'식당·노점',  value:'식당·노점'},
-    {label:'약국·편의점',value:'약국·편의점'},
-  ], si);
-}
-function expSitChips(si){
-  return expMakeQuickRow([
-    {label:'남성 10~20대',value:'남성 10~20대, ',insert:true},
-    {label:'남성 30~50대',value:'남성 30~50대, ',insert:true},
-    {label:'남성 60대+',  value:'남성 60대 이상, ',insert:true},
-    {label:'여성 10~20대',value:'여성 10~20대, ',insert:true},
-    {label:'여성 30~50대',value:'여성 30~50대, ',insert:true},
-    {label:'여성 60대+',  value:'여성 60대 이상, ',insert:true},
-    {label:'외국인',      value:'외국인, ',insert:true},
-  ], si);
-}
-function expRespChips(si){
-  return expMakeQuickRow([
-    {label:'소지품으로 시작',value:'소지품(　　)이 눈에 띄어 칭찬으로 대화 시작, ',insert:true,cls:'tmpl'},
-    {label:'도움 제공 후',   value:'도움을 드린 후 자연스럽게 전시대 안내, ',    insert:true,cls:'tmpl'},
-    {label:'전시대에서',     value:'전시대를 먼저 보고 다가오셔서 대화 시작, ',  insert:true,cls:'tmpl'},
-    {label:'건강 공감',      value:'건강 이야기로 시작해 성경의 희망 소개, ',    insert:true,cls:'tmpl'},
-    {label:'사회 이슈로',    value:'사회 이슈(전쟁/물가) 화제로 시작, ',         insert:true,cls:'tmpl'},
-  ], si);
-}
-function expSendQuick(value){
-  if(expDone) return;
-  expAddUser(value);
-  expAns[EXP_STEPS[expStep].key]=value;
-  const inp=document.getElementById('exp-inp');
-  if(inp){inp.value='';inp.style.height='auto';}
-  expStep++;
-  setTimeout(()=>{
-    if(expStep<EXP_STEPS.length) expAskStep(expStep);
-    else expFinish();
-  },350);
-}
-function expInsertText(value){
-  const inp=document.getElementById('exp-inp');
-  if(!inp) return;
-  inp.value=value; inp.focus();
-  inp.style.height='auto';
-  inp.style.height=Math.min(inp.scrollHeight,110)+'px';
-}
-
-function expAskStep(i){
-  if(i>=EXP_STEPS.length){expFinish();return;}
-  const s=EXP_STEPS[i];
-  const chat=document.getElementById('exp-chat');
-  if(!chat) return;
-  const w=document.createElement('div'); w.className='exp-bwrap bot';
-  const tag=document.createElement('div'); tag.className='exp-tag'; tag.textContent=s.label; w.appendChild(tag);
-  const b=document.createElement('div'); b.className='exp-bub bot'; b.textContent=s.q; w.appendChild(b);
-  if(s.quickType==='date')  w.appendChild(expDateChips(i));
-  if(s.quickType==='place') w.appendChild(expPlaceChips(i));
-  if(s.quickType==='sit')   w.appendChild(expSitChips(i));
-  if(s.quickType==='resp')  w.appendChild(expRespChips(i));
-  if(s.skip){
-    const row=document.createElement('div'); row.className='exp-quick-row';
-    const btn=document.createElement('button'); btn.className='exp-quick-skip';
-    btn.textContent='건너뛰기 (없음 처리)';
-    btn.onclick=(()=>{const si=i; return ()=>{ if(expStep===si) expSendQuick('없음'); };})();
-    row.appendChild(btn); w.appendChild(row);
-  }
-  chat.appendChild(w);
-  const inp=document.getElementById('exp-inp');
-  if(inp) inp.placeholder=s.ph||'여기에 입력하세요...';
-  expScroll(); expUpdateProg();
-}
-function expSend(){
-  if(expDone) return;
-  const inp=document.getElementById('exp-inp');
-  if(!inp) return;
-  const v=inp.value.trim(); if(!v) return;
-  expAddUser(v);
-  expAns[EXP_STEPS[expStep].key]=v;
-  inp.value=''; inp.style.height='auto';
-  expStep++;
-  setTimeout(()=>{
-    if(expStep<EXP_STEPS.length) expAskStep(expStep);
-    else expFinish();
-  },350);
-}
-function expGoBack(){
-  if(expDone||expStep<=0) return;
-  const chat=document.getElementById('exp-chat');
-  if(!chat||chat.children.length<2) return;
-  // Remove current bot question bubble (step N)
-  chat.removeChild(chat.lastChild);
-  // Remove the user answer bubble before it (step N-1 answer)
-  chat.removeChild(chat.lastChild);
-  // Go back: the original step N-1 question bubble is still in chat
-  // with its chips intact — just restore state
-  expStep--;
-  delete expAns[EXP_STEPS[expStep].key];
-  const inp=document.getElementById('exp-inp');
-  if(inp) inp.placeholder=EXP_STEPS[expStep].ph||'여기에 입력하세요...';
-  expUpdateProg();
-  expScroll();
-}
-function expFinish(){
-  expDone=true;
-  const pf=document.getElementById('exp-prog-fill');
-  const pt=document.getElementById('exp-prog-text');
-  const pn=document.getElementById('exp-prog-num');
-  const sbtn=document.getElementById('exp-sbtn');
-  const bb=document.getElementById('exp-back-btn');
-  const inp=document.getElementById('exp-inp');
-  if(pf) pf.style.width='100%';
-  if(pt) pt.textContent='작성 완료';
-  if(pn) pn.textContent='7 / 7';
-  if(sbtn) sbtn.disabled=true;
-  if(bb) bb.disabled=true;
-  if(inp){inp.disabled=true; inp.placeholder='작성 완료';}
-  setTimeout(()=>expAddBot('모든 항목을 작성해 주셨어요! 아래 내용을 복사해서 담당자에게 보내 주세요.'),200);
-  setTimeout(()=>expAddResult(expBuildResult()),700);
-}
-function expRestart(){
-  expStep=0; expAns={}; expDone=false;
-  const chat=document.getElementById('exp-chat');
-  const inp=document.getElementById('exp-inp');
-  const sbtn=document.getElementById('exp-sbtn');
-  const bb=document.getElementById('exp-back-btn');
-  const pf=document.getElementById('exp-prog-fill');
-  const pt=document.getElementById('exp-prog-text');
-  const pn=document.getElementById('exp-prog-num');
-  if(chat) chat.innerHTML='';
-  if(inp){inp.disabled=false;inp.value='';}
-  if(sbtn) sbtn.disabled=false;
-  if(bb) bb.disabled=true;
-  if(pf) pf.style.width='0%';
-  if(pt) pt.textContent='시작 전';
-  if(pn) pn.textContent='0 / 7';
-  setTimeout(()=>expAskStep(0),200);
-}
-
-// Wire up experience input after DOM ready
-document.addEventListener('DOMContentLoaded',()=>{
-  const sbtn=document.getElementById('exp-sbtn');
-  const inp=document.getElementById('exp-inp');
-  if(sbtn) sbtn.addEventListener('click',expSend);
-  if(inp){
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();expSend();}});
-    inp.addEventListener('input',()=>{inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,110)+'px';});
-  }
-});
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderWizard();
