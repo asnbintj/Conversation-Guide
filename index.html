@@ -176,6 +176,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .exp-restart-btn{padding:10px 16px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--text2);cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .exp-restart-btn:active{background:var(--surface2)}
 .exp-share-hint{font-size:12px;color:var(--text3);text-align:center;padding:10px 0 2px;line-height:1.5}
+/* Experience quick-select chips */
+.exp-quick-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:0 2px}
+.exp-quick-chip{border:1.5px solid var(--accent);border-radius:99px;padding:6px 13px;font-size:12px;font-weight:600;color:var(--accent-text);background:var(--accent-light);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.exp-quick-chip:active{transform:scale(.95);opacity:.8}
+.exp-quick-chip.tmpl{border-color:var(--blue);color:var(--blue-text);background:var(--blue-light)}
+.exp-quick-skip{border:1.5px solid var(--border);border-radius:99px;padding:6px 13px;font-size:12px;font-weight:600;color:var(--text3);background:var(--surface2);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.exp-quick-skip:active{background:var(--border)}
+.exp-back-btn{width:44px;height:44px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:all .15s}
+.exp-back-btn:active{background:var(--border)}
+.exp-back-btn:disabled{opacity:.3;cursor:default}
 
 /* Gender-Age combined card */
 .ga-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
@@ -359,6 +369,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="exp-wrap">
       <div class="exp-chat" id="exp-chat"></div>
       <div class="exp-iarea">
+        <button class="exp-back-btn" id="exp-back-btn" onclick="expGoBack()" title="이전 질문으로" disabled><i class="ti ti-arrow-left"></i></button>
         <textarea class="exp-inp" id="exp-inp" placeholder="여기에 입력 후 전송하세요..." rows="1"></textarea>
         <button class="exp-sbtn" id="exp-sbtn" aria-label="보내기"><i class="ti ti-send"></i></button>
       </div>
@@ -1601,13 +1612,13 @@ function renderFavPage(){
 
 // ── EXPERIENCE WRITING ───────────────────────────────────────────────────────
 const EXP_STEPS = [
-  {key:'date',  label:'1. 일자',         q:'안녕하세요! 경험담 작성을 도와드릴게요.\n\n먼저, 언제 있었던 경험인가요?', ph:'예: 2026년 6월 20일 / 오늘', skip:false},
-  {key:'cong',  label:'2. 회중',         q:'어느 회중 소속이세요?\n비공개라면 "없음"이라고 적어 주세요.', ph:'예: 안성남부 / 없음', skip:true},
-  {key:'name',  label:'3. 이름',         q:'이름을 남겨 주시겠어요?\n익명을 원하시면 "익명"이라고 입력하세요.', ph:'예: 홍길동 / 익명', skip:true},
-  {key:'place', label:'4. 장소',         q:'어디서 있었던 경험인가요?', ph:'예: 버스정류장 / 공원 앞', skip:false},
-  {key:'sit',   label:'5. 상황',         q:'어떤 상황이었나요?\n대상이 누구였고, 어떻게 대화가 시작됐는지 간단히 적어 주세요.', ph:'예: 버스를 기다리던 20대 여성과 눈이 마주쳐 대화 시작', skip:false},
-  {key:'resp',  label:'6. 응대(구체적)', q:'어떻게 대화를 이어가셨나요?\n\n말을 어떻게 걸었는지, 어떤 내용을 나눴는지, 상대 반응은 어땠는지 자유롭게 적어 주세요. 짧아도 괜찮아요!', ph:'예: "가방 인형 귀엽네요"로 시작해 jw.org 카드 드렸더니 감사히 받으심', skip:false},
-  {key:'feel',  label:'7. 느낀점',       q:'이번 경험에서 느낀 점이 있으신가요?\n한 줄이라도 좋아요. 없으면 "없음"이라고 입력하세요.', ph:'예: 작은 관심사로도 자연스럽게 이어질 수 있다고 느꼈어요', skip:true},
+  {key:'date',  label:'1. 일자',         q:'안녕하세요! 경험담 작성을 도와드릴게요.\n\n먼저, 언제 있었던 경험인가요?(어제 오늘이 아니라면 날짜를 입력해주세요)', ph:'예: 2026년 6월 20일', skip:false, quickType:'date'},
+  {key:'cong',  label:'2. 회중',         q:'어느 회중 소속이세요?', ph:'예: 안성남부', skip:false},
+  {key:'name',  label:'3. 이름',         q:'이름을 남겨 주시겠어요?', ph:'예: 홍길동', skip:false},
+  {key:'place', label:'4. 장소',         q:'어디서 있었던 경험인가요?(해당 장소가 없다면 기입해주세요)', ph:'예: 버스정류장 / 공원 앞', skip:false, quickType:'place'},
+  {key:'sit',   label:'5. 상황',         q:'어떤 상황이었나요?\n대상이 누구였고, 어떻게 대화가 시작됐는지 간단히 적어 주세요', ph:'예: 버스를 기다리던 20대 여성과 눈이 마주쳐 대화 시작', skip:false, quickType:'sit'},
+  {key:'resp',  label:'6. 응대(구체적)', q:'어떻게 대화를 이어가셨나요?\n\n말을 어떻게 걸었는지, 어떤 내용을 나눴는지, 상대 반응은 어땠는지 자유롭게 적어 주세요. 짧아도 괜찮아요!', ph:'예: "가방 인형 귀엽네요"로 시작해 jw.org 카드 드렸더니 감사히 받으심', skip:false, quickType:'resp'},
+  {key:'feel',  label:'7. 느낀점',       q:'이번 경험에서 느낀 점이 있으신가요?\n한 줄이라도 좋아요.', ph:'예: 작은 관심사로도 자연스럽게 이어질 수 있다고 느꼈어요', skip:true},
 ];
 let expStep=0, expAns={}, expDone=false, expStarted=false;
 
@@ -1619,10 +1630,12 @@ function expUpdateProg(){
   const pf=document.getElementById('exp-prog-fill');
   const pt=document.getElementById('exp-prog-text');
   const pn=document.getElementById('exp-prog-num');
+  const bb=document.getElementById('exp-back-btn');
   if(!pf) return;
   pf.style.width=(expStep/EXP_STEPS.length*100)+'%';
   pn.textContent=expStep+' / '+EXP_STEPS.length;
   pt.textContent=expStep===0?'시작 전':expStep<EXP_STEPS.length?EXP_STEPS[expStep-1].label+' 완료':'작성 완료';
+  if(bb) bb.disabled=(expStep<=0||expDone);
 }
 function expAddBot(text,label){
   const chat=document.getElementById('exp-chat');
@@ -1677,6 +1690,83 @@ function expFallbackCopy(text,cb){
 function expBuildResult(){
   return EXP_STEPS.map(s=>s.label+' : '+(expAns[s.key]||'-')).join('\n');
 }
+
+// ── QUICK-SELECT HELPERS ──────────────────────────────────────────────────────
+function expGetDateStr(offset){
+  const d=new Date(); d.setDate(d.getDate()+offset);
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+}
+function expMakeQuickRow(chips, stepIdx){
+  const row=document.createElement('div'); row.className='exp-quick-row';
+  chips.forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='exp-quick-chip'+(c.cls?' '+c.cls:'');
+    btn.textContent=c.label;
+    btn.onclick=c.insert
+      ? ()=>{ if(expStep===stepIdx) expInsertText(c.value); }
+      : ()=>{ if(expStep===stepIdx) expSendQuick(c.value); };
+    row.appendChild(btn);
+  });
+  return row;
+}
+function expDateChips(si){
+  return expMakeQuickRow([
+    {label:'오늘', value:expGetDateStr(0)},
+    {label:'어제', value:expGetDateStr(-1)},
+  ], si);
+}
+function expPlaceChips(si){
+  return expMakeQuickRow([
+    {label:'버스정류장', value:'버스정류장'},
+    {label:'공원·광장',  value:'공원·광장'},
+    {label:'교내·학교',  value:'교내·학교'},
+    {label:'전시대 앞',  value:'전시대 앞'},
+    {label:'카페·상가',  value:'카페·상가'},
+    {label:'길·횡단보도',value:'길·횡단보도'},
+    {label:'식당·노점',  value:'식당·노점'},
+    {label:'약국·편의점',value:'약국·편의점'},
+  ], si);
+}
+function expSitChips(si){
+  return expMakeQuickRow([
+    {label:'남성 10~20대',value:'남성 10~20대, ',insert:true},
+    {label:'남성 30~50대',value:'남성 30~50대, ',insert:true},
+    {label:'남성 60대+',  value:'남성 60대 이상, ',insert:true},
+    {label:'여성 10~20대',value:'여성 10~20대, ',insert:true},
+    {label:'여성 30~50대',value:'여성 30~50대, ',insert:true},
+    {label:'여성 60대+',  value:'여성 60대 이상, ',insert:true},
+    {label:'외국인',      value:'외국인, ',insert:true},
+  ], si);
+}
+function expRespChips(si){
+  return expMakeQuickRow([
+    {label:'소지품으로 시작',value:'소지품(　　)이 눈에 띄어 칭찬으로 대화 시작, ',insert:true,cls:'tmpl'},
+    {label:'도움 제공 후',   value:'도움을 드린 후 자연스럽게 전시대 안내, ',    insert:true,cls:'tmpl'},
+    {label:'전시대에서',     value:'전시대를 먼저 보고 다가오셔서 대화 시작, ',  insert:true,cls:'tmpl'},
+    {label:'건강 공감',      value:'건강 이야기로 시작해 성경의 희망 소개, ',    insert:true,cls:'tmpl'},
+    {label:'사회 이슈로',    value:'사회 이슈(전쟁/물가) 화제로 시작, ',         insert:true,cls:'tmpl'},
+  ], si);
+}
+function expSendQuick(value){
+  if(expDone) return;
+  expAddUser(value);
+  expAns[EXP_STEPS[expStep].key]=value;
+  const inp=document.getElementById('exp-inp');
+  if(inp){inp.value='';inp.style.height='auto';}
+  expStep++;
+  setTimeout(()=>{
+    if(expStep<EXP_STEPS.length) expAskStep(expStep);
+    else expFinish();
+  },350);
+}
+function expInsertText(value){
+  const inp=document.getElementById('exp-inp');
+  if(!inp) return;
+  inp.value=value; inp.focus();
+  inp.style.height='auto';
+  inp.style.height=Math.min(inp.scrollHeight,110)+'px';
+}
+
 function expAskStep(i){
   if(i>=EXP_STEPS.length){expFinish();return;}
   const s=EXP_STEPS[i];
@@ -1685,7 +1775,17 @@ function expAskStep(i){
   const w=document.createElement('div'); w.className='exp-bwrap bot';
   const tag=document.createElement('div'); tag.className='exp-tag'; tag.textContent=s.label; w.appendChild(tag);
   const b=document.createElement('div'); b.className='exp-bub bot'; b.textContent=s.q; w.appendChild(b);
-  if(s.skip){const h=document.createElement('div');h.className='exp-skip';h.textContent='비워두려면 "없음" 또는 "익명" 입력';w.appendChild(h);}
+  if(s.quickType==='date')  w.appendChild(expDateChips(i));
+  if(s.quickType==='place') w.appendChild(expPlaceChips(i));
+  if(s.quickType==='sit')   w.appendChild(expSitChips(i));
+  if(s.quickType==='resp')  w.appendChild(expRespChips(i));
+  if(s.skip){
+    const row=document.createElement('div'); row.className='exp-quick-row';
+    const btn=document.createElement('button'); btn.className='exp-quick-skip';
+    btn.textContent='건너뛰기 (없음 처리)';
+    btn.onclick=(()=>{const si=i; return ()=>{ if(expStep===si) expSendQuick('없음'); };})();
+    row.appendChild(btn); w.appendChild(row);
+  }
   chat.appendChild(w);
   const inp=document.getElementById('exp-inp');
   if(inp) inp.placeholder=s.ph||'여기에 입력하세요...';
@@ -1705,17 +1805,36 @@ function expSend(){
     else expFinish();
   },350);
 }
+function expGoBack(){
+  if(expDone||expStep<=0) return;
+  const chat=document.getElementById('exp-chat');
+  if(!chat||chat.children.length<2) return;
+  // Remove current bot question bubble (step N)
+  chat.removeChild(chat.lastChild);
+  // Remove the user answer bubble before it (step N-1 answer)
+  chat.removeChild(chat.lastChild);
+  // Go back: the original step N-1 question bubble is still in chat
+  // with its chips intact — just restore state
+  expStep--;
+  delete expAns[EXP_STEPS[expStep].key];
+  const inp=document.getElementById('exp-inp');
+  if(inp) inp.placeholder=EXP_STEPS[expStep].ph||'여기에 입력하세요...';
+  expUpdateProg();
+  expScroll();
+}
 function expFinish(){
   expDone=true;
   const pf=document.getElementById('exp-prog-fill');
   const pt=document.getElementById('exp-prog-text');
   const pn=document.getElementById('exp-prog-num');
   const sbtn=document.getElementById('exp-sbtn');
+  const bb=document.getElementById('exp-back-btn');
   const inp=document.getElementById('exp-inp');
   if(pf) pf.style.width='100%';
   if(pt) pt.textContent='작성 완료';
   if(pn) pn.textContent='7 / 7';
   if(sbtn) sbtn.disabled=true;
+  if(bb) bb.disabled=true;
   if(inp){inp.disabled=true; inp.placeholder='작성 완료';}
   setTimeout(()=>expAddBot('모든 항목을 작성해 주셨어요! 아래 내용을 복사해서 담당자에게 보내 주세요.'),200);
   setTimeout(()=>expAddResult(expBuildResult()),700);
@@ -1725,12 +1844,14 @@ function expRestart(){
   const chat=document.getElementById('exp-chat');
   const inp=document.getElementById('exp-inp');
   const sbtn=document.getElementById('exp-sbtn');
+  const bb=document.getElementById('exp-back-btn');
   const pf=document.getElementById('exp-prog-fill');
   const pt=document.getElementById('exp-prog-text');
   const pn=document.getElementById('exp-prog-num');
   if(chat) chat.innerHTML='';
   if(inp){inp.disabled=false;inp.value='';}
   if(sbtn) sbtn.disabled=false;
+  if(bb) bb.disabled=true;
   if(pf) pf.style.width='0%';
   if(pt) pt.textContent='시작 전';
   if(pn) pn.textContent='0 / 7';
