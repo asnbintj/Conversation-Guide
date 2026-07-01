@@ -255,16 +255,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 [data-theme="dark"] .exp-submit-btn{color:#111}
 .exp-submit-btn:active{opacity:.8}
 .exp-result-box{background:var(--surface2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px;font-size:13px;line-height:1.9;white-space:pre-wrap;color:var(--text);word-break:break-all}
-/* Install banner */
-.install-banner{display:none;align-items:center;gap:10px;background:var(--accent-light);border-bottom:1px solid var(--border);padding:10px 14px}
-.install-banner.show{display:flex}
-.install-ico{width:34px;height:34px;border-radius:9px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--accent-text);flex-shrink:0}
-.install-txt{flex:1;font-size:12px;color:var(--accent-text);line-height:1.4}
-.install-txt b{font-weight:700}
-.install-actions{display:flex;gap:6px;flex-shrink:0;align-items:center}
-.install-btn{background:var(--accent);color:#fff;border:none;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-[data-theme="dark"] .install-btn{color:#111}
-.install-close{width:26px;height:26px;border:none;background:transparent;color:var(--accent-text);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* Install button (topbar) */
+.icon-btn.install-cta{color:var(--accent-text);background:var(--accent-light)}
+.icon-btn.install-cta:hover{background:var(--accent-light)}
 </style>
 </head>
 <body data-theme="light">
@@ -275,17 +268,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="topbar-badge"></span>
     </div>
     <div class="topbar-actions">
+      <button class="icon-btn install-cta" id="install-topbtn" onclick="onInstallClick()" title="홈 화면에 추가" style="display:none"><i class="ti ti-download"></i></button>
       <button class="icon-btn" onclick="openHelp()" title="사용법"><i class="ti ti-help"></i></button>
       <button class="icon-btn" onclick="toggleTheme()" title="다크모드"><i class="ti ti-moon"></i></button>
     </div>
   </div>
 
-  <!-- Install banner -->
-  <div class="install-banner" id="install-banner">
-    <div class="install-ico" id="install-ico"><i class="ti ti-download"></i></div>
-    <div class="install-txt" id="install-txt"></div>
-    <div class="install-actions" id="install-actions"></div>
-    <button class="install-close" onclick="dismissInstallBanner()"><i class="ti ti-x"></i></button>
+  <!-- Install instructions modal (shown when native install prompt isn't available) -->
+  <div class="help-overlay" id="install-overlay" onclick="closeInstallOverlayOutside(event)">
+    <div class="help-sheet">
+      <div class="help-sheet-hd">
+        <span class="help-sheet-title">홈 화면에 추가하기</span>
+        <button class="help-close" onclick="closeInstallOverlay()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="help-section" id="install-overlay-body" style="padding-bottom:20px"></div>
+    </div>
   </div>
 
   <!-- Help modal -->
@@ -1291,45 +1288,82 @@ function isStandaloneMode(){
 function isIosDevice(){
   return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
 }
-function showInstallBanner(kind){
-  if(localStorage.getItem('installBannerDismissed')) return;
-  const banner=document.getElementById('install-banner');
-  const txt=document.getElementById('install-txt');
-  const actions=document.getElementById('install-actions');
-  actions.innerHTML='';
-  if(kind==='android'){
-    txt.innerHTML='<b>홈 화면에 추가</b>하면 앱처럼 바로 열 수 있어요';
-    const btn=document.createElement('button');
-    btn.className='install-btn'; btn.textContent='추가하기';
-    btn.onclick=async ()=>{
-      if(!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt=null;
-      dismissInstallBanner();
-    };
-    actions.appendChild(btn);
-  } else {
-    txt.innerHTML='<b>홈 화면에 추가</b>하려면 하단 공유 버튼 <i class="ti ti-upload" style="vertical-align:-2px"></i> 을 누른 뒤 "홈 화면에 추가"를 선택하세요';
+function isAndroidDevice(){
+  return /android/i.test(navigator.userAgent);
+}
+function updateInstallButton(){
+  const btn=document.getElementById('install-topbtn');
+  btn.style.display = isStandaloneMode() ? 'none' : 'flex';
+}
+function onInstallClick(){
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.finally(()=>{ deferredInstallPrompt=null; });
+    return;
   }
-  banner.classList.add('show');
+  openInstallOverlay();
 }
-function dismissInstallBanner(){
-  document.getElementById('install-banner').classList.remove('show');
-  localStorage.setItem('installBannerDismissed','1');
+function openInstallOverlay(){
+  const body=document.getElementById('install-overlay-body');
+  let html='';
+  if(isIosDevice()){
+    html=`
+      <div class="help-item">
+        <div class="help-ico"><i class="ti ti-upload"></i></div>
+        <div class="help-txt">
+          <div class="help-lbl">① 공유 버튼 탭</div>
+          <div class="help-desc">사파리 하단(또는 상단) 메뉴의 공유 아이콘을 눌러주세요.</div>
+        </div>
+      </div>
+      <div class="help-item">
+        <div class="help-ico"><i class="ti ti-square-plus"></i></div>
+        <div class="help-txt">
+          <div class="help-lbl">② "홈 화면에 추가" 선택</div>
+          <div class="help-desc">목록을 아래로 내리면 "홈 화면에 추가" 항목이 있어요.</div>
+        </div>
+      </div>
+      <div class="help-item">
+        <div class="help-ico"><i class="ti ti-check"></i></div>
+        <div class="help-txt">
+          <div class="help-lbl">③ 추가 완료</div>
+          <div class="help-desc">홈 화면에 아이콘이 생기고, 다음부터는 앱처럼 바로 열려요.</div>
+        </div>
+      </div>`;
+  } else if(isAndroidDevice()){
+    html=`
+      <div class="help-item">
+        <div class="help-ico"><i class="ti ti-dots-vertical"></i></div>
+        <div class="help-txt">
+          <div class="help-lbl">브라우저 메뉴에서 추가</div>
+          <div class="help-desc">우측 상단 ⋮ 메뉴를 열고 "앱 설치" 또는 "홈 화면에 추가"를 선택해주세요.</div>
+        </div>
+      </div>`;
+  } else {
+    html=`
+      <div class="help-item">
+        <div class="help-ico"><i class="ti ti-device-desktop"></i></div>
+        <div class="help-txt">
+          <div class="help-lbl">브라우저 메뉴에서 설치</div>
+          <div class="help-desc">주소창 우측의 설치 아이콘이나 브라우저 메뉴에서 "앱 설치"를 선택해주세요.</div>
+        </div>
+      </div>`;
+  }
+  body.innerHTML=html;
+  document.getElementById('install-overlay').classList.add('open');
 }
+function closeInstallOverlay(){document.getElementById('install-overlay').classList.remove('open');}
+function closeInstallOverlayOutside(e){if(e.target===document.getElementById('install-overlay')) closeInstallOverlay();}
+
 window.addEventListener('beforeinstallprompt', (e)=>{
   e.preventDefault();
   deferredInstallPrompt=e;
-  showInstallBanner('android');
+  updateInstallButton();
 });
 window.addEventListener('appinstalled', ()=>{
-  localStorage.setItem('installBannerDismissed','1');
-  dismissInstallBanner();
+  deferredInstallPrompt=null;
+  updateInstallButton();
 });
-if(!isStandaloneMode() && isIosDevice()){
-  showInstallBanner('ios');
-}
+updateInstallButton();
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('sw.js').catch(()=>{});
