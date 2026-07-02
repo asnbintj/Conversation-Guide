@@ -1557,7 +1557,7 @@ function renderSitStep(w){
   const sits = D[state.gender].ages[state.age].situations;
   // Place filter
   const allPlaces = [...new Set(Object.values(sits).flatMap(s=>s.places||[]))];
-  const placeLabels = {bus:'버스정류장',park:'공원·광장',campus:'교내·학교',display:'전시대 앞',shop:'카페·상가',street:'길·횡단보도'};
+  const placeLabels = {bus:'버스정류장',park:'공원·광장',campus:'교내·학교',display:'전시대 앞',shop:'카페·상가',street:'길·횡단보도',restaurant:'식당·노점',store:'약국·편의점',crosswalk:'신호등·횡단보도'};
   
   w.innerHTML=`
     ${stepRow(1,1,['대상 선택','장소·상황','결과'])}
