@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>대화 시작 가이드</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2D6A4F">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F7F6F2" id="meta-theme-color">
 <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -16,6 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 :root {
+  color-scheme: light;
   --bg:#F7F6F2;--surface:#FFFFFF;--surface2:#F0EFE9;--border:#E4E2DB;
   --text:#1C1B18;--text2:#6B6960;--text3:#A09D95;
   --accent:#2D6A4F;--accent-light:#D8EDE4;--accent-text:#1B4332;
@@ -26,6 +28,7 @@
   --shadow:0 2px 12px rgba(0,0,0,0.08);--radius:14px;--radius-sm:9px;
 }
 [data-theme="dark"]{
+  color-scheme: dark;
   --bg:#111110;--surface:#1C1C1A;--surface2:#252522;--border:#333330;
   --text:#F0EFE9;--text2:#A09D95;--text3:#6B6960;
   --accent:#4ADE80;--accent-light:#14532D;--accent-text:#86EFAC;
@@ -1278,6 +1281,7 @@ let browsePlace = 'all', browseStage = 'all';
 function toggleTheme(){
   const t = document.body.dataset.theme==='dark'?'light':'dark';
   document.body.dataset.theme=t;
+  document.getElementById('meta-theme-color')?.setAttribute('content', t==='dark'?'#111110':'#F7F6F2');
 }
 
 // ── HOME SCREEN INSTALL ───────────────────────────────────────────────────────
